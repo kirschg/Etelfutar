@@ -1,7 +1,9 @@
 Felhasználói Dokumentáció
+
 Az weboldal a következőképpen működik:
 1. Header:
 A "header"-ben ha rákattintunk az "Ételfutár®" feliratra bármelyik aloldalon akkor a főoldalon találjuk magunkat.
+
 2. Menüpont:
 A menüpontban található egy kereső amellyel keresni lehet éttermek között.
 Ha rákattintunk a Főoldalon vagy bármelyik aloldalon a "Főooldal" menüpontra vagy az "Ételfutár®" feliratra a "header"-ben akkor a főoldalon találjuk magunkat.
@@ -9,11 +11,15 @@ Ha rákattintunk a "Bejelentkezés" menüpontra akkor megjelenik a bejelentkezé
 Ha rákattintunk a "Regisztrálj" menüpontra akkor megjelenik a regisztrálás ablak ahol regisztrálni lehet az oldalra.
 Ha rákattintunk a "Nyelv" menüpontra ahol egy úgynevezett "ComboBox" található akkor ki tudjuk választani az oldal megjelenítési nyelvét, két opció van: magyar (alapértelmezett) és angol.
 Ha rákattintunk a "Kosár" menüpontra akkor megjelenik a kosár ablak ahol nyomon lehet követkni a vásárlásunkat és a kosárban lévő termékeink darabszámát és árait valamint a végösszeget.
+
 3. Body:
 Leljebb található az oldal "body" része amely a tartalom részét tartalmazza az oldalnak.
+
 4. Footer:
 Leglent található a "footer" amely tartalmazza az oldal fontosabb információit például a cég nevét esetleg elérhetőségét.
+
 5. Bejelentkezés:
 A bejelentkezésnél meg kell adni egy felhasználónevet és egy jelszót hogy be lehessen jelentkezni az oldalra.
+
 6. Regisztrálás:
 A regisztrálásnál meg kell adni egy felhazsnálónevet és egy jelszót hogy be lehesssen regisztrálni az oldalra.
