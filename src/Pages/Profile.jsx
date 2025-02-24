@@ -6,11 +6,17 @@ import '../Style.css';
 
 export const YourProfile = () => {
     const navigate = useNavigate();
+    const [token, setToken] = useState(localStorage.getItem("Token"))
     const [user, setUser] = useState([]);
     useEffect(()=>{
+        if(token!==null){
 
+        }
+        else{
+          navigate("/Login");
+        }
     },[])
-    return (<>
+    return (<div>
         
-    </>)
+    </div>)
 }

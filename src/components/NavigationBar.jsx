@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link} from "react-router-dom";
+import axios from "axios";
 import '../Style.css';
 
 export const NavBar = () => {
@@ -14,6 +15,15 @@ export const NavBar = () => {
           return () => window.removeEventListener('storage', handleStorage)
         
     },[])
+    async function Logout(){
+        axios.post("https://localhost:7106/api/Logout/" + token)
+        .then(res=>{console.log(res);
+            localStorage.removeItem("Token");
+            localStorage.removeItem("Username")
+            window.dispatchEvent(new Event('storage'))
+        })
+        .catch(err=>console.log(err))
+    }
     return (
         <>
         <div id="banner">
@@ -36,8 +46,8 @@ export const NavBar = () => {
                 </select></li>
                 {
                     token !== null && (<>
-                        <li><NavLink to="/Logout" onClick={()=>{localStorage.removeItem("Token"); window.dispatchEvent(new Event('storage'))}}>logout</NavLink></li>
-                        <li><NavLink to="/YourProfile" onClick={()=>{alert("Token: " + token)}}>profile</NavLink></li>
+                        <li><NavLink onClick={()=>{Logout()}} style={{color:"white"}}>logout</NavLink></li>
+                        <li><NavLink to="/YourProfile">profile</NavLink></li>
                     </>)
                 }
                 {

@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import '../Style.css';
 
@@ -14,11 +14,11 @@ export const Login = () => {
     axios.post("https://localhost:7106/api/Login/GetSalt/" + username)
       .then((res) => {
         salt = res.data;
-        console.log(res.data);
         let hash = sha256(password + salt);
         axios.post("https://localhost:7106/api/Login", { LoginName: username, TmpHash: hash })
           .then(res => {
             localStorage.setItem("Token", res.data.token)
+            localStorage.setItem("Username", res.data.felhasznaloNev)
             window.dispatchEvent(new Event('storage'))
             navigate("/");
           })
@@ -47,6 +47,7 @@ export const Login = () => {
             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
             <input type="password" name="password" className="form-control" id="exampleInputPassword1" />
           </div>
+          <label style={{textAlign:"center"}}>Don't have an account? <Link to="/Register">Sign up here</Link>!</label>
           <button type="submit" className="btn">Login</button>
         </form>
       </div>

@@ -34,7 +34,7 @@ export const Register = () => {
       TeljesNev: formData.get("fullName"),
       Hash: sha256(password + salt),
       Salt: salt,
-      VarosId: 1,//formData.get("city"),
+      VarosId: formData.get("city"),
       Lakcim: formData.get("streetNumber")
     }
     
@@ -42,8 +42,7 @@ export const Register = () => {
     {
       axios.post("https://localhost:7106/api/Registry", user)
       .then((res) => {
-        alert("Sikeres regisztráció! Nézzen az emailjébe a megerősítéshez!");
-        console.log(res);
+        alert(res.data);
         navigate("/Login");
       })
       .catch((err) => {

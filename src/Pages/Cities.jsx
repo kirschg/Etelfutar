@@ -16,7 +16,6 @@ export const Cities = () => {
             });
     }, []);
     return (
-        console.log(cities),
         <div className="App">
             <div className=" d-flex justify-content-evenly flex-wrap">
                 {cities.map((city) => (

@@ -12,9 +12,6 @@ import { YourProfile } from "./Pages/Profile";
 import './Style.css';
 
 export const App = () => {
-  /*window.addEventListener("pagehide", ()=>{
-    localStorage.removeItem("Token");
-  })*/
   return (
     <BrowserRouter>
         <header>
