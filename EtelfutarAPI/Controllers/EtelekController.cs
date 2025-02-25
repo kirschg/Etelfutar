@@ -29,7 +29,7 @@ namespace EtelfutarAPI.Controllers
             }
         }
         [HttpPost("PostEtelAsync")]
-        public async Task<IActionResult> PostEtelAsync(Etelek ujEtel)
+        public async Task<IActionResult> PostEtelAsync(EtelekPostDTO ujEtel)
         {
             using (var context = new EtelfutarContext())
             {
@@ -37,7 +37,16 @@ namespace EtelfutarAPI.Controllers
                 {
                     if (ujEtel is not null)
                     {
-                        await context.Eteleks.AddAsync(ujEtel);
+                        Etelek ujjabbEtel = new Etelek()
+                        {
+                            Id = 0,
+                            Nev = ujEtel.Nev,
+                            Kaloria = ujEtel.Kaloria,
+                            Ar = ujEtel.Ar,
+                            ChainId = ujEtel.ChainId,
+                            Indexkep = ujEtel.Indexkep
+                        };
+                        await context.Eteleks.AddAsync(ujjabbEtel);
                         await context.SaveChangesAsync();
                         return Ok("Sikeres mentés");
                     }
@@ -53,15 +62,24 @@ namespace EtelfutarAPI.Controllers
             }
         }
         [HttpPut("PutEtelAsync")]
-        public async Task<IActionResult> PutEtelAsync(Etelek modEtel)
+        public async Task<IActionResult> PutEtelAsync(EtelekPutDTO modEtel)
         {
             using (var context = new EtelfutarContext())
             {
                 try
                 {
-                    if (context.Eteleks.Contains(modEtel))
+                    Etelek ModositottEtel = new Etelek()
                     {
-                        context.Eteleks.Update(modEtel);
+                        Id = modEtel.Id,
+                        Nev = modEtel.Nev,
+                        Kaloria = modEtel.Kaloria,
+                        Ar = modEtel.Ar,
+                        ChainId = modEtel.ChainId,
+                        Indexkep = modEtel.Indexkep
+                    };
+                    if (context.Eteleks.Contains(ModositottEtel))
+                    {
+                        context.Eteleks.Update(ModositottEtel);
                         await context.SaveChangesAsync();
                         return Ok("Sikeres módosítás.");
                     }
