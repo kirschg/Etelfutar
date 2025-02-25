@@ -1,0 +1,15 @@
+﻿<Window x:Class="EtelfutarWPF.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtelfutarWPF"
+        mc:Ignorable="d"
+        Background="#404040"
+        Title="Ételfutár | Beállítások" Height="150" Width="300">
+    <StackPanel>
+        <Label Foreground="White" HorizontalAlignment="Center" Content="Használt Cím:"></Label>
+        <TextBox Name="tbx_cim" Width="200" Text="http://localhost:5000"></TextBox>
+        <Button Width="100" Margin="0,10,0,0" Content="Ok" Click="Ok_Click" Background="#b3001e"></Button>
+    </StackPanel>
+</Window>

@@ -1,0 +1,24 @@
+﻿<Window x:Class="EtelfutarWPF.Windows.EditEtelekWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtelfutarWPF.Windows"
+        mc:Ignorable="d"
+        Background="#404040"
+        Title="Ételfutár | Étel Módosítása" Height="450" Width="400">
+    <StackPanel>
+        <Label Content="Név:" Foreground="White" HorizontalAlignment="Center"></Label>
+        <TextBox Width="200" Name="tbx_nev"></TextBox>
+        <Label Content="Kalória:" Foreground="White" HorizontalAlignment="Center"></Label>
+        <TextBox Width="200" Name="tbx_kaloria"></TextBox>
+        <Label Content="Ár:" Foreground="White" HorizontalAlignment="Center"></Label>
+        <TextBox Width="100" Name="tbx_ar"></TextBox>
+        <Label Content="Chain Id:" Foreground="White" HorizontalAlignment="Center"></Label>
+        <TextBox Width="100" Name="tbx_chain_id"></TextBox>
+        <Label Content="Index Kép:" Foreground="White" HorizontalAlignment="Center"></Label>
+        <TextBox Width="300" Name="tbx_index_kep"></TextBox>
+        <Button Click="Modositas_Click" Content="Módosítás" Width="100" Margin="0,10,0,0" Background="#b3001c"></Button>
+        <Button Click="Megse_Click" Content="Mégse" Width="100" Margin="0,10,0,0"></Button>
+    </StackPanel>
+</Window>
