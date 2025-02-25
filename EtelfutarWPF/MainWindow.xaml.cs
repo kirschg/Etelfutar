@@ -156,23 +156,125 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = felhasznalok2;
                         break;
                     case "Városok":
-                        
+                        varosok2.Remove((Varosok)dgr_adatok.SelectedItem);
+                        //felhasználó törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Varosok/DeleteVarosAsync?id={((Varosok)dgr_adatok.SelectedItem).Id}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Varosok/DeleteVarosAsync?id={((Varosok)dgr_adatok.SelectedItem).Id}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = varosok2;
                         break;
                     case "Rendelt Étel":
                         break;
                     case "Rendelés":
-                        
+                        rendeles2.Remove((Rendeles)dgr_adatok.SelectedItem);
+                        //felhasználó törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Rendeles/DeleteRendelesAsync?id={((Rendeles)dgr_adatok.SelectedItem).Id}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Rendeles/DeleteRendelesAsync?id={((Rendeles)dgr_adatok.SelectedItem).Id}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = felhasznalok2;
                         break;
                     case "Leárazás":
                         break;
                     case "Éttermek":
-                        
+                        ettermek2.Remove((Ettermek)dgr_adatok.SelectedItem);
+                        //felhasználó törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Ettermek/DeleteEtteremAsync?id={((Ettermek)dgr_adatok.SelectedItem).Id}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Ettermek/DeleteEtteremAsync?id={((Ettermek)dgr_adatok.SelectedItem).Id}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = ettermek2;
                         break;
                     case "Ételek":
+                        etelek2.Remove((Etelek)dgr_adatok.SelectedItem);
+                        //felhasználó törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Etelek/DeleteEtelAsync?id={((Etelek)dgr_adatok.SelectedItem).Id}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Etelek/DeleteEtelAsync?id={((Etelek)dgr_adatok.SelectedItem).Id}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = etelek2;
                         break;
                     case "Értékelések":
                         break;
                     case "Chain":
+                        chain2.Remove((Chain)dgr_adatok.SelectedItem);
+                        //felhasználó törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Chain/DeleteChainAsync?id={((Chain)dgr_adatok.SelectedItem).Id}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Chain/DeleteChainAsync?id={((Chain)dgr_adatok.SelectedItem).Id}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = chain2;
                         break;
                     default:
                         break;
@@ -213,7 +315,7 @@ namespace EtelfutarWPF
                         EditRendelesWindow.kivalasztott_rendeles = (Rendeles)dgr_adatok.SelectedItem;
                         EditRendelesWindow editRendelesWindow = new EditRendelesWindow();
                         editRendelesWindow.ShowDialog();
-                        List<Rendeles>? rendeles = await sharedClient.GetFromJsonAsync<List<Rendeles>>("Rendeles/GetRendelesAsync");
+                        List<Rendeles>? rendeles = await sharedClient.GetFromJsonAsync<List<Rendeles>>("Rendeles/GetRendelesekAsync");
                         rendeles2 = rendeles;
                         dgr_adatok.ItemsSource = null;
                         dgr_adatok.ItemsSource = rendeles2;
@@ -259,27 +361,56 @@ namespace EtelfutarWPF
                 case "Felhasználók":
                     NewUserWindow newUserWindow = new NewUserWindow();
                     newUserWindow.ShowDialog();
+                    List<Felhasznalok>? felhasznalok = await sharedClient.GetFromJsonAsync<List<Felhasznalok>>("Felhaznalok/GetFelhaznalokAsync");
+                    felhasznalok2 = felhasznalok;
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = felhasznalok2;
                     break;
                 case "Városok":
-                   
+                    NewVarosokWindow newVarosokWindow = new NewVarosokWindow();
+                    newVarosokWindow.ShowDialog();
+                    List<Varosok>? varosok = await sharedClient.GetFromJsonAsync<List<Varosok>>("Varosok/GetVarosokAsync");
+                    varosok2 = varosok;
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = varosok2;
                     break;
                 case "Rendelt Étel":
                     break;
                 case "Rendelés":
-                    
+                    NewRendelesWindow newRendelesWindow = new NewRendelesWindow();
+                    newRendelesWindow.ShowDialog();
+                    List<Rendeles>? rendeles = await sharedClient.GetFromJsonAsync<List<Rendeles>>("Rendeles/GetRendelesekAsync");
+                    rendeles2 = rendeles;
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = rendeles2;
                     break;
                 case "Leárazás":
                     break;
                 case "Éttermek":
-                    
+                    NewEttermekWindow newEttermekWindow = new NewEttermekWindow();
+                    newEttermekWindow.ShowDialog();
+                    List<Ettermek>? ettermek = await sharedClient.GetFromJsonAsync<List<Ettermek>>("Ettermek/GetEttermekAsync");
+                    ettermek2 = ettermek;
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = ettermek2;
                     break;
                 case "Ételek":
+                    NewEtelekWindow newEtelekWindow = new NewEtelekWindow();
+                    newEtelekWindow.ShowDialog();
+                    List<Etelek>? etelek = await sharedClient.GetFromJsonAsync<List<Etelek>>("Etelek/GetEtelekAsync");
+                    etelek2 = etelek;
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = etelek2;
                     break;
                 case "Értékelések":
                     break;
                 case "Chain":
+                    NewChainWindow newChainWindow = new NewChainWindow();
+                    newChainWindow.ShowDialog();
+                    List<Chain>? chain = await sharedClient.GetFromJsonAsync<List<Chain>>("Chain/GetChainAsync");
+                    chain2 = chain;
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = chain2;
                     break;
                 default:
                     break;
@@ -318,6 +449,7 @@ namespace EtelfutarWPF
                         {
                             btn_torles.IsEnabled = true;
                             btn_modositas.IsEnabled = true;
+                            btn_uj.IsEnabled = true;
                         }
                     }
                     catch (Exception ex)
@@ -337,6 +469,7 @@ namespace EtelfutarWPF
                         {
                             btn_torles.IsEnabled = true;
                             btn_modositas.IsEnabled = true;
+                            btn_uj.IsEnabled = true;
                         }
                     }
                     catch (Exception ex)
@@ -345,6 +478,22 @@ namespace EtelfutarWPF
                     }
                     break;
                 case "Leárazás":
+                    try
+                    {
+                        List<Learaza>? learazas = await sharedClient.GetFromJsonAsync<List<Learaza>>("Learazas/GetLearazasAsync");
+                        learazas2 = learazas;
+                        dgr_adatok.ItemsSource = learazas;
+                        if (jogosultsag > 1)
+                        {
+                            btn_torles.IsEnabled = true;
+                            btn_modositas.IsEnabled = true;
+                            btn_uj.IsEnabled = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Sikertelen betöltés!");
+                    }
                     break;
                 case "Éttermek":
                     try
@@ -356,6 +505,7 @@ namespace EtelfutarWPF
                         {
                             btn_torles.IsEnabled = true;
                             btn_modositas.IsEnabled = true;
+                            btn_uj.IsEnabled = true;
                         }
                     }
                     catch (Exception ex)
@@ -382,8 +532,40 @@ namespace EtelfutarWPF
                     }
                     break;
                 case "Értékelések":
+                    try
+                    {
+                        List<Ertekelesek>? ertekelesek = await sharedClient.GetFromJsonAsync<List<Ertekelesek>>("Ertekelesek/GetErtekelesAsync");
+                        ertekelesek2 = ertekelesek;
+                        dgr_adatok.ItemsSource = ertekelesek;
+                        if (jogosultsag > 1)
+                        {
+                            btn_torles.IsEnabled = true;
+                            btn_modositas.IsEnabled = true;
+                            btn_uj.IsEnabled = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Sikertelen betöltés!");
+                    }
                     break;
                 case "Chain":
+                    try
+                    {
+                        List<Chain>? chain = await sharedClient.GetFromJsonAsync<List<Chain>>("Chain/GetChainAsync");
+                        chain2 = chain;
+                        dgr_adatok.ItemsSource = chain;
+                        if (jogosultsag > 1)
+                        {
+                            btn_torles.IsEnabled = true;
+                            btn_modositas.IsEnabled = true;
+                            btn_uj.IsEnabled = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Sikertelen betöltés!");
+                    }
                     break;
                 default:
                     break;
