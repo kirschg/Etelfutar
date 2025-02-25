@@ -26,6 +26,7 @@ namespace EtelfutarWPF.Windows
         public EditEtelekWindow()
         {
             InitializeComponent();
+            this.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/gfx/icons/etelfutar.png"));
             tbx_nev.Text = kivalasztott_etel.Nev;
             tbx_kaloria.Text = kivalasztott_etel.Kaloria.ToString();
             tbx_ar.Text = kivalasztott_etel.Ar.ToString();

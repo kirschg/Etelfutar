@@ -25,6 +25,7 @@ namespace EtelfutarWPF.Windows
         public NewVarosokWindow()
         {
             InitializeComponent();
+            this.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/gfx/icons/etelfutar.png"));
         }
         private void Megse_Click(object sender, RoutedEventArgs e)
         {

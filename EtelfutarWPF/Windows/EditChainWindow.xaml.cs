@@ -18,42 +18,41 @@ using System.Windows.Shapes;
 namespace EtelfutarWPF.Windows
 {
     /// <summary>
-    /// Interaction logic for NewChainWindow.xaml
+    /// Interaction logic for EditChainWindow.xaml
     /// </summary>
-    public partial class NewChainWindow : Window
+    public partial class EditChainWindow : Window
     {
-        public NewChainWindow()
+        public static Chain kivalasztott_chain = null;
+        public EditChainWindow()
         {
             InitializeComponent();
             this.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/gfx/icons/etelfutar.png"));
+            tbx_nev.Text = kivalasztott_chain.Nev;
         }
         private void Megse_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-        private async void Mentes_Click(object sender, RoutedEventArgs e)
+        private async void Modositas_Click(object sender, RoutedEventArgs e)
         {
             if (tbx_nev.Text != "")
             {
                 //Ha minden adatot megadtunk
-                Chain uj_chain = new Chain
-                {
-                    Nev = tbx_nev.Text
-                };
+                kivalasztott_chain.Nev = tbx_nev.Text;
                 try
                 {
-                    string json = JsonSerializer.Serialize(uj_chain, JsonSerializerOptions.Default);
+                    string json = JsonSerializer.Serialize(kivalasztott_chain, JsonSerializerOptions.Default);
                     MessageBox.Show(json);
                     var body = new StringContent(json, Encoding.UTF8, "application/json");
-                    var result = await MainWindow.sharedClient.PostAsync("Chain/PostChainAsync", body);
+                    var result = await MainWindow.sharedClient.PutAsync("Chain/PutChainAsync", body);
                     result.Content.ReadAsStringAsync().Wait();
                     if (result.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Sikeres mentés.");
+                        MessageBox.Show("Sikeres módosítás.");
                     }
                     else
                     {
-                        MessageBox.Show("Sikertelen mentés!");
+                        MessageBox.Show(result.RequestMessage.ToString());
                     }
                 }
                 catch (Exception ex)

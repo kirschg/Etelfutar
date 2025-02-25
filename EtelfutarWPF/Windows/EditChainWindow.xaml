@@ -1,0 +1,16 @@
+﻿<Window x:Class="EtelfutarWPF.Windows.EditChainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtelfutarWPF.Windows"
+        mc:Ignorable="d"
+        Background="#404040"
+        Title="Ételfutár | Chain Módosítása" Height="450" Width="400">
+    <StackPanel>
+        <Label Foreground="White" Content="Név:" HorizontalAlignment="Center"></Label>
+        <TextBox Name="tbx_nev" Width="200"></TextBox>
+        <Button Click="Modositas_Click" Content="Módosítás" Width="100" Margin="0,10,0,0" Background="#b3001c"></Button>
+        <Button Click="Megse_Click" Content="Mégse" Width="100" Margin="0,10,0,0"></Button>
+    </StackPanel>
+</Window>

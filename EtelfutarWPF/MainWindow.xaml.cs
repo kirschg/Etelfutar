@@ -343,6 +343,13 @@ namespace EtelfutarWPF
                     case "Értékelések":
                         break;
                     case "Chain":
+                        EditChainWindow.kivalasztott_chain = (Chain)dgr_adatok.SelectedItem;
+                        EditChainWindow editChainWindow = new EditChainWindow();
+                        editChainWindow.ShowDialog();
+                        List<Chain>? chain = await sharedClient.GetFromJsonAsync<List<Chain>>("Chain/GetChainAsync");
+                        chain2 = chain;
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = chain2;
                         break;
                     default:
                         break;

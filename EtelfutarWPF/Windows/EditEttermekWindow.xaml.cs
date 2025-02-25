@@ -26,6 +26,7 @@ namespace EtelfutarWPF.Windows
         public EditEttermekWindow()
         {
             InitializeComponent();
+            this.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/gfx/icons/etelfutar.png"));
             tbx_cim.Text = kivalasztott_etterem.Cim;
             tbx_chain_id.Text = kivalasztott_etterem.ChainId.ToString();
             tbx_varos_id.Text = kivalasztott_etterem.VarosId.ToString();
