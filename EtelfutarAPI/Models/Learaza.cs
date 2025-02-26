@@ -11,7 +11,7 @@ public partial class Learaza
 
     public int Learazas { get; set; }
 
-    public virtual Etelek Etel { get; set; } = null!;
+    public virtual Etelek? Etel { get; set; } = null!;
 
-    public virtual Ettermek Etterem { get; set; } = null!;
+    public virtual Ettermek? Etterem { get; set; } = null!;
 }

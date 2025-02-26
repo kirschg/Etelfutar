@@ -3,6 +3,7 @@ using EtelfutarAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace EtelfutarAPI.Controllers
 {
@@ -105,20 +106,22 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
-        [HttpGet("GetRendelesByFelhasznalo")]
-        public async Task<IActionResult> GetRendelesByFelhasznalo(string FelhasznaloNev)
+        [HttpGet("GetByFelhasznaloNev")]
+        public async Task<IActionResult> GetRendelesByFelhasznaloNev(string FelhasznaloNev)
         {
             using (var context = new EtelfutarContext())
             {
-                List<Rendeles> rendelesek = await context.Rendeles.Where(e => e.Felhasznalo.FelhasznaloNev == FelhasznaloNev).Include(x => x.Felhasznalo).Include(x => x.Felhasznalo).ToListAsync();
-                if (rendelesek.Count != 0)
+                Felhasznalok? felhasznalo = await context.Felhasznaloks.FindAsync(FelhasznaloNev);
+
+                if (FelhasznaloNev != null)
                 {
-                    List<RendelesDTO> rendelesDTOs = rendelesek.Select(x => new RendelesDTO(x)).ToList();
+                    List<Felhasznalok> rendelesek = await context.Rendeles.FirstOrDefaultAsync(x => !x.Felhasznalo.Contains(felhasznalo) && x.FelhasznaloId == felhasznalo.Id).Include(x => x.Chain).ToListAsync();
+                    List<RendelesFelhasznalokDTO> rendelesDTOs = rendelesek.Select(x => new RendelesFelhasznalokDTO(x)).ToList();
                     return Ok(rendelesDTOs);
                 }
                 else
                 {
-                    return NotFound("Nincs ilyen Rendelés!");
+                    return NotFound("Nincs ilyen étterem!");
                 }
             }
         }

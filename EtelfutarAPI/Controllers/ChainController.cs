@@ -33,11 +33,6 @@ namespace EtelfutarAPI.Controllers
                 {
                     if (ujChain is not null)
                     {
-                        Chain ujjabbChain = new Chain()
-                        {
-                            Id = 0,
-                            Nev = ujChain.Nev,
-                        };
                         await context.Chains.AddAsync(ujChain);
                         await context.SaveChangesAsync();
                         return Ok("Sikeres mentés");
