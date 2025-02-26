@@ -16,9 +16,17 @@ export const Foods = () => {
                 console.log(err);
             });
     }, [RestaurantId]);
+
     async function AddOrder(id){
-        
+        axios.post("" + id)
+            .then((res) => {
+                setFoods(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
+    
     return (
         <div className="App">
             <div className=" d-flex justify-content-evenly flex-wrap">

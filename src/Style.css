@@ -65,6 +65,7 @@ Css for the reusable elements
   background-color: hsl(350, 100%, 35%);
   border-radius: 10px;
   height: fit-content;
+  border: none;
 }
 
 .button:hover {

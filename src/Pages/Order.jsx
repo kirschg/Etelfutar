@@ -17,7 +17,7 @@ export const Order = () => {
     else {
       navigate("/Login");
     }
-  }, [])
+  }, [token])
   return (
     <div className="App" style={{ paddingTop: 0, paddingBottom: "10px" }}>
       <div id="Order">
@@ -49,6 +49,7 @@ export const Order = () => {
             <span class="badge bg-primary rounded-pill"><img src={/*image source*/ "asd"} alt={/*Food name*/ "asd"} /></span>
           </li>
         </ol>
+        <h5 style={{margin:"auto", width:"fit-content", marginBottom:"10px"}}><input type="button" value="Confirm order" className="button" style={{margin:"auto"}} /></h5>
       </div>
     </div>
   );
