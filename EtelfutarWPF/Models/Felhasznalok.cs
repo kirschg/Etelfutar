@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EtelfutarWPF.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,23 @@ namespace EtelfutarWPF.Models
 {
     public partial class Felhasznalok
     {
+        public Felhasznalok(FelhasznalokDTO felhasznalokDTO)
+        {
+            Id = felhasznalokDTO.Id;
+            FelhasznaloNev = felhasznalokDTO.FelhasznaloNev;
+            TeljesNev = felhasznalokDTO.TeljesNev;
+            Email = felhasznalokDTO.Email;
+            VarosId = felhasznalokDTO.Varos.Id;
+            Lakcim = felhasznalokDTO.Lakcim;
+            Hash = felhasznalokDTO.Hash;
+            Salt = felhasznalokDTO.Salt;
+            Jogosultsag = felhasznalokDTO.Jogosultsag;
+        }
+
+        public Felhasznalok()
+        {
+
+        }
         public int Id { get; set; }
 
         public string FelhasznaloNev { get; set; } = null!;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EtelfutarWPF.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -9,6 +10,19 @@ namespace EtelfutarWPF.Models
 {
     public class Ettermek
     {
+        public Ettermek(EttermekDTO ettermekDTO)
+        {
+            Id = ettermekDTO.Id;
+            Cim = ettermekDTO.Cim;
+            ChainId = ettermekDTO.Id;
+            VarosId = ettermekDTO.Varos.Id;
+            Indexkep = ettermekDTO.IndexKep;
+        }
+        public Ettermek()
+        {
+
+        }
+
         public int Id { get; set; }
 
         public string Cim { get; set; } = null!;
