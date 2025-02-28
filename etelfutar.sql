@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2025 at 02:07 PM
+-- Generation Time: Feb 28, 2025 at 10:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -294,7 +294,8 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`Id`, `FelhasznaloNev`, `TeljesNev`, `Email`, `VarosId`, `Lakcim`, `Hash`, `Salt`, `Jogosultsag`, `Aktiv`) VALUES
-(7, 'TakacsL', 'Takacs Laszlo', 'takacslacika81@gmail.com', 1, 'Utca 29', '526100240222f74303ededea5e0e631e8682a9df6904e191c2b10857e41ce99c', 'tboBWFwyJUUDZRTlFgPIvkc4J8GygbyOhiE1US5Cg9WIceyofDMTQNInaUTavyop', 0, 1);
+(7, 'TakacsL', 'Takacs Laszlo', 'takacslacika81@gmail.com', 1, 'Utca 29', '526100240222f74303ededea5e0e631e8682a9df6904e191c2b10857e41ce99c', 'tboBWFwyJUUDZRTlFgPIvkc4J8GygbyOhiE1US5Cg9WIceyofDMTQNInaUTavyop', 0, 1),
+(8, 'timike', 'asd1234', 'timkoa@kkszki.hu', 1, 'Otthon utca 24', '488a4ab254ce938e799f172d6071fb00fded4c4a8110f01c5ba49c4a5bb7bbd8', 'lZQoFxAS2e9gj6CNbnAr7yXT6oBV4QCsBMphTyy5fi9TgkrXh4cLJkenvdVb', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -328,6 +329,13 @@ CREATE TABLE `rendeles` (
   `OsszAr` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `rendeles`
+--
+
+INSERT INTO `rendeles` (`Id`, `FelhasznaloId`, `OsszAr`) VALUES
+(2, 7, 20000);
+
 -- --------------------------------------------------------
 
 --
@@ -338,6 +346,15 @@ CREATE TABLE `rendeltetel` (
   `EtelId` int(11) NOT NULL,
   `RendelesId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rendeltetel`
+--
+
+INSERT INTO `rendeltetel` (`EtelId`, `RendelesId`) VALUES
+(1, 2),
+(51, 2),
+(94, 2);
 
 -- --------------------------------------------------------
 
@@ -435,6 +452,7 @@ ALTER TABLE `learazas`
 --
 ALTER TABLE `rendeles`
   ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `FelhasznaloId_2` (`FelhasznaloId`),
   ADD KEY `FelhasznaloId` (`FelhasznaloId`);
 
 --
@@ -471,7 +489,7 @@ ALTER TABLE `ertekelesek`
 -- AUTO_INCREMENT for table `etelek`
 --
 ALTER TABLE `etelek`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `ettermek`
@@ -483,13 +501,13 @@ ALTER TABLE `ettermek`
 -- AUTO_INCREMENT for table `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `Id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rendeles`
 --
 ALTER TABLE `rendeles`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `varosok`
