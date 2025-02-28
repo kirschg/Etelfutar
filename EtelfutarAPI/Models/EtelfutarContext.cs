@@ -236,12 +236,14 @@ public partial class EtelfutarContext : DbContext
 
             entity.HasIndex(e => e.FelhasznaloId, "FelhasznaloId");
 
+            entity.HasIndex(e => e.FelhasznaloId, "FelhasznaloId_2").IsUnique();
+
             entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.FelhasznaloId).HasColumnType("int(11)");
             entity.Property(e => e.OsszAr).HasColumnType("int(11)");
 
-            entity.HasOne(d => d.Felhasznalo).WithMany(p => p.Rendeles)
-                .HasForeignKey(d => d.FelhasznaloId)
+            entity.HasOne(d => d.Felhasznalo).WithOne(p => p.Rendeles)
+                .HasForeignKey<Rendeles>(d => d.FelhasznaloId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("rendeles_ibfk_1");
         });

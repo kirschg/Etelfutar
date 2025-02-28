@@ -111,13 +111,11 @@ namespace EtelfutarAPI.Controllers
         {
             using (var context = new EtelfutarContext())
             {
-                Felhasznalok? felhasznalo = await context.Felhasznaloks.FindAsync(FelhasznaloNev);
-
-                if (FelhasznaloNev != null)
+                Felhasznalok? user = await context.Felhasznaloks.Include(x=>x.Rendeles).Include(x=>x.Rendeles.Etels).FirstOrDefaultAsync(x => x.FelhasznaloNev == FelhasznaloNev);
+                if (user != null)
                 {
-                    List<Felhasznalok> rendelesek = await context.Rendeles.FirstOrDefaultAsync(x => !x.Felhasznalo.Contains(felhasznalo) && x.FelhasznaloId == felhasznalo.Id).Include(x => x.Chain).ToListAsync();
-                    List<RendelesFelhasznalokDTO> rendelesDTOs = rendelesek.Select(x => new RendelesFelhasznalokDTO(x)).ToList();
-                    return Ok(rendelesDTOs);
+                    RendelesByFelhasznaloDTO rendeles = new RendelesByFelhasznaloDTO(user.Rendeles);
+                    return Ok(rendeles);
                 }
                 else
                 {

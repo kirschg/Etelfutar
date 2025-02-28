@@ -15,14 +15,14 @@ public partial class Ettermek
     public int VarosId { get; set; }
 
     public string Indexkep { get; set; } = null!;
-
-    public virtual Chain? Chain { get; set; } = null!;
     [JsonIgnore]
+    public virtual Chain Chain { get; set; } = null!;
+
     public virtual ICollection<Ertekelesek> Ertekeleseks { get; set; } = new List<Ertekelesek>();
-    [JsonIgnore]
-    public virtual ICollection<Learaza> Learazas { get; set; } = new List<Learaza>();
 
-    public virtual Varosok? Varos { get; set; } = null!;
+    public virtual ICollection<Learaza> Learazas { get; set; } = new List<Learaza>();
     [JsonIgnore]
+    public virtual Varosok Varos { get; set; } = null!;
+
     public virtual ICollection<Etelek> Etels { get; set; } = new List<Etelek>();
 }
