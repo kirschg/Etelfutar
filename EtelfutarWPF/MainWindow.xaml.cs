@@ -296,6 +296,7 @@ namespace EtelfutarWPF
                         EditUserWindow editUserWindow = new EditUserWindow();
                         editUserWindow.ShowDialog();
                         List<FelhasznalokDTO> felhasznalok = await sharedClient.GetFromJsonAsync<List<FelhasznalokDTO>>("Felhasznalok/GetFelhasznalokAsync");
+                        felhasznalok2.Clear();
                         foreach(var felhasznalo in felhasznalok)
                         {
                             felhasznalok2.Add(new Felhasznalok(felhasznalo));
@@ -330,6 +331,7 @@ namespace EtelfutarWPF
                         EditEttermekWindow editEttermekWindow = new EditEttermekWindow();
                         editEttermekWindow.ShowDialog();
                         List<EttermekDTO>? ettermek = await sharedClient.GetFromJsonAsync<List<EttermekDTO>>("Ettermek/GetEttermekAsync");
+                        ettermek2.Clear();
                         foreach (var etterem in ettermek)
                         {
                             ettermek2.Add(new Ettermek(etterem));
@@ -342,7 +344,8 @@ namespace EtelfutarWPF
                         EditEtelekWindow editEtelekWindow = new EditEtelekWindow();
                         editEtelekWindow.ShowDialog();
                         List<EtelekDTO>? etelek = await sharedClient.GetFromJsonAsync<List<EtelekDTO>>("Etelek/GetEtelekAsync");
-                        foreach(var etel in etelek)
+                        etelek2.Clear();
+                        foreach (var etel in etelek)
                         {
                             etelek2.Add(new Etelek(etel));
                         }
@@ -377,7 +380,8 @@ namespace EtelfutarWPF
                 case "Felhasználók":
                     NewUserWindow newUserWindow = new NewUserWindow();
                     newUserWindow.ShowDialog();
-                    List<FelhasznalokDTO>? felhasznalok = await sharedClient.GetFromJsonAsync<List<FelhasznalokDTO>>("Felhaznalok/GetFelhaznalokAsync");
+                    List<FelhasznalokDTO>? felhasznalok = await sharedClient.GetFromJsonAsync<List<FelhasznalokDTO>>("Felhasznalok/GetFelhasznalokAsync");
+                    felhasznalok2.Clear();
                     foreach (var felhasznalo in felhasznalok)
                     {
                         felhasznalok2.Add(new Felhasznalok(felhasznalo));
@@ -409,6 +413,7 @@ namespace EtelfutarWPF
                     NewEttermekWindow newEttermekWindow = new NewEttermekWindow();
                     newEttermekWindow.ShowDialog();
                     List<EttermekDTO>? ettermek = await sharedClient.GetFromJsonAsync<List<EttermekDTO>>("Ettermek/GetEttermekAsync");
+                    ettermek2.Clear();
                     foreach (var etterem in ettermek)
                     {
                         ettermek2.Add(new Ettermek(etterem));
@@ -420,6 +425,7 @@ namespace EtelfutarWPF
                     NewEtelekWindow newEtelekWindow = new NewEtelekWindow();
                     newEtelekWindow.ShowDialog();
                     List<EtelekDTO>? etelek = await sharedClient.GetFromJsonAsync<List<EtelekDTO>>("Etelek/GetEtelekAsync");
+                    etelek2.Clear();
                     foreach (var etel in etelek)
                     {
                         etelek2.Add(new Etelek(etel));

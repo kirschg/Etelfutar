@@ -11,5 +11,10 @@ namespace EtelfutarWPF.Models
         public int Id { get; set; }
 
         public string Nev { get; set; } = null!;
+
+        public Chain()
+        {
+
+        }
     }
 }
