@@ -27,7 +27,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
-        [HttpPost("PostFelhasznaloAsync")]
+        /*[HttpPost("PostFelhasznaloAsync")]
         public async Task<IActionResult> PostFelhasznaloAsync(Felhasznalok ujFelhasznalo)
         {
             using (var context = new EtelfutarContext())
@@ -102,6 +102,6 @@ namespace EtelfutarAPI.Controllers
                     return BadRequest(ex.Message);
                 }
             }
-        }
+        }*/
     }
 }

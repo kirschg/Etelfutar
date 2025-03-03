@@ -1,6 +1,8 @@
-﻿using EtelfutarAPI.Models;
+﻿using EtelfutarAPI.DTOs;
+using EtelfutarAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Pqc.Crypto.Lms;
 
 namespace EtelfutarAPI.Controllers
 {
@@ -16,7 +18,8 @@ namespace EtelfutarAPI.Controllers
                 try
                 {
                     List<Chain> result = await context.Chains.ToListAsync();
-                    return Ok(result);
+                    List<ChainDTO> response = result.Select(x => new ChainDTO(x)).ToList();
+                    return Ok(response);
                 }
                 catch (Exception ex)
                 {
@@ -25,7 +28,7 @@ namespace EtelfutarAPI.Controllers
             }
         }
         [HttpPost("PostChainAsync")]
-        public async Task<IActionResult> PostChainAsync(Chain ujChain)
+        public async Task<IActionResult> PostChainAsync(ChainPostDTO ujChain)
         {
             using (var context = new EtelfutarContext())
             {
@@ -33,7 +36,7 @@ namespace EtelfutarAPI.Controllers
                 {
                     if (ujChain is not null)
                     {
-                        await context.Chains.AddAsync(ujChain);
+                        await context.Chains.AddAsync(new Chain(ujChain));
                         await context.SaveChangesAsync();
                         return Ok("Sikeres mentés");
                     }
@@ -49,15 +52,16 @@ namespace EtelfutarAPI.Controllers
             }
         }
         [HttpPut("PutChainAsync")]
-        public async Task<IActionResult> PutChainAsync(Chain modChain)
+        public async Task<IActionResult> PutChainAsync(ChainPutDTO modChain)
         {
             using (var context = new EtelfutarContext())
             {
                 try
                 {
-                    if (context.Chains.Contains(modChain))
+                    Chain chain = new Chain(modChain);
+                    if (context.Chains.Contains(chain))
                     {
-                        context.Chains.Update(modChain);
+                        context.Chains.Update(chain);
                         await context.SaveChangesAsync();
                         return Ok("Sikeres módosítás.");
                     }

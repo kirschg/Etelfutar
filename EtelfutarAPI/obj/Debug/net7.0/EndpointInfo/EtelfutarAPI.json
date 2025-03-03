@@ -26,17 +26,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Chain"
+                "$ref": "#/components/schemas/ChainPostDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Chain"
+                "$ref": "#/components/schemas/ChainPostDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Chain"
+                "$ref": "#/components/schemas/ChainPostDTO"
               }
             }
           }
@@ -57,17 +57,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Chain"
+                "$ref": "#/components/schemas/ChainPutDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Chain"
+                "$ref": "#/components/schemas/ChainPutDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Chain"
+                "$ref": "#/components/schemas/ChainPutDTO"
               }
             }
           }
@@ -417,91 +417,6 @@
         }
       }
     },
-    "/Felhasznalok/PostFelhasznaloAsync": {
-      "post": {
-        "tags": [
-          "Felhasznalok"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/Felhasznalok/PutFelhasznaloAsync": {
-      "put": {
-        "tags": [
-          "Felhasznalok"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/Felhasznalok/DeleteEtelAsync": {
-      "delete": {
-        "tags": [
-          "Felhasznalok"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "style": "form",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
     "/api/Login/GetSalt/{felhasznaloNev}": {
       "post": {
         "tags": [
@@ -735,6 +650,28 @@
         }
       }
     },
+    "/Rendeles/GetByFelhasznaloNev": {
+      "get": {
+        "tags": [
+          "Rendeles"
+        ],
+        "parameters": [
+          {
+            "name": "FelhasznaloNev",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/Rendeltetel/PostRendeltetelAsync": {
       "post": {
         "tags": [
@@ -899,7 +836,17 @@
   },
   "components": {
     "schemas": {
-      "Chain": {
+      "ChainPostDTO": {
+        "type": "object",
+        "properties": {
+          "nev": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChainPutDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -908,20 +855,6 @@
           },
           "nev": {
             "type": "string",
-            "nullable": true
-          },
-          "eteleks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Etelek"
-            },
-            "nullable": true
-          },
-          "ettermeks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Ettermek"
-            },
             "nullable": true
           }
         },
@@ -949,12 +882,6 @@
           "ertekeles": {
             "type": "integer",
             "format": "int32"
-          },
-          "etterem": {
-            "$ref": "#/components/schemas/Ettermek"
-          },
-          "felhasznalo": {
-            "$ref": "#/components/schemas/Felhasznalok"
           }
         },
         "additionalProperties": false
@@ -985,9 +912,6 @@
           "indexkep": {
             "type": "string",
             "nullable": true
-          },
-          "chain": {
-            "$ref": "#/components/schemas/Chain"
           },
           "learazas": {
             "type": "array",
@@ -1036,9 +960,6 @@
             "type": "string",
             "nullable": true
           },
-          "chain": {
-            "$ref": "#/components/schemas/Chain"
-          },
           "ertekeleseks": {
             "type": "array",
             "items": {
@@ -1052,9 +973,6 @@
               "$ref": "#/components/schemas/Learaza"
             },
             "nullable": true
-          },
-          "varos": {
-            "$ref": "#/components/schemas/Varosok"
           },
           "etels": {
             "type": "array",
@@ -1115,16 +1033,6 @@
               "$ref": "#/components/schemas/Ertekelesek"
             },
             "nullable": true
-          },
-          "rendeles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Rendeles"
-            },
-            "nullable": true
-          },
-          "varos": {
-            "$ref": "#/components/schemas/Varosok"
           }
         },
         "additionalProperties": false
@@ -1143,12 +1051,6 @@
           "learazas": {
             "type": "integer",
             "format": "int32"
-          },
-          "etel": {
-            "$ref": "#/components/schemas/Etelek"
-          },
-          "etterem": {
-            "$ref": "#/components/schemas/Ettermek"
           }
         },
         "additionalProperties": false
@@ -1215,9 +1117,6 @@
           "osszAr": {
             "type": "integer",
             "format": "int32"
-          },
-          "felhasznalo": {
-            "$ref": "#/components/schemas/Felhasznalok"
           },
           "etels": {
             "type": "array",
