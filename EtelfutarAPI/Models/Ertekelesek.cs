@@ -15,8 +15,8 @@ public partial class Ertekelesek
     public string Szoveg { get; set; } = null!;
 
     public int Ertekeles { get; set; }
-    [JsonIgnore]
-    public virtual Ettermek Etterem { get; set; } = null!;
-    [JsonIgnore]
-    public virtual Felhasznalok Felhasznalo { get; set; } = null!;
+
+    public virtual Ettermek? Etterem { get; set; } = null!;
+
+    public virtual Felhasznalok? Felhasznalo { get; set; } = null!;
 }

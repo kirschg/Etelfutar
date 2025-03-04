@@ -11,8 +11,8 @@ public partial class Learaza
     public int EtelId { get; set; }
 
     public int Learazas { get; set; }
-    [JsonIgnore]
-    public virtual Etelek Etel { get; set; } = null!;
-    [JsonIgnore]
-    public virtual Ettermek Etterem { get; set; } = null!;
+
+    public virtual Etelek? Etel { get; set; } = null!;
+
+    public virtual Ettermek? Etterem { get; set; } = null!;
 }

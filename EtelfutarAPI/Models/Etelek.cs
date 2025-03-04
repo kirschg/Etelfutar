@@ -17,12 +17,12 @@ public partial class Etelek
     public int ChainId { get; set; }
 
     public string Indexkep { get; set; } = null!;
+
+    public virtual Chain? Chain { get; set; } = null!;
     [JsonIgnore]
-    public virtual Chain Chain { get; set; } = null!;
-
     public virtual ICollection<Learaza> Learazas { get; set; } = new List<Learaza>();
-
+    [JsonIgnore]
     public virtual ICollection<Ettermek> Etterems { get; set; } = new List<Ettermek>();
-
+    [JsonIgnore]
     public virtual ICollection<Rendeles> Rendeles { get; set; } = new List<Rendeles>();
 }

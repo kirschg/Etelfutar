@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using VizsgaremekAPI;
+using VizsgaremekAPI.DTOs;
 
 namespace EtelfutarAPI.Controllers
 {
@@ -106,21 +108,30 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
-        [HttpGet("GetByFelhasznaloNev")]
-        public async Task<IActionResult> GetRendelesByFelhasznaloNev(string FelhasznaloNev)
+        [CustomAuthorize]
+        [HttpGet("GetByToken")]
+        public async Task<IActionResult> GetRendelesByToken(string token)
         {
             using (var context = new EtelfutarContext())
             {
-                Felhasznalok? user = await context.Felhasznaloks.Include(x=>x.Rendeles).Include(x=>x.Rendeles.Etels).FirstOrDefaultAsync(x => x.FelhasznaloNev == FelhasznaloNev);
-                if (user != null)
+                try
                 {
-                    RendelesByFelhasznaloDTO rendeles = new RendelesByFelhasznaloDTO(user.Rendeles);
-                    return Ok(rendeles);
+                    Felhasznalok? user = Program.LoggedInUsers[token];
+                    if (user != null)
+                    {
+                        RendelesByFelhasznaloDTO rendeles = new RendelesByFelhasznaloDTO(user.Rendeles);
+                        return Ok(rendeles);
+                    }
+                    else
+                    {
+                        return NotFound("Nincs ilyen rendelés!");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    return NotFound("Nincs ilyen étterem!");
+                    return BadRequest("Elbasztad:" + ex.Message);
                 }
+                
             }
         }
     }
