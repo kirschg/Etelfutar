@@ -19,7 +19,7 @@
             <MenuItem Header="Beállítások" Name="menu_beallitasok" IsEnabled="True" Click="Beallitasok_Click"></MenuItem>
         </Menu>
         <StackPanel Grid.Row="1">
-            <DataGrid Name="dgr_adatok" Height="110"/>
+            <DataGrid Name="dgr_adatok" Height="110" CanUserAddRows="False"/>
             <Button Margin="0,10,0,0" Name="btn_torles" Width="100" Content="Törlés" Click="Torles_Click" IsEnabled="False" Background="Red"></Button>
             <Button Margin="0,10,0,0" Name="btn_modositas" Width="100" Content="Módosítás" Click="Modositas_Click" IsEnabled="False" Background="Gold"></Button>
             <Button Margin="0,10,0,0" Name="btn_uj" Width="100" Content="Új" Click="Uj_Click" IsEnabled="False" Background="DarkCyan"></Button>

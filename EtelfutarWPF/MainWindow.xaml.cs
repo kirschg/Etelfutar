@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace EtelfutarWPF
 {
@@ -28,6 +29,8 @@ namespace EtelfutarWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static string username = null;
+        public static string password = null;
         public static string token = null;
         public static int jogosultsag = -1;
         public static string client_address = "http://localhost:5000";
@@ -35,6 +38,7 @@ namespace EtelfutarWPF
         public static List<Varosok> varosok2 = new List<Varosok>();
         public static List<Rendeles> rendeles2 = new List<Rendeles>();
         public static List<Learaza> learazas2 = new List<Learaza>();
+        public static List<Learaza> rendelt_etel2 = new List<Learaza>();
         public static List<Ettermek> ettermek2 = new List<Ettermek>();
         public static List<Etelek> etelek2 = new List<Etelek>();
         public static List<Ertekelesek> ertekelesek2 = new List<Ertekelesek>();
@@ -59,7 +63,90 @@ namespace EtelfutarWPF
             cbx_tablazatok.Items.Add("Rendelés");
             cbx_tablazatok.Items.Add("Városok");
             cbx_tablazatok.SelectedIndex = -1;
+            try
+            {
+                string[] client_sorok = File.ReadAllLines("client.txt");
+                client_address = client_sorok[0];
+                MainWindow.sharedClient = new HttpClient()
+                {
+                    BaseAddress = new Uri(MainWindow.client_address)
+                };
+                string[] login_sorok = File.ReadAllLines("login.txt");
+                username = login_sorok[0];
+                password = login_sorok[1];
+            }
+            catch(Exception ex)
+            {
 
+            }
+            AutoLogin();
+
+
+
+        }
+
+        public async void AutoLogin()
+        {
+            if(username is not null && password is not null)
+            {
+                try
+                {
+                    var response = await sharedClient.PostAsync($"api/Login/GetSalt/{username}", new StringContent(password, Encoding.UTF8, "text/plain"));
+                    string salt = "";
+                    if (response.IsSuccessStatusCode)
+                    {
+                        salt = await response.Content.ReadAsStringAsync();
+                        //innen pwd+salt hash és mehet a login
+                        try
+                        {
+                            string tmpHash = MainWindow.CreateSHA256(password + salt);
+                            LoginDTO loginDTO = new LoginDTO()
+                            {
+                                LoginName = username,
+                                TmpHash = tmpHash
+                            };
+
+                            string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
+                            var body = new StringContent(json, Encoding.UTF8, "application/json");
+                            var result = await sharedClient.PostAsync("api/Login", body);
+                            if (result.IsSuccessStatusCode)
+                            {
+                                var options = new JsonSerializerOptions
+                                {
+                                    WriteIndented = true,
+                                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                                    PropertyNameCaseInsensitive = true
+                                };
+                                string valaszJson = await result.Content.ReadAsStringAsync();
+                                LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
+                                MainWindow.token = loggedUser.Token;
+                                MainWindow.jogosultsag = loggedUser.Jogosultsag;
+                                BejelentkezesEllenorzese();
+                            }
+                            else
+                            {
+                                string valasz = await result.Content.ReadAsStringAsync();
+                                MessageBox.Show($"Sikertelen Bejelentkezés!\n{valasz}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sikertelen bejelentkezés.");
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            
         }
 
         private void Bejelentkezes_Click(object sender, RoutedEventArgs e)
@@ -68,7 +155,12 @@ namespace EtelfutarWPF
             loginWindow.client = sharedClient;
             token = null;
             loginWindow.ShowDialog();
-            if(token is not null)
+            BejelentkezesEllenorzese();
+        }
+
+        public void BejelentkezesEllenorzese()
+        {
+            if (token is not null)
             {
                 menu_kijelentkezes.IsEnabled = true;
                 menu_bejelentkezes.IsEnabled = false;
@@ -114,6 +206,7 @@ namespace EtelfutarWPF
                 btn_modositas.IsEnabled = false;
                 btn_uj.IsEnabled = false;
                 menu_bejelentkezes.IsEnabled = true;
+                File.WriteAllText("login.txt", "");
             }
             catch(Exception ex)
             {
@@ -128,7 +221,7 @@ namespace EtelfutarWPF
 
         private async void Torles_Click(object sender, RoutedEventArgs e)
         {
-            if (dgr_adatok.SelectedItem is not null)
+            if (dgr_adatok.SelectedItem is not null && dgr_adatok.Items.Count > 0)
             {
                 switch (cbx_tablazatok.SelectedValue.ToString())
                 {
@@ -179,6 +272,7 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = varosok2;
                         break;
                     case "Rendelt Étel":
+                        
                         break;
                     case "Rendelés":
                         rendeles2.Remove((Rendeles)dgr_adatok.SelectedItem);
@@ -287,7 +381,7 @@ namespace EtelfutarWPF
         }
         private async void Modositas_Click(object sender, RoutedEventArgs e)
         {
-            if (dgr_adatok.SelectedItem is not null)
+            if (dgr_adatok.SelectedItem is not null && dgr_adatok.Items.Count > 0)
             {
                 switch (cbx_tablazatok.SelectedValue.ToString())
                 {
@@ -316,6 +410,7 @@ namespace EtelfutarWPF
                     case "Rendelt Étel":
                         break;
                     case "Rendelés":
+                        
                         EditRendelesWindow.kivalasztott_rendeles = (Rendeles)dgr_adatok.SelectedItem;
                         EditRendelesWindow editRendelesWindow = new EditRendelesWindow();
                         editRendelesWindow.ShowDialog();
@@ -408,6 +503,7 @@ namespace EtelfutarWPF
                     dgr_adatok.ItemsSource = rendeles2;
                     break;
                 case "Leárazás":
+
                     break;
                 case "Éttermek":
                     NewEttermekWindow newEttermekWindow = new NewEttermekWindow();
@@ -478,7 +574,7 @@ namespace EtelfutarWPF
                     {
                         List<Varosok>? varosok = await sharedClient.GetFromJsonAsync<List<Varosok>>("Varosok/GetVarosokAsync");
                         varosok2 = varosok;
-                        dgr_adatok.ItemsSource = varosok;
+                        dgr_adatok.ItemsSource = varosok2;
                         if (jogosultsag > 1)
                         {
                             btn_torles.IsEnabled = true;
@@ -496,9 +592,13 @@ namespace EtelfutarWPF
                 case "Rendelés":
                     try
                     {
-                        List<Rendeles>? rendeles = await sharedClient.GetFromJsonAsync<List<Rendeles>>("Rendeles/GetRendelesekAsync");
-                        rendeles2 = rendeles;
-                        dgr_adatok.ItemsSource = rendeles;
+                        List<RendelesDTO>? rendeles = await sharedClient.GetFromJsonAsync<List<RendelesDTO>>("Rendeles/GetRendelesekAsync");
+
+                        foreach(var rendele in rendeles)
+                        {
+                            rendeles2.Add(new Rendeles(rendele));
+                        }
+                        dgr_adatok.ItemsSource = rendeles2;
                         if (jogosultsag > 1)
                         {
                             btn_torles.IsEnabled = true;
@@ -514,7 +614,7 @@ namespace EtelfutarWPF
                 case "Leárazás":
                     try
                     {
-                        List<Learaza>? learazas = await sharedClient.GetFromJsonAsync<List<Learaza>>("Learazas/GetLearazasAsync");
+                        List<Learaza>? learazas = await sharedClient.GetFromJsonAsync<List<Learaza>>("Learazas/GetLearazasokAsync");
                         learazas2 = learazas;
                         dgr_adatok.ItemsSource = learazas;
                         if (jogosultsag > 1)

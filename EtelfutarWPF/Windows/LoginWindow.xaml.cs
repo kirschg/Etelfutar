@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace EtelfutarWPF
 {
@@ -22,6 +23,8 @@ namespace EtelfutarWPF
     /// </summary>
     public partial class LoginWindow : Window
     {
+        public static string username = null;
+        public static string password = null;
         public HttpClient? client;
 
         public LoginWindow()
@@ -44,7 +47,6 @@ namespace EtelfutarWPF
                         if (response.IsSuccessStatusCode)
                         {
                             salt = await response.Content.ReadAsStringAsync();
-                            MessageBox.Show(salt);
                             //innen pwd+salt hash és mehet a login
                             try
                             {
@@ -56,7 +58,6 @@ namespace EtelfutarWPF
                                 };
 
                                 string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
-                                MessageBox.Show(json);
                                 var body = new StringContent(json, Encoding.UTF8, "application/json");
                                 var result = await client.PostAsync("api/Login", body);
                                 if (result.IsSuccessStatusCode)
@@ -69,14 +70,15 @@ namespace EtelfutarWPF
                                     };
                                     string valaszJson = await result.Content.ReadAsStringAsync();
                                     LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
-                                    MessageBox.Show(loggedUser.Token);
+                                    MessageBox.Show("Sikeres bejelentkezés.");
                                     MainWindow.token = loggedUser.Token;
                                     MainWindow.jogosultsag = loggedUser.Jogosultsag;
+                                    File.WriteAllText("login.txt", $"{tbx_felhasznalo_nev.Text}\n{pbx_jelszo.Password}");
                                 }
                                 else
                                 {
                                     string valasz = await result.Content.ReadAsStringAsync();
-                                    MessageBox.Show($"Valami nem ok!\n{valasz}");
+                                    MessageBox.Show($"Sikertelen bejelentkezés!\n{valasz}");
                                 }
                             }
                             catch (Exception ex)
