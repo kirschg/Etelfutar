@@ -7,7 +7,7 @@ import '../Style.css';
 export const Cities = () => {
     const [cities, setCities] = useState([]);
     useEffect(() => {
-        axios.get("https://localhost:7106/Varosok/GetVarosokAsync", {headers:{"Authorization": `Bearer ${localStorage.getItem("Token")}`}})
+        axios.get("https://localhost:7106/Varosok/GetVarosokAsync")
             .then((res) => {
                 setCities(res.data);
             })

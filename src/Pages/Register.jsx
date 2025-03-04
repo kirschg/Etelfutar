@@ -62,15 +62,15 @@ export const Register = () => {
             <form className="Form" action={register}>
                 <div className="mb-3">
                     <label htmlFor="emailInput" className="form-label">Email address</label>
-                    <input name="email" type="text" className="form-control" id="emailInput" aria-describedby="emailHelp"/>
+                    <input name="email" type="text" className="form-control" id="emailInput" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="userNameInput" className="form-label">Username</label>
-                    <input name="userName" type="text" className="form-control" id="userNameInput" aria-describedby="emailHelp"/>
+                    <input name="userName" type="text" className="form-control" id="userNameInput" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="fullNameInput" className="form-label">Full name</label>
-                    <input name="fullName" type="text" className="form-control" id="fullNameInput" aria-describedby="emailHelp"/>
+                    <input name="fullName" type="text" className="form-control" id="fullNameInput" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="passwordInput" className="form-label">Password</label>

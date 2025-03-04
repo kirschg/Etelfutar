@@ -18,7 +18,6 @@ export const Login = () => {
         axios.post("https://localhost:7106/api/Login", { LoginName: username, TmpHash: hash })
           .then(res => {
             localStorage.setItem("Token", res.data.token)
-            localStorage.setItem("Username", res.data.felhasznaloNev)
             window.dispatchEvent(new Event('storage'))
             navigate("/");
           })
@@ -41,7 +40,7 @@ export const Login = () => {
         <form className="Form" action={login}>
           <div className="mb-3">
             <label htmlFor="usernameInput" className="form-label">Username</label>
-            <input type="text" name="username" className="form-control" id="usernameInput" aria-describedby="emailHelp" />
+            <input type="text" name="username" className="form-control" id="usernameInput"/>
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
