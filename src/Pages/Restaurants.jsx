@@ -10,7 +10,6 @@ export const Restaurants = () => {
     useEffect(() => {
         axios.get("https://localhost:7106/Ettermek/GetEttermekByVaros?Varos=" + City)
             .then((res) => {
-                console.log(res.data);
                 setRestaurants(res.data);
             })
             .catch((err) => {
