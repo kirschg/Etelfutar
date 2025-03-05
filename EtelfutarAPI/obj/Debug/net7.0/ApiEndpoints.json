@@ -120,7 +120,7 @@
     "Parameters": [
       {
         "Name": "ujChain",
-        "Type": "EtelfutarAPI.DTOs.ChainPostDTO",
+        "Type": "EtelfutarAPI.Models.Chain",
         "IsRequired": true
       }
     ],
@@ -136,7 +136,7 @@
     "Parameters": [
       {
         "Name": "modChain",
-        "Type": "EtelfutarAPI.DTOs.ChainPutDTO",
+        "Type": "EtelfutarAPI.Models.Chain",
         "IsRequired": true
       }
     ],
@@ -334,12 +334,60 @@
   },
   {
     "ContainingType": "EtelfutarAPI.Controllers.FelhasznalokController",
+    "Method": "FelhasznaloPutRestricted",
+    "RelativePath": "Felhasznalok/FelhasznalokPutRestricted",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modFelhasznalo",
+        "Type": "EtelfutarAPI.DTOs.FelhasznalokPutRestrictedDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.FelhasznalokController",
+    "Method": "GetFelhasznaloByTokenAsync",
+    "RelativePath": "Felhasznalok/GetFelhasznaloByTokenAsync",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.FelhasznalokController",
     "Method": "GetFelhasznalokAsync",
     "RelativePath": "Felhasznalok/GetFelhasznalokAsync",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.FelhasznalokController",
+    "Method": "PutFelhasznaloAsync",
+    "RelativePath": "Felhasznalok/PutFelhasznaloAsync",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modFelhasznalo",
+        "Type": "EtelfutarAPI.Models.Felhasznalok",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -360,14 +408,14 @@
   },
   {
     "ContainingType": "EtelfutarAPI.Controllers.RendelesController",
-    "Method": "GetRendelesByFelhasznaloNev",
-    "RelativePath": "Rendeles/GetByFelhasznaloNev",
+    "Method": "GetRendelesByToken",
+    "RelativePath": "Rendeles/GetByToken",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "FelhasznaloNev",
+        "Name": "token",
         "Type": "System.String",
         "IsRequired": false
       }

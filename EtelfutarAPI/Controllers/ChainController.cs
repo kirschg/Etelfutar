@@ -28,7 +28,7 @@ namespace EtelfutarAPI.Controllers
             }
         }
         [HttpPost("PostChainAsync")]
-        public async Task<IActionResult> PostChainAsync(ChainPostDTO ujChain)
+        public async Task<IActionResult> PostChainAsync(Chain ujChain)
         {
             using (var context = new EtelfutarContext())
             {
@@ -36,7 +36,7 @@ namespace EtelfutarAPI.Controllers
                 {
                     if (ujChain is not null)
                     {
-                        await context.Chains.AddAsync(new Chain(ujChain));
+                        await context.Chains.AddAsync(ujChain);
                         await context.SaveChangesAsync();
                         return Ok("Sikeres mentés");
                     }
@@ -52,13 +52,13 @@ namespace EtelfutarAPI.Controllers
             }
         }
         [HttpPut("PutChainAsync")]
-        public async Task<IActionResult> PutChainAsync(ChainPutDTO modChain)
+        public async Task<IActionResult> PutChainAsync(Chain modChain)
         {
             using (var context = new EtelfutarContext())
             {
                 try
                 {
-                    Chain chain = new Chain(modChain);
+                    Chain chain = modChain;
                     if (context.Chains.Contains(chain))
                     {
                         context.Chains.Update(chain);

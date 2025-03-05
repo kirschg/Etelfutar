@@ -17,7 +17,7 @@ namespace VizsgaremekAPI.Controllers
             {
                 try
                 {
-                    Felhasznalok response = await context.Felhasznaloks.FirstOrDefaultAsync(u=>u.FelhasznaloNev == felhasznaloNev);
+                    Felhasznalok? response = await context.Felhasznaloks.FirstOrDefaultAsync(u=>u.FelhasznaloNev == felhasznaloNev);
                     if(response == null)
                     {
                         return NotFound("Nem található felhasználó ezzel a felhasználó névvel!");
@@ -41,7 +41,9 @@ namespace VizsgaremekAPI.Controllers
                 try
                 {
                     string Hash = Program.CreateSHA256(loginDTO.TmpHash);
-                    Felhasznalok loggedUser = await context.Felhasznaloks.FirstOrDefaultAsync(u => u.FelhasznaloNev == loginDTO.LoginName && u.Hash == Hash);
+                    Felhasznalok? loggedUser = await context.Felhasznaloks
+                        .Include(x=>x.Rendeles.Etels)
+                        .FirstOrDefaultAsync(u => u.FelhasznaloNev == loginDTO.LoginName && u.Hash == Hash);
                     if(loggedUser != null && loggedUser.Aktiv == 1)
                     {
                         string token = Guid.NewGuid().ToString();
