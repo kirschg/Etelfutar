@@ -389,11 +389,11 @@ namespace EtelfutarWPF
                         EditUserWindow.kivalasztott_felhasznalo = (Felhasznalok)dgr_adatok.SelectedItem;
                         EditUserWindow editUserWindow = new EditUserWindow();
                         editUserWindow.ShowDialog();
-                        List<FelhasznalokDTO> felhasznalok = await sharedClient.GetFromJsonAsync<List<FelhasznalokDTO>>("Felhasznalok/GetFelhasznalokAsync");
+                        List<Felhasznalok> felhasznalok = await sharedClient.GetFromJsonAsync<List<Felhasznalok>>("Felhasznalok/GetFelhasznalokAsync");
                         felhasznalok2.Clear();
                         foreach(var felhasznalo in felhasznalok)
                         {
-                            felhasznalok2.Add(new Felhasznalok(felhasznalo));
+                            felhasznalok2.Add(felhasznalo);
                         }
                         dgr_adatok.ItemsSource = null;
                         dgr_adatok.ItemsSource = felhasznalok2;
@@ -403,7 +403,11 @@ namespace EtelfutarWPF
                         EditVarosokWindow editVarosokWindow = new EditVarosokWindow();
                         editVarosokWindow.ShowDialog();
                         List<Varosok> varosok = await sharedClient.GetFromJsonAsync<List<Varosok>>("Varosok/GetVarosokAsync");
-                        varosok2 = varosok;
+                        varosok2.Clear();
+                        foreach(var varos in varosok)
+                        {
+                            varosok2.Add(varos);
+                        }
                         dgr_adatok.ItemsSource = null;
                         dgr_adatok.ItemsSource = varosok2;
                         break;
@@ -415,7 +419,11 @@ namespace EtelfutarWPF
                         EditRendelesWindow editRendelesWindow = new EditRendelesWindow();
                         editRendelesWindow.ShowDialog();
                         List<Rendeles>? rendeles = await sharedClient.GetFromJsonAsync<List<Rendeles>>("Rendeles/GetRendelesekAsync");
-                        rendeles2 = rendeles;
+                        rendeles2.Clear();
+                        foreach(var rendele in rendeles)
+                        {
+                            rendeles2.Add(rendele);
+                        }
                         dgr_adatok.ItemsSource = null;
                         dgr_adatok.ItemsSource = rendeles2;
                         break;
@@ -425,11 +433,11 @@ namespace EtelfutarWPF
                         EditEttermekWindow.kivalasztott_etterem = (Ettermek)dgr_adatok.SelectedItem;
                         EditEttermekWindow editEttermekWindow = new EditEttermekWindow();
                         editEttermekWindow.ShowDialog();
-                        List<EttermekDTO>? ettermek = await sharedClient.GetFromJsonAsync<List<EttermekDTO>>("Ettermek/GetEttermekAsync");
+                        List<Ettermek>? ettermek = await sharedClient.GetFromJsonAsync<List<Ettermek>>("Ettermek/GetEttermekAsync");
                         ettermek2.Clear();
                         foreach (var etterem in ettermek)
                         {
-                            ettermek2.Add(new Ettermek(etterem));
+                            ettermek2.Add(etterem);
                         }
                         dgr_adatok.ItemsSource = null;
                         dgr_adatok.ItemsSource = ettermek2;
@@ -454,7 +462,11 @@ namespace EtelfutarWPF
                         EditChainWindow editChainWindow = new EditChainWindow();
                         editChainWindow.ShowDialog();
                         List<Chain>? chain = await sharedClient.GetFromJsonAsync<List<Chain>>("Chain/GetChainAsync");
-                        chain2 = chain;
+                        chain2.Clear();
+                        foreach(var chai in chain)
+                        {
+                            chain2.Add(chai);
+                        }
                         dgr_adatok.ItemsSource = null;
                         dgr_adatok.ItemsSource = chain2;
                         break;
@@ -475,11 +487,11 @@ namespace EtelfutarWPF
                 case "Felhasználók":
                     NewUserWindow newUserWindow = new NewUserWindow();
                     newUserWindow.ShowDialog();
-                    List<FelhasznalokDTO>? felhasznalok = await sharedClient.GetFromJsonAsync<List<FelhasznalokDTO>>("Felhasznalok/GetFelhasznalokAsync");
+                    List<Felhasznalok>? felhasznalok = await sharedClient.GetFromJsonAsync<List<Felhasznalok>>("Felhasznalok/GetFelhasznalokAsync");
                     felhasznalok2.Clear();
                     foreach (var felhasznalo in felhasznalok)
                     {
-                        felhasznalok2.Add(new Felhasznalok(felhasznalo));
+                        felhasznalok2.Add(felhasznalo);
                     }
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = felhasznalok2;
@@ -488,7 +500,11 @@ namespace EtelfutarWPF
                     NewVarosokWindow newVarosokWindow = new NewVarosokWindow();
                     newVarosokWindow.ShowDialog();
                     List<Varosok>? varosok = await sharedClient.GetFromJsonAsync<List<Varosok>>("Varosok/GetVarosokAsync");
-                    varosok2 = varosok;
+                    varosok2.Clear();
+                    foreach(var varos in varosok)
+                    {
+                        varosok2.Add(varos);
+                    }
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = varosok2;
                     break;
@@ -498,7 +514,11 @@ namespace EtelfutarWPF
                     NewRendelesWindow newRendelesWindow = new NewRendelesWindow();
                     newRendelesWindow.ShowDialog();
                     List<Rendeles>? rendeles = await sharedClient.GetFromJsonAsync<List<Rendeles>>("Rendeles/GetRendelesekAsync");
-                    rendeles2 = rendeles;
+                    rendeles2.Clear();
+                    foreach(var rendele in rendeles)
+                    {
+                        rendeles2.Add(rendele);
+                    }
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = rendeles2;
                     break;
@@ -508,11 +528,11 @@ namespace EtelfutarWPF
                 case "Éttermek":
                     NewEttermekWindow newEttermekWindow = new NewEttermekWindow();
                     newEttermekWindow.ShowDialog();
-                    List<EttermekDTO>? ettermek = await sharedClient.GetFromJsonAsync<List<EttermekDTO>>("Ettermek/GetEttermekAsync");
+                    List<Ettermek>? ettermek = await sharedClient.GetFromJsonAsync<List<Ettermek>>("Ettermek/GetEttermekAsync");
                     ettermek2.Clear();
                     foreach (var etterem in ettermek)
                     {
-                        ettermek2.Add(new Ettermek(etterem));
+                        ettermek2.Add(etterem);
                     }
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = ettermek2;
@@ -520,11 +540,11 @@ namespace EtelfutarWPF
                 case "Ételek":
                     NewEtelekWindow newEtelekWindow = new NewEtelekWindow();
                     newEtelekWindow.ShowDialog();
-                    List<EtelekDTO>? etelek = await sharedClient.GetFromJsonAsync<List<EtelekDTO>>("Etelek/GetEtelekAsync");
+                    List<Etelek>? etelek = await sharedClient.GetFromJsonAsync<List<Etelek>>("Etelek/GetEtelekAsync");
                     etelek2.Clear();
                     foreach (var etel in etelek)
                     {
-                        etelek2.Add(new Etelek(etel));
+                        etelek2.Add(etel);
                     }
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = etelek2;
@@ -535,7 +555,11 @@ namespace EtelfutarWPF
                     NewChainWindow newChainWindow = new NewChainWindow();
                     newChainWindow.ShowDialog();
                     List<Chain>? chain = await sharedClient.GetFromJsonAsync<List<Chain>>("Chain/GetChainAsync");
-                    chain2 = chain;
+                    chain2.Clear();
+                    foreach(var chai in chain)
+                    {
+                        chain2.Add(chai);
+                    }
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = chain2;
                     break;
@@ -551,10 +575,12 @@ namespace EtelfutarWPF
                 case "Felhasználók":
                     try
                     {
-                        List<FelhasznalokDTO>? felhasznalok = await sharedClient.GetFromJsonAsync<List<FelhasznalokDTO>>("Felhasznalok/GetFelhasznalokAsync");
+                        List<Felhasznalok>? felhasznalok = await sharedClient.GetFromJsonAsync<List<Felhasznalok>>("Felhasznalok/GetFelhasznalokAsync");
+                        felhasznalok2.Clear();
                         foreach (var felhasznalo in felhasznalok)
                         {
-                            felhasznalok2.Add(new Felhasznalok(felhasznalo));
+                            felhasznalo.VarosId = felhasznalo.Varos.Id;
+                            felhasznalok2.Add(felhasznalo);
                         }
                         dgr_adatok.ItemsSource = felhasznalok2;
                         if (jogosultsag > 1)
@@ -566,14 +592,18 @@ namespace EtelfutarWPF
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sikertelen betöltés!");
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
                     }
                     break;
                 case "Városok":
                     try
                     {
                         List<Varosok>? varosok = await sharedClient.GetFromJsonAsync<List<Varosok>>("Varosok/GetVarosokAsync");
-                        varosok2 = varosok;
+                        varosok2.Clear();
+                        foreach(var varos in varosok)
+                        {
+                            varosok2.Add(varos);
+                        }
                         dgr_adatok.ItemsSource = varosok2;
                         if (jogosultsag > 1)
                         {
@@ -584,7 +614,7 @@ namespace EtelfutarWPF
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sikertelen betöltés!");
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
                     }
                     break;
                 case "Rendelt Étel":
@@ -592,11 +622,11 @@ namespace EtelfutarWPF
                 case "Rendelés":
                     try
                     {
-                        List<RendelesDTO>? rendeles = await sharedClient.GetFromJsonAsync<List<RendelesDTO>>("Rendeles/GetRendelesekAsync");
-
+                        List<Rendeles>? rendeles = await sharedClient.GetFromJsonAsync<List<Rendeles>>("Rendeles/GetRendelesekAsync");
+                        rendeles2.Clear();
                         foreach(var rendele in rendeles)
                         {
-                            rendeles2.Add(new Rendeles(rendele));
+                            rendeles2.Add(rendele);
                         }
                         dgr_adatok.ItemsSource = rendeles2;
                         if (jogosultsag > 1)
@@ -626,16 +656,17 @@ namespace EtelfutarWPF
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sikertelen betöltés!");
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
                     }
                     break;
                 case "Éttermek":
                     try
                     {
-                        List<EttermekDTO>? ettermek = await sharedClient.GetFromJsonAsync<List<EttermekDTO>>("Ettermek/GetEttermekAsync");
+                        List<Ettermek>? ettermek = await sharedClient.GetFromJsonAsync<List<Ettermek>>("Ettermek/GetEttermekAsync");
+                        ettermek2.Clear();
                         foreach (var etterem in ettermek)
                         {
-                            ettermek2.Add(new Ettermek(etterem));
+                            ettermek2.Add(etterem);
                         }
                         dgr_adatok.ItemsSource = ettermek2;
                         if (jogosultsag > 1)
@@ -647,16 +678,17 @@ namespace EtelfutarWPF
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sikertelen betöltés!");
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
                     }
                     break;
                 case "Ételek":
                     try
                     {
-                        List<EtelekDTO>? etelek = await sharedClient.GetFromJsonAsync<List<EtelekDTO>>("Etelek/GetEtelekAsync");
+                        List<Etelek>? etelek = await sharedClient.GetFromJsonAsync<List<Etelek>>("Etelek/GetEtelekAsync");
+                        etelek2.Clear();
                         foreach(var etel in etelek)
                         {
-                            etelek2.Add(new Etelek(etel));
+                            etelek2.Add(etel);
                         }
                         dgr_adatok.ItemsSource = etelek2;
                         if (jogosultsag > 1)
@@ -668,7 +700,7 @@ namespace EtelfutarWPF
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sikertelen betöltés!");
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
                     }
                     break;
                 case "Értékelések":
@@ -686,7 +718,7 @@ namespace EtelfutarWPF
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sikertelen betöltés!");
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
                     }
                     break;
                 case "Chain":
@@ -704,7 +736,7 @@ namespace EtelfutarWPF
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sikertelen betöltés!");
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
                     }
                     break;
                 default:

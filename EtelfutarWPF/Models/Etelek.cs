@@ -17,6 +17,7 @@ namespace EtelfutarWPF.Models
             Ar = etelekDTO.Ar;
             ChainId = etelekDTO.Chain.Id;
             Indexkep = etelekDTO.Indexkep;
+            Chain = new Chain(etelekDTO.Chain);
         }
         public Etelek()
         {
@@ -34,5 +35,7 @@ namespace EtelfutarWPF.Models
         public int ChainId { get; set; }
 
         public string Indexkep { get; set; } = null!;
+
+        public virtual Chain? Chain { get; set; } = null!;
     }
 }

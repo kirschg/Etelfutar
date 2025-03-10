@@ -1,0 +1,23 @@
+﻿using EtelfutarWPF.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EtelfutarWPF.DTOs
+{
+    public class LearazasDTO
+    {
+        public LearazasDTO(Learaza learazas)
+        {
+            //Etterem = new EttermekLearazasDTO(learazas.Etterem);
+            //Etel = new EtelLearazasDTO(learazas.Etel);
+            Learazas = learazas.Learazas;
+        }
+
+        public EttermekLearazasDTO Etterem { get; set; }
+        public EtelLearazasDTO Etel { get; set; }
+        public int Learazas { get; set; }
+    }
+}

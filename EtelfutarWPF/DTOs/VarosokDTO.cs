@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace EtelfutarWPF.DTOs
 {
-    public class FelhasznalokVarosDTO
+    public class VarosokDTO
     {
-        public FelhasznalokVarosDTO(Varosok varosok)
+        public VarosokDTO(Varosok varosok)
         {
             Id = varosok.Id;
             Nev = varosok.Nev;

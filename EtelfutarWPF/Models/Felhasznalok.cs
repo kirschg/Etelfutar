@@ -9,7 +9,7 @@ namespace EtelfutarWPF.Models
 {
     public partial class Felhasznalok
     {
-        public Felhasznalok(FelhasznalokDTO felhasznalokDTO)
+        /*public Felhasznalok(FelhasznalokDTO felhasznalokDTO)
         {
             Id = felhasznalokDTO.Id;
             FelhasznaloNev = felhasznalokDTO.FelhasznaloNev;
@@ -20,7 +20,7 @@ namespace EtelfutarWPF.Models
             Hash = felhasznalokDTO.Hash;
             Salt = felhasznalokDTO.Salt;
             Jogosultsag = felhasznalokDTO.Jogosultsag;
-        }
+        }*/
 
         public Felhasznalok()
         {
@@ -43,5 +43,12 @@ namespace EtelfutarWPF.Models
         public string Salt { get; set; } = null!;
 
         public int Jogosultsag { get; set; }
+
+        public int Aktiv { get; set; }
+        public virtual ICollection<Ertekelesek> Ertekeleseks { get; set; } = new List<Ertekelesek>();
+
+        public virtual Rendeles? Rendeles { get; set; }
+
+        public Varosok? Varos { get; set; } = null!;
     }
 }

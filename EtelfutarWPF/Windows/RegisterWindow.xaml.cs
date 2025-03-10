@@ -68,6 +68,7 @@ namespace EtelfutarWPF
                                         var body = new StringContent(json, Encoding.UTF8, "application/json");
                                         var result = await client.PostAsync("api/Registry", body);
                                         MessageBox.Show("Sikeres regisztráció. Ellenőrizze az emailjeit és erősítse meg az email címét!");
+                                        Close();
                                     }
                                     catch(Exception ex)
                                     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EtelfutarWPF.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,12 @@ namespace EtelfutarWPF.Models
         public Chain()
         {
 
+        }
+
+        public Chain(EtelekChainDTO etelekChainDTO)
+        {
+            Id = etelekChainDTO.Id;
+            Nev = etelekChainDTO.Nev;
         }
     }
 }
