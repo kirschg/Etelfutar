@@ -30,10 +30,7 @@ namespace EtelfutarWPF
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.client_address = tbx_cim.Text;
-            MainWindow.sharedClient = new HttpClient()
-            {
-                BaseAddress = new Uri(MainWindow.client_address)
-            };
+            MainWindow.sharedClient.BaseAddress = new Uri(MainWindow.client_address);
         Close();
         }
     }

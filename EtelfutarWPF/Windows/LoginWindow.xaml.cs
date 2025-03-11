@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
 
 namespace EtelfutarWPF
 {
@@ -72,6 +74,9 @@ namespace EtelfutarWPF
                                     LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
                                     MessageBox.Show("Sikeres bejelentkezés.");
                                     MainWindow.token = loggedUser.Token;
+                                    //MainWindow.sharedClient.DefaultRequestHeaders.Remove("Authorization");
+                                    //MainWindow.sharedClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {MainWindow.token}");
+                                    MainWindow.sharedClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", MainWindow.token);
                                     MainWindow.jogosultsag = loggedUser.Jogosultsag;
                                     File.WriteAllText("login.txt", $"{tbx_felhasznalo_nev.Text}\n{pbx_jelszo.Password}");
                                 }

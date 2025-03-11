@@ -21,6 +21,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Net.Http.Headers;
 
 namespace EtelfutarWPF
 {
@@ -33,7 +34,7 @@ namespace EtelfutarWPF
         public static string password = null;
         public static string token = null;
         public static int jogosultsag = -1;
-        public static string client_address = "http://localhost:5000";
+        public static string client_address = "https://localhost:7106";
         public static List<Felhasznalok> felhasznalok2 = new List<Felhasznalok>();
         public static List<Varosok> varosok2 = new List<Varosok>();
         public static List<Rendeles> rendeles2 = new List<Rendeles>();
@@ -44,10 +45,7 @@ namespace EtelfutarWPF
         public static List<Ertekelesek> ertekelesek2 = new List<Ertekelesek>();
         public static List<Chain> chain2 = new List<Chain>();
 
-        public static HttpClient sharedClient = new HttpClient()
-        {
-            BaseAddress = new Uri("http://localhost:5000")
-        };
+        public static HttpClient sharedClient;
         public static int SaltLength = 64;
         public MainWindow()
         {
@@ -117,6 +115,9 @@ namespace EtelfutarWPF
                                 string valaszJson = await result.Content.ReadAsStringAsync();
                                 LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
                                 MainWindow.token = loggedUser.Token;
+                                //MainWindow.sharedClient.DefaultRequestHeaders.Remove("Authorization");
+                                //sharedClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {MainWindow.token}");
+                                sharedClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                                 MainWindow.jogosultsag = loggedUser.Jogosultsag;
                                 BejelentkezesEllenorzese();
                             }
