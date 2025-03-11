@@ -46,11 +46,13 @@ namespace EtelfutarWPF.Windows
                                 //Ha minden adatot megadtunk
                                 Etelek uj_etel = new Etelek
                                 {
+                                    Id = 0,
                                     Nev = tbx_nev.Text,
                                     Kaloria = int.Parse(tbx_kaloria.Text),
                                     Ar = int.Parse(tbx_ar.Text),
                                     ChainId = int.Parse(tbx_chain_id.Text),
-                                    Indexkep = tbx_index_kep.Text
+                                    Indexkep = tbx_index_kep.Text,
+                                    Chain = null
                                 };
                                 try
                                 {
@@ -65,7 +67,7 @@ namespace EtelfutarWPF.Windows
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Sikertelen mentés!");
+                                        MessageBox.Show($"Sikertelen mentés!\n{result.StatusCode}");
                                     }
                                 }
                                 catch (Exception ex)

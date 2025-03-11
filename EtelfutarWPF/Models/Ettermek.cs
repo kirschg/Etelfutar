@@ -32,5 +32,9 @@ namespace EtelfutarWPF.Models
         public int VarosId { get; set; }
 
         public string Indexkep { get; set; } = null!;
+        public virtual Chain? Chain { get; set; } = null!;
+
+        public virtual Varosok? Varos { get; set; } = null!;
+        public virtual ICollection<Etelek> Etels { get; set; } = new List<Etelek>();
     }
 }

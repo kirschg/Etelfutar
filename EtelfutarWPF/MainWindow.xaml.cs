@@ -80,9 +80,6 @@ namespace EtelfutarWPF
 
             }
             AutoLogin();
-
-
-
         }
 
         public async void AutoLogin()
@@ -230,14 +227,14 @@ namespace EtelfutarWPF
                         //felhasználó törlése az adatbázisból
                         try
                         {
-                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Felhasznalok/DeleteFelhasznaloAsync?id={((FelhasznalokDTO)dgr_adatok.SelectedItem).Id}");
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Felhasznalok/DeleteFelhasznaloAsync?id={((Felhasznalok)dgr_adatok.SelectedItem).Id}");
                             if (result.IsSuccessStatusCode)
                             {
                                 MessageBox.Show("Sikeres törlés.");
                             }
                             else
                             {
-                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Felhasznalok/DeleteFelhasznaloAsync?id={((FelhasznalokDTO)dgr_adatok.SelectedItem).Id}");
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Felhasznalok/DeleteFelhasznaloAsync?id={((Felhasznalok)dgr_adatok.SelectedItem).Id}");
                             }
                         }
                         catch (Exception ex)
@@ -393,6 +390,7 @@ namespace EtelfutarWPF
                         felhasznalok2.Clear();
                         foreach(var felhasznalo in felhasznalok)
                         {
+                            felhasznalo.VarosId = felhasznalo.Varos.Id;
                             felhasznalok2.Add(felhasznalo);
                         }
                         dgr_adatok.ItemsSource = null;
@@ -437,6 +435,8 @@ namespace EtelfutarWPF
                         ettermek2.Clear();
                         foreach (var etterem in ettermek)
                         {
+                            etterem.ChainId = etterem.Chain.Id;
+                            etterem.VarosId = etterem.Varos.Id;
                             ettermek2.Add(etterem);
                         }
                         dgr_adatok.ItemsSource = null;
@@ -446,11 +446,12 @@ namespace EtelfutarWPF
                         EditEtelekWindow.kivalasztott_etel = (Etelek)dgr_adatok.SelectedItem;
                         EditEtelekWindow editEtelekWindow = new EditEtelekWindow();
                         editEtelekWindow.ShowDialog();
-                        List<EtelekDTO>? etelek = await sharedClient.GetFromJsonAsync<List<EtelekDTO>>("Etelek/GetEtelekAsync");
+                        List<Etelek>? etelek = await sharedClient.GetFromJsonAsync<List<Etelek>>("Etelek/GetEtelekAsync");
                         etelek2.Clear();
                         foreach (var etel in etelek)
                         {
-                            etelek2.Add(new Etelek(etel));
+                            etel.ChainId = etel.Chain.Id;
+                            etelek2.Add(etel);
                         }
                         dgr_adatok.ItemsSource = null;
                         dgr_adatok.ItemsSource = etelek2;
@@ -491,6 +492,7 @@ namespace EtelfutarWPF
                     felhasznalok2.Clear();
                     foreach (var felhasznalo in felhasznalok)
                     {
+                        felhasznalo.VarosId = felhasznalo.Varos.Id;
                         felhasznalok2.Add(felhasznalo);
                     }
                     dgr_adatok.ItemsSource = null;
@@ -532,6 +534,8 @@ namespace EtelfutarWPF
                     ettermek2.Clear();
                     foreach (var etterem in ettermek)
                     {
+                        etterem.ChainId = etterem.Chain.Id;
+                        etterem.VarosId = etterem.Varos.Id;
                         ettermek2.Add(etterem);
                     }
                     dgr_adatok.ItemsSource = null;
@@ -544,6 +548,7 @@ namespace EtelfutarWPF
                     etelek2.Clear();
                     foreach (var etel in etelek)
                     {
+                        etel.ChainId = etel.Chain.Id;
                         etelek2.Add(etel);
                     }
                     dgr_adatok.ItemsSource = null;
@@ -666,6 +671,8 @@ namespace EtelfutarWPF
                         ettermek2.Clear();
                         foreach (var etterem in ettermek)
                         {
+                            etterem.ChainId = etterem.Chain.Id;
+                            etterem.VarosId = etterem.Varos.Id;
                             ettermek2.Add(etterem);
                         }
                         dgr_adatok.ItemsSource = ettermek2;
@@ -688,6 +695,7 @@ namespace EtelfutarWPF
                         etelek2.Clear();
                         foreach(var etel in etelek)
                         {
+                            etel.ChainId = etel.Chain.Id;
                             etelek2.Add(etel);
                         }
                         dgr_adatok.ItemsSource = etelek2;
