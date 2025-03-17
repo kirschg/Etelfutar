@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace EtelfutarWPF
 {
@@ -30,8 +32,16 @@ namespace EtelfutarWPF
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.client_address = tbx_cim.Text;
-            MainWindow.sharedClient.BaseAddress = new Uri(MainWindow.client_address);
-        Close();
+            MainWindow.sharedClient = new HttpClient()
+            {
+                BaseAddress = new Uri(MainWindow.client_address),
+                DefaultRequestHeaders =
+                {
+                    Authorization = new AuthenticationHeaderValue("Bearer", MainWindow.token)
+                }
+            };
+            File.WriteAllText("client.txt", MainWindow.client_address);
+            Close();
         }
     }
 }

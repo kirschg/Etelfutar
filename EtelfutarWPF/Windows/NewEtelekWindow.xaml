@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EtelfutarWPF.Windows"
         mc:Ignorable="d"
         Background="#404040"
-        Title="NewEtelekWindow" Height="450" Width="400">
+        Title="Ételfutár | Új Étel" Height="450" Width="400">
     <StackPanel>
         <Label Foreground="White" Content="Név:" HorizontalAlignment="Center"></Label>
         <TextBox Name="tbx_nev" Width="200"></TextBox>

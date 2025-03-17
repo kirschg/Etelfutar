@@ -296,6 +296,27 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = felhasznalok2;
                         break;
                     case "Leárazás":
+                        learazas2.Remove((Learaza)dgr_adatok.SelectedItem);
+                        //felhasználó törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Learazas/DeleteLearazasAsync?etteremId={((Learaza)dgr_adatok.SelectedItem).EtteremId}&etelId={((Learaza)dgr_adatok.SelectedItem).EtelId}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Learazas/DeleteLearazasAsync?etteremId={((Learaza)dgr_adatok.SelectedItem).EtteremId}&etelId={((Learaza)dgr_adatok.SelectedItem).EtelId}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = learazas2;
                         break;
                     case "Éttermek":
                         ettermek2.Remove((Ettermek)dgr_adatok.SelectedItem);
@@ -413,7 +434,6 @@ namespace EtelfutarWPF
                     case "Rendelt Étel":
                         break;
                     case "Rendelés":
-                        
                         EditRendelesWindow.kivalasztott_rendeles = (Rendeles)dgr_adatok.SelectedItem;
                         EditRendelesWindow editRendelesWindow = new EditRendelesWindow();
                         editRendelesWindow.ShowDialog();
@@ -427,6 +447,17 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = rendeles2;
                         break;
                     case "Leárazás":
+                        EditLearazasWindow.kivalasztott_learazas = (Learaza)dgr_adatok.SelectedItem;
+                        EditLearazasWindow editLearazasWindow = new EditLearazasWindow();
+                        editLearazasWindow.ShowDialog();
+                        List<Learaza>? learazas = await sharedClient.GetFromJsonAsync<List<Learaza>>("Learazas/GetLearazasAsync");
+                        learazas2.Clear();
+                        foreach (var learaza in learazas)
+                        {
+                            learazas2.Add(learaza);
+                        }
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = learazas2;
                         break;
                     case "Éttermek":
                         EditEttermekWindow.kivalasztott_etterem = (Ettermek)dgr_adatok.SelectedItem;
@@ -526,7 +557,16 @@ namespace EtelfutarWPF
                     dgr_adatok.ItemsSource = rendeles2;
                     break;
                 case "Leárazás":
-
+                    NewLearazasWindow newLearazasWindow = new NewLearazasWindow();
+                    newLearazasWindow.ShowDialog();
+                    List<Learaza>? learazas = await sharedClient.GetFromJsonAsync<List<Learaza>>("Learazas/GetLearazasAsync");
+                    learazas2.Clear();
+                    foreach (var learaza in learazas)
+                    {
+                        learazas2.Add(learaza);
+                    }
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = learazas2;
                     break;
                 case "Éttermek":
                     NewEttermekWindow newEttermekWindow = new NewEttermekWindow();
@@ -624,6 +664,7 @@ namespace EtelfutarWPF
                     }
                     break;
                 case "Rendelt Étel":
+                    
                     break;
                 case "Rendelés":
                     try
@@ -650,7 +691,7 @@ namespace EtelfutarWPF
                 case "Leárazás":
                     try
                     {
-                        List<Learaza>? learazas = await sharedClient.GetFromJsonAsync<List<Learaza>>("Learazas/GetLearazasokAsync");
+                        List<Learaza>? learazas = await sharedClient.GetFromJsonAsync<List<Learaza>>("Learazas/GetLearazasAsync");
                         learazas2 = learazas;
                         dgr_adatok.ItemsSource = learazas;
                         if (jogosultsag > 1)

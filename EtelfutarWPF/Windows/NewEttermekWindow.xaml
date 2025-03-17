@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EtelfutarWPF.Windows"
         mc:Ignorable="d"
         Background="#404040"
-        Title="NewEttermekWindow" Height="450" Width="400">
+        Title="Ételfutár | Új Étterem" Height="450" Width="400">
     <StackPanel>
         <Label Foreground="White" Content="Cím:" HorizontalAlignment="Center"></Label>
         <TextBox Name="tbx_cim" Width="200"></TextBox>
