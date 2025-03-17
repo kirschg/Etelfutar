@@ -19,9 +19,15 @@ export const YourProfile = () => {
     else {
       navigate("/Login");
     }
-  }, [])
+  }, [token])
   return (console.log(user),
-    <div>
-
-    </div>)
+    <div className="App">
+      <div className="Panel">
+        <h1 style={{textAlign:"left"}}>{user.felhasznaloNev}</h1>
+        <div>
+            
+        </div>
+      </div>
+    </div>
+    )
 }

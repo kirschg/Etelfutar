@@ -73,6 +73,20 @@ Css for the reusable elements
   cursor: pointer;
 }
 
+.Panel {
+  margin: 30px;
+  background-color: hsl(0, 0%, 25%);
+  border-radius: 30px;
+  height: 90vh;
+  padding: 15px;
+}
+
+.Panel div{
+  border-radius: 15px;
+  background-color:hsl(0, 0%, 100%)
+  
+}
+
 /* 
 
 Css for the pages required to order food
