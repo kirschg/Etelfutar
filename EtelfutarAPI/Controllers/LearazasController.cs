@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EtelfutarAPI.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class LearazasController : Controller
     {
         [HttpGet("GetLearazasAsync")]
@@ -58,7 +60,7 @@ namespace EtelfutarAPI.Controllers
                     {
                         context.Learazas.Update(modLearazas);
                         await context.SaveChangesAsync();
-                        return Ok("Sikeres mentés");
+                        return Ok("Sikeres módosítás");
                     }
                     else
                     {
@@ -71,5 +73,30 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [HttpDelete("DeleteLearazasAsync")]
+        public async Task<IActionResult> DeleteLearazasAsync(int etteremId, int etelId)
+        {
+            using (var context = new EtelfutarContext())
+            {
+                try
+                {
+                    Learaza? learazas = await context.Learazas.FirstOrDefaultAsync(x => x.EtteremId == etteremId && x.EtelId == etelId);
+                    if (learazas is not null)
+                    {
+                        context.Learazas.Remove(learazas);
+                        await context.SaveChangesAsync();
+                        return Ok("Sikeres törlés");
+                    }
+                    else
+                    {
+                        return StatusCode(404, "Nincs találat");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+        }
     }
-}

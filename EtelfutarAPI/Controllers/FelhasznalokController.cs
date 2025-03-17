@@ -48,7 +48,7 @@ namespace EtelfutarAPI.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest("Elbasztad: " + ex.Message);
+                    return BadRequest("Hiba: " + ex.Message);
                 }
             }
         }
@@ -155,7 +155,7 @@ namespace EtelfutarAPI.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest("elbasztad:" + ex.Message);
+                    return BadRequest("Hiba:" + ex.Message);
                 }
             }
     }
