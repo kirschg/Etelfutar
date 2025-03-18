@@ -83,8 +83,9 @@ Css for the reusable elements
 
 .Panel div{
   border-radius: 15px;
-  background-color:hsl(0, 0%, 100%)
-  
+  background-color:hsl(350, 100%, 35%);
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 /* 
