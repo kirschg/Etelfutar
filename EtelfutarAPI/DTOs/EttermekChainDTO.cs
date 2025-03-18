@@ -10,7 +10,6 @@ namespace EtelfutarAPI.DTOs
             Id = chain.Id;
         }
         public int Id { get; set; }
-
         public string Nev { get; set; } = null!;
     }
 }
