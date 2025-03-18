@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\EtelfutarAPI.props" />
-</Project>
