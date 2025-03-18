@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EtelfutarWPF"
         mc:Ignorable="d"
         Background="#404040"
-        Title="Ételfutár | Felhasználó Módosítása" Height="410" Width="350">
+        Title="Ételfutár | Felhasználó Módosítása" Height="500" Width="350">
     <StackPanel>
         <Label Foreground="White" Content="Felhasználó név:" HorizontalAlignment="Center"></Label>
         <TextBox Name="tbx_felhasznalo_nev" Width="200"></TextBox>
@@ -22,6 +22,10 @@
         <PasswordBox Name="pbx_jelszo" Width="200"></PasswordBox>
         <Label Foreground="White" Content="Jelszó újra:" HorizontalAlignment="Center"></Label>
         <PasswordBox Name="pbx_jelszo_ujra" Width="200"></PasswordBox>
+        <Label Foreground="White" Content="Jogosultság:" HorizontalAlignment="Center"></Label>
+        <TextBox Name="tbx_jogosultsag" Width="100"></TextBox>
+        <Label Foreground="White" Content="Aktív:" HorizontalAlignment="Center"></Label>
+        <TextBox Name="tbx_aktiv" Width="100"></TextBox>
         <Button Click="Modositas_Click" Content="Módosítás" Width="100" Margin="0,10,0,0" Background="#b3001c"></Button>
         <Button Click="Megse_Click" Content="Mégse" Width="100" Margin="0,10,0,0"></Button>
     </StackPanel>

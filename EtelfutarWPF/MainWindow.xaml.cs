@@ -248,7 +248,7 @@ namespace EtelfutarWPF
                         break;
                     case "Városok":
                         varosok2.Remove((Varosok)dgr_adatok.SelectedItem);
-                        //felhasználó törlése az adatbázisból
+                        //város törlése az adatbázisból
                         try
                         {
                             var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Varosok/DeleteVarosAsync?id={((Varosok)dgr_adatok.SelectedItem).Id}");
@@ -274,7 +274,7 @@ namespace EtelfutarWPF
                         break;
                     case "Rendelés":
                         rendeles2.Remove((Rendeles)dgr_adatok.SelectedItem);
-                        //felhasználó törlése az adatbázisból
+                        //rendelés törlése az adatbázisból
                         try
                         {
                             var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Rendeles/DeleteRendelesAsync?id={((Rendeles)dgr_adatok.SelectedItem).Id}");
@@ -297,7 +297,7 @@ namespace EtelfutarWPF
                         break;
                     case "Leárazás":
                         learazas2.Remove((Learaza)dgr_adatok.SelectedItem);
-                        //felhasználó törlése az adatbázisból
+                        //leárazás törlése az adatbázisból
                         try
                         {
                             var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Learazas/DeleteLearazasAsync?etteremId={((Learaza)dgr_adatok.SelectedItem).EtteremId}&etelId={((Learaza)dgr_adatok.SelectedItem).EtelId}");
@@ -320,7 +320,7 @@ namespace EtelfutarWPF
                         break;
                     case "Éttermek":
                         ettermek2.Remove((Ettermek)dgr_adatok.SelectedItem);
-                        //felhasználó törlése az adatbázisból
+                        //étterem törlése az adatbázisból
                         try
                         {
                             var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Ettermek/DeleteEtteremAsync?id={((Ettermek)dgr_adatok.SelectedItem).Id}");
@@ -343,7 +343,7 @@ namespace EtelfutarWPF
                         break;
                     case "Ételek":
                         etelek2.Remove((Etelek)dgr_adatok.SelectedItem);
-                        //felhasználó törlése az adatbázisból
+                        //étel törlése az adatbázisból
                         try
                         {
                             var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Etelek/DeleteEtelAsync?id={((Etelek)dgr_adatok.SelectedItem).Id}");
@@ -365,11 +365,31 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = etelek2;
                         break;
                     case "Értékelések":
-
+                        ertekelesek2.Remove((Ertekelesek)dgr_adatok.SelectedItem);
+                        //értékelés törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Ertekeles/Delete/Értékelés?id={((Ertekelesek)dgr_adatok.SelectedItem).Id}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Ertekeles/Delete/Értékelés?id={((Ertekelesek)dgr_adatok.SelectedItem).Id}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = ertekelesek2;
                         break;
                     case "Chain":
                         chain2.Remove((Chain)dgr_adatok.SelectedItem);
-                        //felhasználó törlése az adatbázisból
+                        //chain törlése az adatbázisból
                         try
                         {
                             var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Chain/DeleteChainAsync?id={((Chain)dgr_adatok.SelectedItem).Id}");
@@ -490,6 +510,17 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = etelek2;
                         break;
                     case "Értékelések":
+                        EditErtekelesekWindow.kivalasztott_ertekeles = (Ertekelesek)dgr_adatok.SelectedItem;
+                        EditErtekelesekWindow editErtekelesekWindow = new EditErtekelesekWindow();
+                        editErtekelesekWindow.ShowDialog();
+                        List<Ertekelesek> ertekelesek = await sharedClient.GetFromJsonAsync<List<Ertekelesek>>("Ertekeles/GET/Értékelés");
+                        ertekelesek2.Clear();
+                        foreach (var ertekeles in ertekelesek)
+                        {
+                            ertekelesek2.Add(ertekeles);
+                        }
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = ertekelesek2;
                         break;
                     case "Chain":
                         EditChainWindow.kivalasztott_chain = (Chain)dgr_adatok.SelectedItem;
@@ -600,6 +631,16 @@ namespace EtelfutarWPF
                     dgr_adatok.ItemsSource = etelek2;
                     break;
                 case "Értékelések":
+                    NewErtekelesekWindow newErtekelesekWindow = new NewErtekelesekWindow();
+                    newErtekelesekWindow.ShowDialog();
+                    List<Ertekelesek>? ertekelesek = await sharedClient.GetFromJsonAsync<List<Ertekelesek>>("Ertekeles/GET/Értékelés");
+                    ertekelesek2.Clear();
+                    foreach (var ertekeles in ertekelesek)
+                    {
+                        ertekelesek2.Add(ertekeles);
+                    }
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = ertekelesek2;
                     break;
                 case "Chain":
                     NewChainWindow newChainWindow = new NewChainWindow();
@@ -760,8 +801,12 @@ namespace EtelfutarWPF
                 case "Értékelések":
                     try
                     {
-                        List<Ertekelesek>? ertekelesek = await sharedClient.GetFromJsonAsync<List<Ertekelesek>>("Ertekelesek/GetErtekelesAsync");
-                        ertekelesek2 = ertekelesek;
+                        List<Ertekelesek>? ertekelesek = await sharedClient.GetFromJsonAsync<List<Ertekelesek>>("Ertekeles/GET/Értékelés");
+                        ertekelesek2.Clear();
+                        foreach(var ertekeles in ertekelesek)
+                        {
+                            ertekelesek2.Add(ertekeles);
+                        }
                         dgr_adatok.ItemsSource = ertekelesek;
                         if (jogosultsag > 1)
                         {

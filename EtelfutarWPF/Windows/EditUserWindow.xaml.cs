@@ -35,6 +35,8 @@ namespace EtelfutarWPF
             tbx_lakcim.Text = kivalasztott_felhasznalo.Lakcim;
             pbx_jelszo.Password = "";
             pbx_jelszo_ujra.Password = "";
+            tbx_jogosultsag.Text = kivalasztott_felhasznalo.Jogosultsag.ToString();
+            tbx_aktiv.Text = kivalasztott_felhasznalo.Aktiv.ToString();
         }
         private void Megse_Click(object sender, RoutedEventArgs e)
         {
@@ -54,39 +56,54 @@ namespace EtelfutarWPF
                             {
                                 if (pbx_jelszo.Password == pbx_jelszo_ujra.Password)
                                 {
-                                    //Ha minden adatot megadtunk
-                                    string salt = MainWindow.GenerateSalt();
-                                    string hashedPassword = MainWindow.CreateSHA256(pbx_jelszo.Password + salt);
-                                    string doubleHashedPassword = MainWindow.CreateSHA256(hashedPassword);
-                                    kivalasztott_felhasznalo.FelhasznaloNev = tbx_felhasznalo_nev.Text;
-                                    kivalasztott_felhasznalo.Email = tbx_email_cim.Text;
-                                    kivalasztott_felhasznalo.Salt = salt;
-                                    kivalasztott_felhasznalo.TeljesNev = tbx_teljes_nev.Text;
-                                    kivalasztott_felhasznalo.Lakcim = tbx_lakcim.Text;
-                                    kivalasztott_felhasznalo.Hash = doubleHashedPassword;
-                                    kivalasztott_felhasznalo.VarosId = int.Parse(tbx_varos_id.Text);
-                                    kivalasztott_felhasznalo.Aktiv = 1;
-                                    try
+                                    if (tbx_jogosultsag.Text != "" && int.TryParse(tbx_jogosultsag.Text, out int tbx_jogosultag_int))
                                     {
-                                        string json = JsonSerializer.Serialize(kivalasztott_felhasznalo, JsonSerializerOptions.Default);
-                                        MessageBox.Show(json);
-                                        var body = new StringContent(json, Encoding.UTF8, "application/json");
-                                        var result = await MainWindow.sharedClient.PutAsync("Felhasznalok/PutFelhasznaloAsync", body);
-                                        result.Content.ReadAsStringAsync().Wait();
-                                        if (result.IsSuccessStatusCode)
+                                        if (tbx_aktiv.Text != "" && int.TryParse(tbx_aktiv.Text, out int tbx_aktiv_int))
                                         {
-                                            MessageBox.Show("Sikeres módosítás.");
+                                            //Ha minden adatot megadtunk
+                                            string salt = MainWindow.GenerateSalt();
+                                            string hashedPassword = MainWindow.CreateSHA256(pbx_jelszo.Password + salt);
+                                            string doubleHashedPassword = MainWindow.CreateSHA256(hashedPassword);
+                                            kivalasztott_felhasznalo.FelhasznaloNev = tbx_felhasznalo_nev.Text;
+                                            kivalasztott_felhasznalo.Email = tbx_email_cim.Text;
+                                            kivalasztott_felhasznalo.Salt = salt;
+                                            kivalasztott_felhasznalo.TeljesNev = tbx_teljes_nev.Text;
+                                            kivalasztott_felhasznalo.Lakcim = tbx_lakcim.Text;
+                                            kivalasztott_felhasznalo.Hash = doubleHashedPassword;
+                                            kivalasztott_felhasznalo.VarosId = int.Parse(tbx_varos_id.Text);
+                                            kivalasztott_felhasznalo.Jogosultsag = int.Parse(tbx_jogosultsag.Text);
+                                            kivalasztott_felhasznalo.Aktiv = int.Parse(tbx_aktiv.Text);
+                                            try
+                                            {
+                                                string json = JsonSerializer.Serialize(kivalasztott_felhasznalo, JsonSerializerOptions.Default);
+                                                MessageBox.Show(json);
+                                                var body = new StringContent(json, Encoding.UTF8, "application/json");
+                                                var result = await MainWindow.sharedClient.PutAsync("Felhasznalok/PutFelhasznaloAsync", body);
+                                                result.Content.ReadAsStringAsync().Wait();
+                                                if (result.IsSuccessStatusCode)
+                                                {
+                                                    MessageBox.Show("Sikeres módosítás.");
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show(result.RequestMessage.ToString());
+                                                }
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show(ex.Message);
+                                            }
+                                            Close();
                                         }
                                         else
                                         {
-                                            MessageBox.Show(result.RequestMessage.ToString());
+                                            MessageBox.Show("Nincs megadva aktív-e!");
                                         }
                                     }
-                                    catch (Exception ex)
+                                    else
                                     {
-                                        MessageBox.Show(ex.Message);
+                                        MessageBox.Show("Nincs megadva jogosultság!");
                                     }
-                                    Close();
                                 }
                                 else
                                 {
