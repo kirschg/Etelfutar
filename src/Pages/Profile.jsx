@@ -10,11 +10,11 @@ export const YourProfile = () => {
   const [user, setUser] = useState([]);
   useEffect(() => {
     if (token !== null) {
-      /*axios.get("https://localhost:7106/Felhasznalok/GetFelhasznaloByTokenAsync?token=" + token, {
+      axios.get("https://localhost:7106/Felhasznalok/GetFelhasznaloByTokenAsync?token=" + token, {
         headers: { "Authorization": `Bearer ${token}` }
       })
         .then(res => setUser(res.data))
-        .catch(err => console.log(err))*/
+        .catch(err => console.log(err))
     }
     else {
       navigate("/Login");
