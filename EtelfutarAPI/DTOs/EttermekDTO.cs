@@ -10,6 +10,7 @@ namespace EtelfutarAPI.DTOs
             Cim = ettermek.Cim;
             Chain = new EttermekChainDTO(ettermek.Chain);
             Varos = new EttermekVarosDTO(ettermek.Varos);
+            Ertekeles = ettermek.Ertekeles;
             IndexKep = ettermek.Indexkep;
         }
 
@@ -17,6 +18,7 @@ namespace EtelfutarAPI.DTOs
         public string Cim { get; set; }
         public EttermekChainDTO Chain { get; set; }
         public EttermekVarosDTO Varos { get; set; }
+        public EttermekErtekelesDTO Ertekeles { get; set; }
         public string IndexKep { get; set; }
     }
 }

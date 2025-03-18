@@ -43,6 +43,7 @@ namespace VizsgaremekAPI.Controllers
                     string Hash = Program.CreateSHA256(loginDTO.TmpHash);
                     Felhasznalok? loggedUser = await context.Felhasznaloks
                         .Include(x=>x.Rendeles.Etels)
+                        .Include(x=>x.Varos)
                         .FirstOrDefaultAsync(u => u.FelhasznaloNev == loginDTO.LoginName && u.Hash == Hash);
                     if(loggedUser != null && loggedUser.Aktiv == 1)
                     {
@@ -55,6 +56,7 @@ namespace VizsgaremekAPI.Controllers
                         {
                             FelhasznaloNev = loginDTO.LoginName,
                             Email = loggedUser.Email,
+                            VarosId = loggedUser.VarosId,
                             Jogosultsag = loggedUser.Jogosultsag,
                             Token = token
                         });

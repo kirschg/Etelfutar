@@ -14,6 +14,7 @@ namespace EtelfutarAPI.DTOs
             Lakcim = felhasznalok.Lakcim;
             Hash = felhasznalok.Hash;
             Salt = felhasznalok.Salt;
+            Aktiv = felhasznalok.Aktiv;
             Jogosultsag = felhasznalok.Jogosultsag;
         }
 
@@ -25,6 +26,7 @@ namespace EtelfutarAPI.DTOs
         public string Lakcim { get; set; }
         public string Hash { get; set; }
         public string Salt { get; set; }
+        public int Aktiv { get; set; }
         public int Jogosultsag { get; set; }
     }
 }

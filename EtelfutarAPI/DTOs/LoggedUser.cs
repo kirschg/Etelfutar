@@ -8,6 +8,8 @@
 
         public int Jogosultsag { get; set; }
 
+        public int VarosId { get; set; }
+
         public string ProfilKepUtvonal { get; set; } = null!;
 
         public string Token { get; set; }

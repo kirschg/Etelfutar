@@ -8,7 +8,7 @@ namespace EtelfutarAPI.Controllers
     [ApiController]
     public class VarosokController : Controller
     {
-        //[CustomAuthorize]
+        [CustomAuthorize]
         [HttpGet("GetVarosokAsync")]
         public async Task<IActionResult> GetVarosokAsync()
         {
@@ -25,6 +25,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPost("PostVarosAsync")]
         public async Task<IActionResult> PostVarosAsync(Varosok ujVaros)
         {
@@ -49,6 +50,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPut("PutVarosAsync")]
         public async Task<IActionResult> PutVarosAsync(Varosok modVaros)
         {
@@ -73,6 +75,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpDelete("DeleteVarosAsync")]
         public async Task<IActionResult> DeleteVarosAsync(int id)
         {
