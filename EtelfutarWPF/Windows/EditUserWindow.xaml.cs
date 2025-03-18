@@ -65,6 +65,7 @@ namespace EtelfutarWPF
                                     kivalasztott_felhasznalo.Lakcim = tbx_lakcim.Text;
                                     kivalasztott_felhasznalo.Hash = doubleHashedPassword;
                                     kivalasztott_felhasznalo.VarosId = int.Parse(tbx_varos_id.Text);
+                                    kivalasztott_felhasznalo.Aktiv = 1;
                                     try
                                     {
                                         string json = JsonSerializer.Serialize(kivalasztott_felhasznalo, JsonSerializerOptions.Default);

@@ -365,6 +365,7 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = etelek2;
                         break;
                     case "Értékelések":
+
                         break;
                     case "Chain":
                         chain2.Remove((Chain)dgr_adatok.SelectedItem);
@@ -518,8 +519,11 @@ namespace EtelfutarWPF
             switch (cbx_tablazatok.SelectedValue.ToString())
             {
                 case "Felhasználók":
-                    NewUserWindow newUserWindow = new NewUserWindow();
-                    newUserWindow.ShowDialog();
+                    /*NewUserWindow newUserWindow = new NewUserWindow();
+                    newUserWindow.ShowDialog();*/
+                    RegisterWindow registerWindow = new RegisterWindow();
+                    registerWindow.client = sharedClient;
+                    registerWindow.ShowDialog();
                     List<Felhasznalok>? felhasznalok = await sharedClient.GetFromJsonAsync<List<Felhasznalok>>("Felhasznalok/GetFelhasznalokAsync");
                     felhasznalok2.Clear();
                     foreach (var felhasznalo in felhasznalok)
@@ -631,9 +635,9 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = felhasznalok2;
                         if (jogosultsag > 1)
                         {
-                            btn_torles.IsEnabled = true;
+                            btn_torles.IsEnabled = false;
                             btn_modositas.IsEnabled = true;
-                            btn_uj.IsEnabled = true;
+                            btn_uj.IsEnabled = false;
                         }
                     }
                     catch (Exception ex)
