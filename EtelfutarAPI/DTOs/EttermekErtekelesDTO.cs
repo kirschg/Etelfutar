@@ -4,15 +4,15 @@ namespace EtelfutarAPI.DTOs
 {
     public class EttermekErtekelesDTO
     {
-        public EttermekErtekelesDTO(Ettermek etterem)
+        public EttermekErtekelesDTO(Ertekelesek ertekeles)
         { 
-            Id = etterem.Id;
-            Cim = etterem.Cim;
-            ChainId = etterem.ChainId;
+            Id = ertekeles.Id;
+            FelhasznaloId = ertekeles.FelhasznaloId;
+            EtteremId = ertekeles.EtteremId;
         }
 
         public int Id { get; set; }
-        public string Cim { get; set; }
-        public int ChainId { get; set; }
+        public int FelhasznaloId { get; set; }
+        public int EtteremId { get; set; }
     }
 }

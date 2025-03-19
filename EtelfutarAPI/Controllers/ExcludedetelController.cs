@@ -1,5 +1,5 @@
-﻿using EtelfutarAPI.Models;
-using Microsoft.AspNetCore.Http;
+﻿using EtelfutarAPI.DTOs;
+using EtelfutarAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +9,34 @@ namespace EtelfutarAPI.Controllers
     [ApiController]
     public class ExcludedetelController : Controller
     {
+        [HttpGet("GetExcludedetelAsync")]
+        
+        public async Task<IActionResult> GetExcludedetelAsync()
+        {
+            using (var context = new EtelfutarContext())
+            {
+                try
+                {
+                    List<Ettermek> ettermek = context.Ettermeks.ToList();
+                    List<ExcludedEtelDTO> etelek = new List<ExcludedEtelDTO>();
+
+                    foreach (var etterem in ettermek)
+                    {
+                        foreach (var item in context.Eteleks)
+                        {
+                            etelek.Add(new ExcludedEtelDTO(etterem.Id, item.Id));
+                        }
+                    }
+                    return Ok(etelek);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+        
+
         [HttpPost("PostExcludedetelAsync")]
         public async Task<IActionResult> PostExcludedetelAsync(int etteremId, int etelId)
         {

@@ -1,5 +1,5 @@
-﻿using EtelfutarAPI.Models;
-using Microsoft.AspNetCore.Http;
+﻿using EtelfutarAPI.DTOs;
+using EtelfutarAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +9,32 @@ namespace EtelfutarAPI.Controllers
     [ApiController]
     public class RendeltetelController : Controller
     {
+        [HttpGet("GetRendeltetelAsync")]
+        public async Task<IActionResult> GetRendeletelAsync()
+        {
+            using (var context = new EtelfutarContext())
+            {
+                try
+                {
+                    List<Rendeles> rendelesek = context.Rendeles.ToList();
+                    List<EtelRendelesDTO> etelRendeles = new List<EtelRendelesDTO>();
+
+                    foreach (var rendeles in rendelesek)
+                    {
+                        foreach (var item in rendeles.Etels)
+                        {
+                            etelRendeles.Add(new EtelRendelesDTO(rendeles.Id, item.Id));
+                        }
+                    }
+                    return Ok(etelRendeles);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+
         [HttpPost("PostRendeltetelAsync")]
         public async Task<IActionResult> PostRendeltetelAsync(int etelId, int rendelesId)
         {
