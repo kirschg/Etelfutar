@@ -10,7 +10,7 @@ namespace EtelfutarAPI.DTOs
             Cim = ettermek.Cim;
             Chain = new EttermekChainDTO(ettermek.Chain);
             Varos = new EttermekVarosDTO(ettermek.Varos);
-            Ertekeles = ettermek.Ertekeleseks.Select(x => new EttermekErtekelesDTO(x));
+            Ertekeles = ettermek.Ertekeleseks.Select(x => new EttermekErtekelesDTO(x)).ToList();
             IndexKep = ettermek.Indexkep;
         }
 

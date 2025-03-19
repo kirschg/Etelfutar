@@ -17,17 +17,9 @@ namespace EtelfutarAPI.Controllers
             {
                 try
                 {
-                    List<Ettermek> ettermek = context.Ettermeks.ToList();
+                    //List<Ettermek> ettermek = context.Ettermeks.ToListAsync();
                     List<ExcludedEtelDTO> etelek = new List<ExcludedEtelDTO>();
-
-                    foreach (var etterem in ettermek)
-                    {
-                        foreach (var item in context.Eteleks)
-                        {
-                            etelek.Add(new ExcludedEtelDTO(etterem.Id, item.Id));
-                        }
-                    }
-                    return Ok(etelek);
+                    return Ok(context);
                 }
                 catch (Exception ex)
                 {
