@@ -8,7 +8,7 @@ namespace EtelfutarAPI.DTOs
         { 
             Id = ertekeles.Id;
             Felhasznalo = new FelhasznaloErtekelesDTO(ertekeles.Felhasznalo);
-            Etterem = new Ettermek(ertekeles.Etterem);
+            Etterem = new EttermekErtekelesDTO(ertekeles.Etterem);
             Szoveg = ertekeles.Szoveg;
             Ertekeles = ertekeles.Ertekeles;
         }
