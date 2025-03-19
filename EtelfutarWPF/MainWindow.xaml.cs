@@ -39,11 +39,12 @@ namespace EtelfutarWPF
         public static List<Varosok> varosok2 = new List<Varosok>();
         public static List<Rendeles> rendeles2 = new List<Rendeles>();
         public static List<Learaza> learazas2 = new List<Learaza>();
-        public static List<Learaza> rendelt_etel2 = new List<Learaza>();
+        public static List<RendeltEtelDTO> rendelt_etel2 = new List<RendeltEtelDTO>();
         public static List<Ettermek> ettermek2 = new List<Ettermek>();
         public static List<Etelek> etelek2 = new List<Etelek>();
         public static List<Ertekelesek> ertekelesek2 = new List<Ertekelesek>();
         public static List<Chain> chain2 = new List<Chain>();
+        public static List<ExcludedEtelDTO> excluded_etel2 = new List<ExcludedEtelDTO>();
 
         public static HttpClient sharedClient;
         public static int SaltLength = 64;
@@ -54,6 +55,7 @@ namespace EtelfutarWPF
             cbx_tablazatok.Items.Add("Felhasználók");
             cbx_tablazatok.Items.Add("Ételek");
             cbx_tablazatok.Items.Add("Rendelt Étel");
+            cbx_tablazatok.Items.Add("Excluded Étel");
             cbx_tablazatok.Items.Add("Leárazás");
             cbx_tablazatok.Items.Add("Éttermek");
             cbx_tablazatok.Items.Add("Értékelések");
@@ -270,7 +272,50 @@ namespace EtelfutarWPF
                         dgr_adatok.ItemsSource = varosok2;
                         break;
                     case "Rendelt Étel":
-                        
+                        rendelt_etel2.Remove((RendeltEtelDTO)dgr_adatok.SelectedItem);
+                        //város törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Rendeltetel/DeleteRendeltetelAsync?etelId={((RendeltEtelDTO)dgr_adatok.SelectedItem).EtelId}&rendelesId={((RendeltEtelDTO)dgr_adatok.SelectedItem).RendelesId}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Rendeltetel/DeleteRendeltetelAsync?etelId={((RendeltEtelDTO)dgr_adatok.SelectedItem).EtelId}&rendelesId={((RendeltEtelDTO)dgr_adatok.SelectedItem).RendelesId}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = rendelt_etel2;
+                        break;
+                    case "Excluded Étel":
+                        excluded_etel2.Remove((ExcludedEtelDTO)dgr_adatok.SelectedItem);
+                        //város törlése az adatbázisból
+                        try
+                        {
+                            var result = await sharedClient.DeleteAsync($"{sharedClient.BaseAddress}Excludedetel/DeleteExcludedetelAsync?etelId={((ExcludedEtelDTO)dgr_adatok.SelectedItem).EtelId}&etteremId={((ExcludedEtelDTO)dgr_adatok.SelectedItem).EtteremId}");
+                            if (result.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Sikeres törlés.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {result}\n" + $"{sharedClient.BaseAddress}Excludedetel/DeleteExcludedetelAsync?etelId={((ExcludedEtelDTO)dgr_adatok.SelectedItem).EtelId}&etteremId={((ExcludedEtelDTO)dgr_adatok.SelectedItem).EtteremId}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //datagrid frissítése
+                        dgr_adatok.ItemsSource = null;
+                        dgr_adatok.ItemsSource = excluded_etel2;
                         break;
                     case "Rendelés":
                         rendeles2.Remove((Rendeles)dgr_adatok.SelectedItem);
@@ -577,7 +622,31 @@ namespace EtelfutarWPF
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = varosok2;
                     break;
+                case "Excluded Étel":
+                    NewExcludedEtelWindow newExcludedEtelWindow = new NewExcludedEtelWindow();
+                    newExcludedEtelWindow.client = sharedClient;
+                    newExcludedEtelWindow.ShowDialog();
+                    /*List<ExcludedEtelDTO>? excluded_etel = await sharedClient.GetFromJsonAsync<List<ExcludedEtelDTO>>("Excludedetel/GetExcludedetelAsync");
+                    exlucded_etel2.Clear();
+                    foreach (var excluded_ete in excluded_etel)
+                    {
+                        excluded_etel2.Add(excluded_ete);
+                    }*/
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = excluded_etel2;
+                    break;
                 case "Rendelt Étel":
+                    NewRendeltEtelWindow newRendeltEtelWindow = new NewRendeltEtelWindow();
+                    newRendeltEtelWindow.client = sharedClient;
+                    newRendeltEtelWindow.ShowDialog();
+                    /*List<RendeltEtelDTO>? rendelt_etel = await sharedClient.GetFromJsonAsync<List<RendeltEtelDTO>>("Rendeltetel/GetRendeltetelAsync");
+                    rendelt_etel2.Clear();
+                    foreach (var rendelt_ete in rendelt_etel)
+                    {
+                        rendelt_etel2.Add(rendelt_ete);
+                    }*/
+                    dgr_adatok.ItemsSource = null;
+                    dgr_adatok.ItemsSource = rendelt_etel2;
                     break;
                 case "Rendelés":
                     NewRendelesWindow newRendelesWindow = new NewRendelesWindow();
@@ -709,7 +778,48 @@ namespace EtelfutarWPF
                     }
                     break;
                 case "Rendelt Étel":
-                    
+                    try
+                    {
+                        /*List<RendeltEtelDTO>? rendelt_etel = await sharedClient.GetFromJsonAsync<List<RendeltEtelDTO>>("Rendeltetel/GetRendeltetelAsync");
+                        rendelt_etel2.Clear();
+                        foreach (var rendelt_ete in rendelt_etel)
+                        {
+                            rendelt_etel2.Add(rendelt_ete);
+                        }*/
+                        dgr_adatok.ItemsSource = rendelt_etel2;
+                        if (jogosultsag > 1)
+                        {
+                            btn_torles.IsEnabled = true;
+                            btn_modositas.IsEnabled = false;
+                            btn_uj.IsEnabled = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
+                    }
+                    break;
+                case "Excluded Étel":
+                    try
+                    {
+                        /*List<ExcludedEtelDTO>? excluded_etel = await sharedClient.GetFromJsonAsync<List<ExcludedEtelDTO>>("Rendeles/GetExcludedetelAsync");
+                        excluded_etel2.Clear();
+                        foreach (var excluded_ete in excluded_etel)
+                        {
+                            excluded_etel2.Add(excluded_ete);
+                        }*/
+                        dgr_adatok.ItemsSource = excluded_etel2;
+                        if (jogosultsag > 1)
+                        {
+                            btn_torles.IsEnabled = true;
+                            btn_modositas.IsEnabled = false;
+                            btn_uj.IsEnabled = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Sikertelen betöltés!\n{ex.Message}");
+                    }
                     break;
                 case "Rendelés":
                     try
