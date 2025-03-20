@@ -143,6 +143,64 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EtelfutarAPI.Controllers.ErtekelesController",
+    "Method": "Delete",
+    "RelativePath": "Ertekeles/DELETE/\u00C9rt\u00E9kel\u00E9s",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.ErtekelesController",
+    "Method": "Get",
+    "RelativePath": "Ertekeles/GET/\u00C9rt\u00E9kel\u00E9s",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.ErtekelesController",
+    "Method": "Post",
+    "RelativePath": "Ertekeles/POST/\u00C9rt\u00E9kel\u00E9s",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ujErtekeles",
+        "Type": "EtelfutarAPI.Models.Ertekelesek",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.ErtekelesController",
+    "Method": "Put",
+    "RelativePath": "Ertekeles/PUT/\u00C9rt\u00E9kel\u00E9s",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modositottErtekeles",
+        "Type": "EtelfutarAPI.Models.Ertekelesek",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EtelfutarAPI.Controllers.EtelekController",
     "Method": "DeleteEtelAsync",
     "RelativePath": "Etelek/DeleteEtelAsync",
@@ -313,6 +371,16 @@
   },
   {
     "ContainingType": "EtelfutarAPI.Controllers.ExcludedetelController",
+    "Method": "GetExcludedetelAsync",
+    "RelativePath": "Excludedetel/GetExcludedetelAsync",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.ExcludedetelController",
     "Method": "PostExcludedetelAsync",
     "RelativePath": "Excludedetel/PostExcludedetelAsync",
     "HttpMethod": "POST",
@@ -334,15 +402,31 @@
   },
   {
     "ContainingType": "EtelfutarAPI.Controllers.FelhasznalokController",
-    "Method": "DeleteEtelAsync",
-    "RelativePath": "Felhasznalok/DeleteEtelAsync",
-    "HttpMethod": "DELETE",
+    "Method": "FelhasznaloPutRestricted",
+    "RelativePath": "Felhasznalok/FelhasznalokPutRestricted",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "modFelhasznalo",
+        "Type": "EtelfutarAPI.DTOs.FelhasznalokPutRestrictedDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.FelhasznalokController",
+    "Method": "GetFelhasznaloByTokenAsync",
+    "RelativePath": "Felhasznalok/GetFelhasznaloByTokenAsync",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],
@@ -356,22 +440,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EtelfutarAPI.Controllers.FelhasznalokController",
-    "Method": "PostFelhasznaloAsync",
-    "RelativePath": "Felhasznalok/PostFelhasznaloAsync",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "ujFelhasznalo",
-        "Type": "EtelfutarAPI.Models.Felhasznalok",
-        "IsRequired": true
-      }
-    ],
     "ReturnTypes": []
   },
   {
@@ -391,6 +459,69 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EtelfutarAPI.Controllers.LearazasController",
+    "Method": "DeleteLearazasAsync",
+    "RelativePath": "Learazas/DeleteLearazasAsync",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "etteremId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "etelId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.LearazasController",
+    "Method": "GetFelhasznalokAsync",
+    "RelativePath": "Learazas/GetLearazasAsync",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.LearazasController",
+    "Method": "PostLearazasAsync",
+    "RelativePath": "Learazas/PostLearazasAsync",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ujLearazas",
+        "Type": "EtelfutarAPI.Models.Learaza",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.LearazasController",
+    "Method": "PutLearazasAsync",
+    "RelativePath": "Learazas/PutLearazasAsync",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modLearazas",
+        "Type": "EtelfutarAPI.Models.Learaza",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EtelfutarAPI.Controllers.RendelesController",
     "Method": "DeleteRendelesAsync",
     "RelativePath": "Rendeles/DeleteRendelesAsync",
@@ -401,6 +532,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.RendelesController",
+    "Method": "GetRendelesByToken",
+    "RelativePath": "Rendeles/GetByToken",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],
@@ -467,6 +614,16 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EtelfutarAPI.Controllers.RendeltetelController",
+    "Method": "GetRendeletelAsync",
+    "RelativePath": "Rendeltetel/GetRendeltetelAsync",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

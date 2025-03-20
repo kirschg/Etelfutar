@@ -102,6 +102,103 @@
         }
       }
     },
+    "/Ertekeles/GET/Értékelés": {
+      "get": {
+        "tags": [
+          "Ertekeles"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ertekeles/POST/Értékelés": {
+      "post": {
+        "tags": [
+          "Ertekeles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ertekelesek"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ertekelesek"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ertekelesek"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ertekeles/PUT/Értékelés": {
+      "put": {
+        "tags": [
+          "Ertekeles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ertekelesek"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ertekelesek"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ertekelesek"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ertekeles/DELETE/Értékelés": {
+      "delete": {
+        "tags": [
+          "Ertekeles"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/Etelek/GetEtelekAsync": {
       "get": {
         "tags": [
@@ -341,6 +438,18 @@
         }
       }
     },
+    "/Excludedetel/GetExcludedetelAsync": {
+      "get": {
+        "tags": [
+          "Excludedetel"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/Excludedetel/PostExcludedetelAsync": {
       "post": {
         "tags": [
@@ -417,30 +526,21 @@
         }
       }
     },
-    "/Felhasznalok/PostFelhasznaloAsync": {
-      "post": {
+    "/Felhasznalok/GetFelhasznaloByTokenAsync": {
+      "get": {
         "tags": [
           "Felhasznalok"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Felhasznalok"
-              }
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -479,14 +579,128 @@
         }
       }
     },
-    "/Felhasznalok/DeleteEtelAsync": {
-      "delete": {
+    "/Felhasznalok/FelhasznalokPutRestricted": {
+      "put": {
         "tags": [
           "Felhasznalok"
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FelhasznalokPutRestrictedDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FelhasznalokPutRestrictedDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FelhasznalokPutRestrictedDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Learazas/GetLearazasAsync": {
+      "get": {
+        "tags": [
+          "Learazas"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Learazas/PostLearazasAsync": {
+      "post": {
+        "tags": [
+          "Learazas"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Learaza"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Learaza"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Learaza"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Learazas/PutLearazasAsync": {
+      "put": {
+        "tags": [
+          "Learazas"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Learaza"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Learaza"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Learaza"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Learazas/DeleteLearazasAsync": {
+      "delete": {
+        "tags": [
+          "Learazas"
+        ],
         "parameters": [
           {
-            "name": "id",
+            "name": "etteremId",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "etelId",
             "in": "query",
             "style": "form",
             "schema": {
@@ -735,6 +949,40 @@
         }
       }
     },
+    "/Rendeles/GetByToken": {
+      "get": {
+        "tags": [
+          "Rendeles"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Rendeltetel/GetRendeltetelAsync": {
+      "get": {
+        "tags": [
+          "Rendeltetel"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/Rendeltetel/PostRendeltetelAsync": {
       "post": {
         "tags": [
@@ -909,20 +1157,6 @@
           "nev": {
             "type": "string",
             "nullable": true
-          },
-          "eteleks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Etelek"
-            },
-            "nullable": true
-          },
-          "ettermeks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Ettermek"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -988,27 +1222,6 @@
           },
           "chain": {
             "$ref": "#/components/schemas/Chain"
-          },
-          "learazas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Learaza"
-            },
-            "nullable": true
-          },
-          "etterems": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Ettermek"
-            },
-            "nullable": true
-          },
-          "rendeles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Rendeles"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1039,29 +1252,8 @@
           "chain": {
             "$ref": "#/components/schemas/Chain"
           },
-          "ertekeleseks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Ertekelesek"
-            },
-            "nullable": true
-          },
-          "learazas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Learaza"
-            },
-            "nullable": true
-          },
           "varos": {
             "$ref": "#/components/schemas/Varosok"
-          },
-          "etels": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Etelek"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1109,22 +1301,41 @@
             "type": "integer",
             "format": "int32"
           },
-          "ertekeleseks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Ertekelesek"
-            },
-            "nullable": true
-          },
           "rendeles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Rendeles"
-            },
-            "nullable": true
+            "$ref": "#/components/schemas/Rendeles"
           },
           "varos": {
             "$ref": "#/components/schemas/Varosok"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FelhasznalokPutRestrictedDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "felhasznaloNev": {
+            "type": "string",
+            "nullable": true
+          },
+          "teljesNev": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "varosId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lakcim": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1218,13 +1429,6 @@
           },
           "felhasznalo": {
             "$ref": "#/components/schemas/Felhasznalok"
-          },
-          "etels": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Etelek"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1242,20 +1446,6 @@
           },
           "indexKep": {
             "type": "string",
-            "nullable": true
-          },
-          "ettermeks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Ettermek"
-            },
-            "nullable": true
-          },
-          "felhasznaloks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Felhasznalok"
-            },
             "nullable": true
           }
         },

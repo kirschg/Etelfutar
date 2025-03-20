@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EtelfutarAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5f329bf0b161cd370634c0221767f0c177164ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("EtelfutarAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EtelfutarAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -17,9 +17,16 @@ namespace EtelfutarAPI.Controllers
             {
                 try
                 {
-                    //List<Ettermek> ettermek = context.Ettermeks.ToListAsync();
+                    List<Ettermek> ettermek = await context.Ettermeks.Include(x=>x.Etels).ToListAsync();
                     List<ExcludedEtelDTO> etelek = new List<ExcludedEtelDTO>();
-                    return Ok(context);
+                    foreach (var etterem in ettermek)
+                    {
+                        foreach (var item in etterem.Etels)
+                        {
+                            etelek.Add(new ExcludedEtelDTO(etterem.Id, item.Id));
+                        }
+                    }
+                    return Ok(etelek);
                 }
                 catch (Exception ex)
                 {
@@ -37,7 +44,7 @@ namespace EtelfutarAPI.Controllers
                 try
                 {
                     Etelek? etel = await context.Eteleks.FirstOrDefaultAsync(x => x.Id == etelId);
-                    Ettermek? etterem = await context.Ettermeks.FirstOrDefaultAsync(x => x.Id == etteremId);
+                    Ettermek? etterem = await context.Ettermeks.Include(x => x.Etels).FirstOrDefaultAsync(x => x.Id == etteremId);
                     if (etel is not null && etterem is not null)
                     {
                         etterem.Etels.Add(etel);
@@ -63,7 +70,7 @@ namespace EtelfutarAPI.Controllers
                 try
                 {
                     Etelek? etel = await context.Eteleks.FirstOrDefaultAsync(x => x.Id == etelId);
-                    Ettermek? etterem = await context.Ettermeks.FirstOrDefaultAsync(x => x.Id == etteremId);
+                    Ettermek? etterem = await context.Ettermeks.Include(x=>x.Etels).FirstOrDefaultAsync(x => x.Id == etteremId);
                     if (etel is not null && etterem is not null)
                     {
                         etterem.Etels.Remove(etel);

@@ -16,7 +16,7 @@ namespace EtelfutarAPI.Controllers
             {
                 try
                 {
-                    List<Rendeles> rendelesek = context.Rendeles.ToList();
+                    List<Rendeles> rendelesek = context.Rendeles.Include(x=>x.Etels).ToList();
                     List<EtelRendelesDTO> etelRendeles = new List<EtelRendelesDTO>();
 
                     foreach (var rendeles in rendelesek)
@@ -43,7 +43,7 @@ namespace EtelfutarAPI.Controllers
                 try
                 {
                     Etelek? etel = await context.Eteleks.FirstOrDefaultAsync(x => x.Id == etelId);
-                    Rendeles? rendeles = await context.Rendeles.FirstOrDefaultAsync(x => x.Id == rendelesId);
+                    Rendeles? rendeles = await context.Rendeles.Include(x => x.Etels).FirstOrDefaultAsync(x => x.Id == rendelesId);
                     if (etel is not null && rendeles is not null)
                     {
                         rendeles.Etels.Add(etel);
@@ -69,7 +69,7 @@ namespace EtelfutarAPI.Controllers
                 try
                 {
                     Etelek? etel = await context.Eteleks.FirstOrDefaultAsync(x => x.Id == etelId);
-                    Rendeles? rendeles = await context.Rendeles.FirstOrDefaultAsync(x => x.Id == rendelesId);
+                    Rendeles? rendeles = await context.Rendeles.Include(x => x.Etels).FirstOrDefaultAsync(x => x.Id == rendelesId);
                     if (etel is not null && rendeles is not null)
                     {
                         rendeles.Etels.Remove(etel);
