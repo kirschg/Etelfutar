@@ -9,10 +9,14 @@ namespace EtelfutarAPI.DTOs
             Id = ertekeles.Id;
             FelhasznaloId = ertekeles.FelhasznaloId;
             EtteremId = ertekeles.EtteremId;
+            Szoveg = ertekeles.Szoveg;
+            Ertekeles = ertekeles.Ertekeles;
         }
 
         public int Id { get; set; }
         public int FelhasznaloId { get; set; }
         public int EtteremId { get; set; }
+        public string Szoveg { get; set; }
+        public int Ertekeles { get; set; }
     }
 }

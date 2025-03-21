@@ -10,7 +10,7 @@ namespace EtelfutarAPI.DTOs
             Nev = etelek.Nev;
             Kaloria = etelek.Kaloria;
             Ar = etelek.Ar;
-            //Learazas = new EtelLearazasDTO(etelek.Learazas);
+            Learazas = new EtelLearazasDTO();
             Indexkep = etelek.Indexkep;
             Chain = new EtelekChainDTO(etelek.Chain);
         }
