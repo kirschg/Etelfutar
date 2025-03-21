@@ -626,12 +626,12 @@ namespace EtelfutarWPF
                     NewExcludedEtelWindow newExcludedEtelWindow = new NewExcludedEtelWindow();
                     newExcludedEtelWindow.client = sharedClient;
                     newExcludedEtelWindow.ShowDialog();
-                    /*List<ExcludedEtelDTO>? excluded_etel = await sharedClient.GetFromJsonAsync<List<ExcludedEtelDTO>>("Excludedetel/GetExcludedetelAsync");
-                    exlucded_etel2.Clear();
+                    List<ExcludedEtelDTO>? excluded_etel = await sharedClient.GetFromJsonAsync<List<ExcludedEtelDTO>>("Excludedetel/GetExcludedetelAsync");
+                    excluded_etel2.Clear();
                     foreach (var excluded_ete in excluded_etel)
                     {
                         excluded_etel2.Add(excluded_ete);
-                    }*/
+                    }
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = excluded_etel2;
                     break;
@@ -639,12 +639,12 @@ namespace EtelfutarWPF
                     NewRendeltEtelWindow newRendeltEtelWindow = new NewRendeltEtelWindow();
                     newRendeltEtelWindow.client = sharedClient;
                     newRendeltEtelWindow.ShowDialog();
-                    /*List<RendeltEtelDTO>? rendelt_etel = await sharedClient.GetFromJsonAsync<List<RendeltEtelDTO>>("Rendeltetel/GetRendeltetelAsync");
+                    List<RendeltEtelDTO>? rendelt_etel = await sharedClient.GetFromJsonAsync<List<RendeltEtelDTO>>("Rendeltetel/GetRendeltetelAsync");
                     rendelt_etel2.Clear();
                     foreach (var rendelt_ete in rendelt_etel)
                     {
                         rendelt_etel2.Add(rendelt_ete);
-                    }*/
+                    }
                     dgr_adatok.ItemsSource = null;
                     dgr_adatok.ItemsSource = rendelt_etel2;
                     break;
@@ -780,12 +780,12 @@ namespace EtelfutarWPF
                 case "Rendelt Étel":
                     try
                     {
-                        /*List<RendeltEtelDTO>? rendelt_etel = await sharedClient.GetFromJsonAsync<List<RendeltEtelDTO>>("Rendeltetel/GetRendeltetelAsync");
+                        List<RendeltEtelDTO>? rendelt_etel = await sharedClient.GetFromJsonAsync<List<RendeltEtelDTO>>("Rendeltetel/GetRendeltetelAsync");
                         rendelt_etel2.Clear();
                         foreach (var rendelt_ete in rendelt_etel)
                         {
                             rendelt_etel2.Add(rendelt_ete);
-                        }*/
+                        }
                         dgr_adatok.ItemsSource = rendelt_etel2;
                         if (jogosultsag > 1)
                         {
@@ -802,12 +802,12 @@ namespace EtelfutarWPF
                 case "Excluded Étel":
                     try
                     {
-                        /*List<ExcludedEtelDTO>? excluded_etel = await sharedClient.GetFromJsonAsync<List<ExcludedEtelDTO>>("Rendeles/GetExcludedetelAsync");
+                        List<ExcludedEtelDTO>? excluded_etel = await sharedClient.GetFromJsonAsync<List<ExcludedEtelDTO>>("Excludedetel/GetExcludedetelAsync");
                         excluded_etel2.Clear();
                         foreach (var excluded_ete in excluded_etel)
                         {
                             excluded_etel2.Add(excluded_ete);
-                        }*/
+                        }
                         dgr_adatok.ItemsSource = excluded_etel2;
                         if (jogosultsag > 1)
                         {
