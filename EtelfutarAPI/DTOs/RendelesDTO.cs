@@ -8,7 +8,6 @@ namespace EtelfutarAPI.DTOs
         { 
             Id = rendeles.Id;
             Felhasznalo = new RendelesFelhasznalokDTO(rendeles.Felhasznalo);
-            Osszar = rendeles.OsszAr;
         }
 
         public int Id { get; set; }

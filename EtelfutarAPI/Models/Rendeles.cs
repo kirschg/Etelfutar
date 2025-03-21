@@ -10,8 +10,6 @@ public partial class Rendeles
 
     public int FelhasznaloId { get; set; }
 
-    public int OsszAr { get; set; }
-
     public virtual Felhasznalok? Felhasznalo { get; set; } = null!;
     [JsonIgnore]
     public virtual ICollection<Etelek> Etels { get; set; } = new List<Etelek>();

@@ -240,7 +240,6 @@ public partial class EtelfutarContext : DbContext
 
             entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.FelhasznaloId).HasColumnType("int(11)");
-            entity.Property(e => e.OsszAr).HasColumnType("int(11)");
 
             entity.HasOne(d => d.Felhasznalo).WithOne(p => p.Rendeles)
                 .HasForeignKey<Rendeles>(d => d.FelhasznaloId)

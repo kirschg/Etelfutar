@@ -1,11 +1,8 @@
 ﻿using EtelfutarAPI.DTOs;
 using EtelfutarAPI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using VizsgaremekAPI;
-using VizsgaremekAPI.DTOs;
 
 namespace EtelfutarAPI.Controllers
 {
@@ -22,7 +19,7 @@ namespace EtelfutarAPI.Controllers
             {
                 try
                 {
-                    List<Rendeles> result = await context.Rendeles.Include(x => x.Felhasznalo).Include(x=>x.Felhasznalo.Varos).ToListAsync();
+                    List<Rendeles> result = await context.Rendeles.Include(x => x.Felhasznalo).Include(x => x.Felhasznalo.Varos).ToListAsync();
                     List<RendelesDTO> rendelesDTOs = result.Select(x => new RendelesDTO(x)).ToList();
                     return Ok(rendelesDTOs);
                 }
@@ -119,6 +116,7 @@ namespace EtelfutarAPI.Controllers
                     Felhasznalok? user = Program.LoggedInUsers[token];
                     if (user != null)
                     {
+                        user = await context.Felhasznaloks.Include(x => x.Rendeles.Etels).FirstOrDefaultAsync(x => x.Id == user.Id);
                         RendelesByFelhasznaloDTO rendeles = new RendelesByFelhasznaloDTO(user.Rendeles);
                         return Ok(rendeles);
                     }
@@ -131,7 +129,7 @@ namespace EtelfutarAPI.Controllers
                 {
                     return BadRequest("Elbasztad:" + ex.Message);
                 }
-                
+
             }
         }
     }

@@ -23,7 +23,7 @@ namespace EtelfutarAPI.Controllers
                     {
                         foreach (var item in rendeles.Etels)
                         {
-                            etelRendeles.Add(new EtelRendelesDTO(rendeles.Id, item.Id));
+                            etelRendeles.Add(new EtelRendelesDTO(item.Id, rendeles.Id));
                         }
                     }
                     return Ok(etelRendeles);
