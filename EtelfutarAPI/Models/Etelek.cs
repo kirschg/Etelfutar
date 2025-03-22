@@ -14,13 +14,13 @@ public partial class Etelek
 
     public int Ar { get; set; }
 
+    public int Learazas { get; set; }
+
     public int ChainId { get; set; }
 
     public string Indexkep { get; set; } = null!;
 
     public virtual Chain? Chain { get; set; } = null!;
-    [JsonIgnore]
-    public virtual ICollection<Learaza> Learazas { get; set; } = new List<Learaza>();
     [JsonIgnore]
     public virtual ICollection<Ettermek> Etterems { get; set; } = new List<Ettermek>();
     [JsonIgnore]

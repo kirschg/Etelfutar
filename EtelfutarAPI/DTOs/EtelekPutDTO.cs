@@ -10,6 +10,8 @@
 
         public int Ar { get; set; }
 
+        public int Learazas { get; set; }
+
         public int ChainId { get; set; }
 
         public string Indexkep { get; set; } = null!;

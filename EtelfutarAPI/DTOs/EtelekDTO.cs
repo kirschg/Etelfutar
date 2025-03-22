@@ -10,7 +10,7 @@ namespace EtelfutarAPI.DTOs
             Nev = etelek.Nev;
             Kaloria = etelek.Kaloria;
             Ar = etelek.Ar;
-            Learazas = new EtelLearazasDTO();
+            Learazas = etelek.Learazas;
             Indexkep = etelek.Indexkep;
             Chain = new EtelekChainDTO(etelek.Chain);
         }
@@ -22,10 +22,11 @@ namespace EtelfutarAPI.DTOs
         public int Kaloria { get; set; }
 
         public int Ar { get; set; }
+        
+        public int Learazas { get; set; }
 
         public EtelekChainDTO Chain { get; set; }
 
-        public EtelLearazasDTO Learazas { get; set; }
 
         public string Indexkep { get; set; } = null!;
     }

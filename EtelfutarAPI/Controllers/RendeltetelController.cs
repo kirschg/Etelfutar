@@ -50,6 +50,12 @@ namespace EtelfutarAPI.Controllers
                         await context.SaveChangesAsync();
                         return Ok("Sikeres mentés");
                     }
+                    else if (!context.Rendeles.Contains(rendeles))
+                    {
+                        context.Rendeles.AddAsync(rendeles);
+                        await context.SaveChangesAsync();
+                        return Ok();
+                    }
                     else
                     {
                         return BadRequest("Üres objektumot kaptam!");

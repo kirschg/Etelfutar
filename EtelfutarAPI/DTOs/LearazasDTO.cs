@@ -6,12 +6,10 @@ namespace EtelfutarAPI.DTOs
     {
         public LearazasDTO(Learaza learazas)
         {
-            //Etterem = new EttermekLearazasDTO(learazas.Etterem);
-            //Etel = new EtelLearazasDTO(learazas.Etel);
+            Etel = new EtelLearazasDTO(learazas);
             Learazas = learazas.Learazas;
         }
 
-        public EttermekLearazasDTO Etterem { get; set; }
         public EtelLearazasDTO Etel { get; set; }
         public int Learazas { get; set; }
     }
