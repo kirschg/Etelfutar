@@ -999,7 +999,7 @@
             }
           },
           {
-            "name": "rendelesId",
+            "name": "felhasznaloId",
             "in": "query",
             "style": "form",
             "schema": {
@@ -1420,10 +1420,6 @@
             "format": "int32"
           },
           "felhasznaloId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "osszAr": {
             "type": "integer",
             "format": "int32"
           },

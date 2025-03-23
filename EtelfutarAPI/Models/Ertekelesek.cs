@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace EtelfutarAPI.Models;
 
@@ -16,7 +15,7 @@ public partial class Ertekelesek
 
     public int Ertekeles { get; set; }
 
-    public virtual Ettermek? Etterem { get; set; }
+    public virtual Ettermek? Etterem { get; set; } = null!;
 
-    public virtual Felhasznalok? Felhasznalo { get; set; }
+    public virtual Felhasznalok? Felhasznalo { get; set; } = null!;
 }

@@ -16,7 +16,10 @@ namespace EtelfutarAPI.Controllers
             {
                 try
                 {
-                    List<Learaza> result = await context.Learazas.Include(x => x.Etel).Include(x => x.Etterem).ToListAsync();
+                    List<Learaza> result = await context.Learazas
+                        .Include(x => x.Etel)
+                        .Include(x => x.Etterem)
+                        .ToListAsync();
                     return Ok(result);
                 }
                 catch (Exception ex)
@@ -80,7 +83,8 @@ namespace EtelfutarAPI.Controllers
             {
                 try
                 {
-                    Learaza? learazas = await context.Learazas.FirstOrDefaultAsync(x => x.EtteremId == etteremId && x.EtelId == etelId);
+                    Learaza? learazas = await context.Learazas
+                        .FirstOrDefaultAsync(x => x.EtteremId == etteremId && x.EtelId == etelId);
                     if (learazas is not null)
                     {
                         context.Learazas.Remove(learazas);

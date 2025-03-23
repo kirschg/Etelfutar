@@ -113,7 +113,11 @@ namespace EtelfutarAPI.Controllers
 
                 if (etterem != null)
                 {
-                    List<Etelek> etelek = await context.Eteleks.Where(x => !x.Etterems.Contains(etterem) && x.ChainId == etterem.ChainId).Include(x=>x.Chain).ToListAsync();
+                    List<Etelek> etelek = await context.Eteleks
+                        .Where(x => !x.Etterems.Contains(etterem) && x.ChainId == etterem.ChainId)
+                        .Include(x=>x.Chain)
+                        .Include(x=>x.Learazas)
+                        .ToListAsync();
                     List<EtelekDTO> etelekDTOs = etelek.Select(x => new EtelekDTO(x)).ToList();
                     return Ok(etelekDTOs);
                 }

@@ -640,7 +640,7 @@
         "IsRequired": false
       },
       {
-        "Name": "rendelesId",
+        "Name": "felhasznaloId",
         "Type": "System.Int32",
         "IsRequired": false
       }

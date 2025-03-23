@@ -19,6 +19,16 @@ namespace EtelfutarAPI.DTOs
         public EttermekChainDTO Chain { get; set; }
         public EttermekVarosDTO Varos { get; set; }
         public List<EttermekErtekelesDTO> Ertekeles { get; set; }
+        public double AVGErtekeles { get {
+                if (Ertekeles.Count!=0)
+                {
+                    return Ertekeles.Average(x => x.Ertekeles);
+                }
+                else
+                {
+                    return 0;
+                }
+            } }
         public string IndexKep { get; set; }
     }
 }

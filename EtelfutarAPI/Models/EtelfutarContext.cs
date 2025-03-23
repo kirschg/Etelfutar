@@ -216,6 +216,16 @@ public partial class EtelfutarContext : DbContext
             entity.Property(e => e.EtelId).HasColumnType("int(11)");
             entity.Property(e => e.EtteremId).HasColumnType("int(11)");
             entity.Property(e => e.Learazas).HasColumnType("int(11)");
+
+            entity.HasOne(d => d.Etel).WithMany(p => p.Learazas)
+                .HasForeignKey(d => d.EtelId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("learazas_ibfk_2");
+
+            entity.HasOne(d => d.Etterem).WithMany(p => p.Learazas)
+                .HasForeignKey(d => d.EtteremId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("learazas_ibfk_1");
         });
 
         modelBuilder.Entity<Rendeles>(entity =>

@@ -36,25 +36,38 @@ namespace EtelfutarAPI.Controllers
         }
 
         [HttpPost("PostRendeltetelAsync")]
-        public async Task<IActionResult> PostRendeltetelAsync(int etelId, int rendelesId)
+        public async Task<IActionResult> PostRendeltetelAsync(int etelId, int felhasznaloId)
         {
             using (var context = new EtelfutarContext())
             {
                 try
                 {
-                    Etelek? etel = await context.Eteleks.FirstOrDefaultAsync(x => x.Id == etelId);
-                    Rendeles? rendeles = await context.Rendeles.Include(x => x.Etels).FirstOrDefaultAsync(x => x.Id == rendelesId);
-                    if (etel is not null && rendeles is not null)
+                    Etelek? etel = await context.Eteleks
+                        .FirstOrDefaultAsync(x => x.Id == etelId);
+                    Felhasznalok? felhasznalo = await context.Felhasznaloks.Include(x=>x.Rendeles).FirstOrDefaultAsync(x=>x.Id == felhasznaloId);
+                    
+                    if (etel is not null && felhasznalo is not null)
                     {
-                        rendeles.Etels.Add(etel);
-                        await context.SaveChangesAsync();
-                        return Ok("Sikeres mentés");
-                    }
-                    else if (!context.Rendeles.Contains(rendeles))
-                    {
-                        context.Rendeles.AddAsync(rendeles);
-                        await context.SaveChangesAsync();
-                        return Ok();
+                        if (felhasznalo.Rendeles == null)
+                        {
+                            await context.Rendeles.AddAsync(new Rendeles()
+                            {
+                                Id = 0,
+                                FelhasznaloId = felhasznalo.Id
+                            });
+                            await context.SaveChangesAsync();
+                        }
+                        Rendeles rendeles = await context.Rendeles.Include(x=>x.Etels).FirstOrDefaultAsync(x =>x.FelhasznaloId == felhasznalo.Id);
+                        if (!rendeles.Etels.Contains(etel))
+                        {
+                            rendeles.Etels.Add(etel);
+                            await context.SaveChangesAsync();
+                            return Ok("Sikeres mentés");
+                        }
+                        else
+                        {
+                            return BadRequest("Már tartalmazza ezt az ételt a rendelés!");
+                        }
                     }
                     else
                     {
