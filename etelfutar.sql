@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 22, 2025 at 07:43 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Gép: 127.0.0.1
+-- Létrehozás ideje: 2025. Már 23. 18:25
+-- Kiszolgáló verziója: 10.4.32-MariaDB
+-- PHP verzió: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `etelfutar`
+-- Adatbázis: `etelfutar`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chain`
+-- Tábla szerkezet ehhez a táblához `chain`
 --
 
 CREATE TABLE `chain` (
@@ -33,7 +33,7 @@ CREATE TABLE `chain` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `chain`
+-- A tábla adatainak kiíratása `chain`
 --
 
 INSERT INTO `chain` (`Id`, `Nev`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `chain` (`Id`, `Nev`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ertekelesek`
+-- Tábla szerkezet ehhez a táblához `ertekelesek`
 --
 
 CREATE TABLE `ertekelesek` (
@@ -63,7 +63,7 @@ CREATE TABLE `ertekelesek` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `etelek`
+-- Tábla szerkezet ehhez a táblához `etelek`
 --
 
 CREATE TABLE `etelek` (
@@ -77,7 +77,7 @@ CREATE TABLE `etelek` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `etelek`
+-- A tábla adatainak kiíratása `etelek`
 --
 
 INSERT INTO `etelek` (`Id`, `nev`, `kaloria`, `ar`, `Learazas`, `ChainId`, `Indexkep`) VALUES
@@ -198,7 +198,7 @@ INSERT INTO `etelek` (`Id`, `nev`, `kaloria`, `ar`, `Learazas`, `ChainId`, `Inde
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ettermek`
+-- Tábla szerkezet ehhez a táblához `ettermek`
 --
 
 CREATE TABLE `ettermek` (
@@ -210,7 +210,7 @@ CREATE TABLE `ettermek` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ettermek`
+-- A tábla adatainak kiíratása `ettermek`
 --
 
 INSERT INTO `ettermek` (`Id`, `Cim`, `ChainId`, `varosId`, `Indexkep`) VALUES
@@ -255,7 +255,7 @@ INSERT INTO `ettermek` (`Id`, `Cim`, `ChainId`, `varosId`, `Indexkep`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `excludedetel`
+-- Tábla szerkezet ehhez a táblához `excludedetel`
 --
 
 CREATE TABLE `excludedetel` (
@@ -264,7 +264,7 @@ CREATE TABLE `excludedetel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `excludedetel`
+-- A tábla adatainak kiíratása `excludedetel`
 --
 
 INSERT INTO `excludedetel` (`EtelId`, `EtteremId`) VALUES
@@ -274,7 +274,7 @@ INSERT INTO `excludedetel` (`EtelId`, `EtteremId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `felhasznalok`
+-- Tábla szerkezet ehhez a táblához `felhasznalok`
 --
 
 CREATE TABLE `felhasznalok` (
@@ -291,7 +291,7 @@ CREATE TABLE `felhasznalok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `felhasznalok`
+-- A tábla adatainak kiíratása `felhasznalok`
 --
 
 INSERT INTO `felhasznalok` (`Id`, `FelhasznaloNev`, `TeljesNev`, `Email`, `VarosId`, `Lakcim`, `Hash`, `Salt`, `Jogosultsag`, `Aktiv`) VALUES
@@ -301,7 +301,7 @@ INSERT INTO `felhasznalok` (`Id`, `FelhasznaloNev`, `TeljesNev`, `Email`, `Varos
 -- --------------------------------------------------------
 
 --
--- Table structure for table `learazas`
+-- Tábla szerkezet ehhez a táblához `learazas`
 --
 
 CREATE TABLE `learazas` (
@@ -311,7 +311,7 @@ CREATE TABLE `learazas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `learazas`
+-- A tábla adatainak kiíratása `learazas`
 --
 
 INSERT INTO `learazas` (`EtteremId`, `EtelId`, `Learazas`) VALUES
@@ -321,26 +321,25 @@ INSERT INTO `learazas` (`EtteremId`, `EtelId`, `Learazas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rendeles`
+-- Tábla szerkezet ehhez a táblához `rendeles`
 --
 
 CREATE TABLE `rendeles` (
   `Id` int(11) NOT NULL,
-  `FelhasznaloId` int(11) NOT NULL,
-  `OsszAr` int(11) NOT NULL
+  `FelhasznaloId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `rendeles`
+-- A tábla adatainak kiíratása `rendeles`
 --
 
-INSERT INTO `rendeles` (`Id`, `FelhasznaloId`, `OsszAr`) VALUES
-(2, 7, 20000);
+INSERT INTO `rendeles` (`Id`, `FelhasznaloId`) VALUES
+(2, 7);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rendeltetel`
+-- Tábla szerkezet ehhez a táblához `rendeltetel`
 --
 
 CREATE TABLE `rendeltetel` (
@@ -349,7 +348,7 @@ CREATE TABLE `rendeltetel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `rendeltetel`
+-- A tábla adatainak kiíratása `rendeltetel`
 --
 
 INSERT INTO `rendeltetel` (`EtelId`, `RendelesId`) VALUES
@@ -360,7 +359,7 @@ INSERT INTO `rendeltetel` (`EtelId`, `RendelesId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `varosok`
+-- Tábla szerkezet ehhez a táblához `varosok`
 --
 
 CREATE TABLE `varosok` (
@@ -370,7 +369,7 @@ CREATE TABLE `varosok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `varosok`
+-- A tábla adatainak kiíratása `varosok`
 --
 
 INSERT INTO `varosok` (`Id`, `Nev`, `indexKep`) VALUES
@@ -390,18 +389,18 @@ INSERT INTO `varosok` (`Id`, `Nev`, `indexKep`) VALUES
 (14, 'Szentendre', 'https://felfedezok.hu/wp-content/uploads/2023/05/city-g58e10c678_1280-e1685002574358.jpg');
 
 --
--- Indexes for dumped tables
+-- Indexek a kiírt táblákhoz
 --
 
 --
--- Indexes for table `chain`
+-- A tábla indexei `chain`
 --
 ALTER TABLE `chain`
   ADD PRIMARY KEY (`Id`),
   ADD UNIQUE KEY `Nev` (`Nev`);
 
 --
--- Indexes for table `ertekelesek`
+-- A tábla indexei `ertekelesek`
 --
 ALTER TABLE `ertekelesek`
   ADD PRIMARY KEY (`Id`),
@@ -409,7 +408,7 @@ ALTER TABLE `ertekelesek`
   ADD KEY `EtteremId` (`EtteremId`);
 
 --
--- Indexes for table `etelek`
+-- A tábla indexei `etelek`
 --
 ALTER TABLE `etelek`
   ADD PRIMARY KEY (`Id`),
@@ -417,7 +416,7 @@ ALTER TABLE `etelek`
   ADD KEY `etteremId` (`ChainId`);
 
 --
--- Indexes for table `ettermek`
+-- A tábla indexei `ettermek`
 --
 ALTER TABLE `ettermek`
   ADD PRIMARY KEY (`Id`),
@@ -425,7 +424,7 @@ ALTER TABLE `ettermek`
   ADD KEY `ChainId` (`ChainId`);
 
 --
--- Indexes for table `excludedetel`
+-- A tábla indexei `excludedetel`
 --
 ALTER TABLE `excludedetel`
   ADD PRIMARY KEY (`EtelId`,`EtteremId`),
@@ -433,7 +432,7 @@ ALTER TABLE `excludedetel`
   ADD KEY `EtteremId` (`EtteremId`);
 
 --
--- Indexes for table `felhasznalok`
+-- A tábla indexei `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
   ADD PRIMARY KEY (`Id`),
@@ -442,14 +441,14 @@ ALTER TABLE `felhasznalok`
   ADD KEY `VarosId` (`VarosId`);
 
 --
--- Indexes for table `learazas`
+-- A tábla indexei `learazas`
 --
 ALTER TABLE `learazas`
   ADD PRIMARY KEY (`EtelId`,`EtteremId`),
   ADD UNIQUE KEY `EtteremId` (`EtteremId`,`EtelId`);
 
 --
--- Indexes for table `rendeles`
+-- A tábla indexei `rendeles`
 --
 ALTER TABLE `rendeles`
   ADD PRIMARY KEY (`Id`),
@@ -457,7 +456,7 @@ ALTER TABLE `rendeles`
   ADD KEY `FelhasznaloId` (`FelhasznaloId`);
 
 --
--- Indexes for table `rendeltetel`
+-- A tábla indexei `rendeltetel`
 --
 ALTER TABLE `rendeltetel`
   ADD PRIMARY KEY (`EtelId`,`RendelesId`),
@@ -465,109 +464,109 @@ ALTER TABLE `rendeltetel`
   ADD KEY `RendelesId` (`RendelesId`);
 
 --
--- Indexes for table `varosok`
+-- A tábla indexei `varosok`
 --
 ALTER TABLE `varosok`
   ADD PRIMARY KEY (`Id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- A kiírt táblák AUTO_INCREMENT értéke
 --
 
 --
--- AUTO_INCREMENT for table `chain`
+-- AUTO_INCREMENT a táblához `chain`
 --
 ALTER TABLE `chain`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `ertekelesek`
+-- AUTO_INCREMENT a táblához `ertekelesek`
 --
 ALTER TABLE `ertekelesek`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `etelek`
+-- AUTO_INCREMENT a táblához `etelek`
 --
 ALTER TABLE `etelek`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
--- AUTO_INCREMENT for table `ettermek`
+-- AUTO_INCREMENT a táblához `ettermek`
 --
 ALTER TABLE `ettermek`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT for table `felhasznalok`
+-- AUTO_INCREMENT a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
   MODIFY `Id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `rendeles`
+-- AUTO_INCREMENT a táblához `rendeles`
 --
 ALTER TABLE `rendeles`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `varosok`
+-- AUTO_INCREMENT a táblához `varosok`
 --
 ALTER TABLE `varosok`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Constraints for dumped tables
+-- Megkötések a kiírt táblákhoz
 --
 
 --
--- Constraints for table `ertekelesek`
+-- Megkötések a táblához `ertekelesek`
 --
 ALTER TABLE `ertekelesek`
   ADD CONSTRAINT `ertekelesek_ibfk_1` FOREIGN KEY (`FelhasznaloId`) REFERENCES `felhasznalok` (`Id`),
   ADD CONSTRAINT `ertekelesek_ibfk_2` FOREIGN KEY (`EtteremId`) REFERENCES `ettermek` (`Id`);
 
 --
--- Constraints for table `etelek`
+-- Megkötések a táblához `etelek`
 --
 ALTER TABLE `etelek`
   ADD CONSTRAINT `etelek_ibfk_1` FOREIGN KEY (`ChainId`) REFERENCES `chain` (`Id`);
 
 --
--- Constraints for table `ettermek`
+-- Megkötések a táblához `ettermek`
 --
 ALTER TABLE `ettermek`
   ADD CONSTRAINT `ettermek_ibfk_1` FOREIGN KEY (`varosId`) REFERENCES `varosok` (`Id`),
   ADD CONSTRAINT `ettermek_ibfk_2` FOREIGN KEY (`ChainId`) REFERENCES `chain` (`Id`);
 
 --
--- Constraints for table `excludedetel`
+-- Megkötések a táblához `excludedetel`
 --
 ALTER TABLE `excludedetel`
   ADD CONSTRAINT `excludedetel_ibfk_1` FOREIGN KEY (`EtteremId`) REFERENCES `ettermek` (`Id`),
   ADD CONSTRAINT `excludedetel_ibfk_2` FOREIGN KEY (`EtelId`) REFERENCES `etelek` (`Id`);
 
 --
--- Constraints for table `felhasznalok`
+-- Megkötések a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
   ADD CONSTRAINT `felhasznalok_ibfk_1` FOREIGN KEY (`VarosId`) REFERENCES `varosok` (`Id`);
 
 --
--- Constraints for table `learazas`
+-- Megkötések a táblához `learazas`
 --
 ALTER TABLE `learazas`
   ADD CONSTRAINT `learazas_ibfk_1` FOREIGN KEY (`EtteremId`) REFERENCES `ettermek` (`Id`),
   ADD CONSTRAINT `learazas_ibfk_2` FOREIGN KEY (`EtelId`) REFERENCES `etelek` (`Id`);
 
 --
--- Constraints for table `rendeles`
+-- Megkötések a táblához `rendeles`
 --
 ALTER TABLE `rendeles`
   ADD CONSTRAINT `rendeles_ibfk_1` FOREIGN KEY (`FelhasznaloId`) REFERENCES `felhasznalok` (`Id`);
 
 --
--- Constraints for table `rendeltetel`
+-- Megkötések a táblához `rendeltetel`
 --
 ALTER TABLE `rendeltetel`
   ADD CONSTRAINT `rendeltetel_ibfk_1` FOREIGN KEY (`RendelesId`) REFERENCES `rendeles` (`Id`),
