@@ -16,14 +16,14 @@ namespace EtelfutarAPI.Controllers
             {
                 try
                 {
-                    List<Rendeles> rendelesek = context.Rendeles.Include(x=>x.Etels).ToList();
+                    List<Rendeles> rendelesek = context.Rendeles.Include(x=>x.Etels).Include(x=>x.Felhasznalo).ToList();
                     List<EtelRendelesDTO> etelRendeles = new List<EtelRendelesDTO>();
 
                     foreach (var rendeles in rendelesek)
                     {
                         foreach (var item in rendeles.Etels)
                         {
-                            etelRendeles.Add(new EtelRendelesDTO(item.Id, rendeles.Id));
+                            etelRendeles.Add(new EtelRendelesDTO(item.Id, rendeles.Felhasznalo.Id));
                         }
                     }
                     return Ok(etelRendeles);
@@ -44,7 +44,9 @@ namespace EtelfutarAPI.Controllers
                 {
                     Etelek? etel = await context.Eteleks
                         .FirstOrDefaultAsync(x => x.Id == etelId);
-                    Felhasznalok? felhasznalo = await context.Felhasznaloks.Include(x=>x.Rendeles).FirstOrDefaultAsync(x=>x.Id == felhasznaloId);
+                    Felhasznalok? felhasznalo = await context.Felhasznaloks
+                        .Include(x=>x.Rendeles)
+                        .FirstOrDefaultAsync(x=>x.Id == felhasznaloId);
                     
                     if (etel is not null && felhasznalo is not null)
                     {
@@ -57,7 +59,9 @@ namespace EtelfutarAPI.Controllers
                             });
                             await context.SaveChangesAsync();
                         }
-                        Rendeles rendeles = await context.Rendeles.Include(x=>x.Etels).FirstOrDefaultAsync(x =>x.FelhasznaloId == felhasznalo.Id);
+                        Rendeles rendeles = await context.Rendeles
+                            .Include(x=>x.Etels)
+                            .FirstOrDefaultAsync(x =>x.FelhasznaloId == felhasznalo.Id);
                         if (!rendeles.Etels.Contains(etel))
                         {
                             rendeles.Etels.Add(etel);
@@ -81,23 +85,41 @@ namespace EtelfutarAPI.Controllers
             }
         }
         [HttpDelete("DeleteRendeltetelAsync")]
-        public async Task<IActionResult> DeleteRendeltetelAsync(int etelId, int rendelesId)
+        public async Task<IActionResult> DeleteRendeltetelAsync(int etelId, int felhasznaloId)
         {
             using (var context = new EtelfutarContext())
             {
                 try
                 {
-                    Etelek? etel = await context.Eteleks.FirstOrDefaultAsync(x => x.Id == etelId);
-                    Rendeles? rendeles = await context.Rendeles.Include(x => x.Etels).FirstOrDefaultAsync(x => x.Id == rendelesId);
-                    if (etel is not null && rendeles is not null)
+                    Etelek? etel = await context.Eteleks
+                        .FirstOrDefaultAsync(x => x.Id == etelId);
+                    Felhasznalok? felhasznalo = await context.Felhasznaloks
+                        .Include(x => x.Rendeles)
+                        .FirstOrDefaultAsync(x => x.Id == felhasznaloId);
+
+                    if (etel is not null && felhasznalo is not null)
                     {
-                        rendeles.Etels.Remove(etel);
-                        await context.SaveChangesAsync();
-                        return Ok("Sikeres törlés");
+                        if (felhasznalo.Rendeles == null)
+                        {
+                            return NotFound("Nincs ilyen rendelés!");
+                        }
+                        Rendeles rendeles = await context.Rendeles
+                            .Include(x => x.Etels)
+                            .FirstOrDefaultAsync(x => x.FelhasznaloId == felhasznalo.Id);
+                        if (rendeles.Etels.Contains(etel))
+                        {
+                            rendeles.Etels.Remove(etel);
+                            await context.SaveChangesAsync();
+                            return Ok("Sikeres mentés");
+                        }
+                        else
+                        {
+                            return BadRequest("Nincs ilyen rendelt étel a rendelésben!");
+                        }
                     }
                     else
                     {
-                        return StatusCode(404, "nincs találat");
+                        return BadRequest("Üres objektumot kaptam!");
                     }
                 }
                 catch (Exception ex)

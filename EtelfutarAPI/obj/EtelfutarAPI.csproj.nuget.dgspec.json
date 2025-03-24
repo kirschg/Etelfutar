@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\EtelfutarAPI.csproj": {}
+    "C:\\Users\\gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\EtelfutarAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\EtelfutarAPI.csproj": {
+    "C:\\Users\\gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\EtelfutarAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\EtelfutarAPI.csproj",
+        "projectUniqueName": "C:\\Users\\gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\EtelfutarAPI.csproj",
         "projectName": "EtelfutarAPI",
-        "projectPath": "C:\\Users\\Gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\EtelfutarAPI.csproj",
-        "packagesPath": "C:\\Users\\Gergo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\obj\\",
+        "projectPath": "C:\\Users\\gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\EtelfutarAPI.csproj",
+        "packagesPath": "C:\\Users\\gergo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gergo\\source\\repos\\kirschg\\Etelfutar\\EtelfutarAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gergo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gergo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
