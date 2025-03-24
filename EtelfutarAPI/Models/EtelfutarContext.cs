@@ -51,7 +51,7 @@ public partial class EtelfutarContext : DbContext
 
         modelBuilder.Entity<Ertekelesek>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
+            entity.HasKey(e => e.EtteremId).HasName("PRIMARY");
 
             entity.ToTable("ertekelesek");
 
@@ -59,7 +59,6 @@ public partial class EtelfutarContext : DbContext
 
             entity.HasIndex(e => new { e.FelhasznaloId, e.EtteremId }, "FelhasznaloId");
 
-            entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.Ertekeles).HasColumnType("int(1)");
             entity.Property(e => e.EtteremId).HasColumnType("int(11)");
             entity.Property(e => e.FelhasznaloId).HasColumnType("int(11)");

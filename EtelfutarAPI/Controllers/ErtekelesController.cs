@@ -17,7 +17,7 @@ namespace EtelfutarAPI.Controllers
                 return Ok(adat);
             }
         }
-        [CustomAuthorize]
+        //[CustomAuthorize]
         [HttpPost("POST/Értékelés")]
         public async Task<IActionResult> Post(Ertekelesek ujErtekeles)
         {
@@ -31,7 +31,7 @@ namespace EtelfutarAPI.Controllers
                         await context.SaveChangesAsync();
                         return Ok("Sikeres Mentés!");
                     }
-                    //todo: Egy felhasználónak nem lehet ugyanazon az éttermen egynél több értékelése
+                    //todo: Egy felhasználónak nem lehet ugyanazon az éttermen egynél több értékelése(asszem jó már!)
                     else
                     {
                         return NotFound("Üres objektumot kaptam!");
@@ -70,7 +70,7 @@ namespace EtelfutarAPI.Controllers
         }
         [CustomAuthorize]
         [HttpDelete("DELETE/Értékelés")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int felhasznaloId, int etteremId)
         {
             using (var context = new EtelfutarContext())
             {
@@ -78,7 +78,8 @@ namespace EtelfutarAPI.Controllers
                 {
                     Ertekelesek torlendo = new Ertekelesek()
                     {
-                        Id = id
+                        FelhasznaloId = felhasznaloId,
+                        EtteremId = etteremId
                     };
                     if (context.Ertekeleseks.Contains(torlendo))
                     {

@@ -5,8 +5,6 @@ namespace EtelfutarAPI.Models;
 
 public partial class Ertekelesek
 {
-    public int Id { get; set; }
-
     public int FelhasznaloId { get; set; }
 
     public int EtteremId { get; set; }

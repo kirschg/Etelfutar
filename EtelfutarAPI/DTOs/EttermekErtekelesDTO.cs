@@ -6,7 +6,6 @@ namespace EtelfutarAPI.DTOs
     {
         public EttermekErtekelesDTO(Ertekelesek ertekeles)
         { 
-            Id = ertekeles.Id;
             FelhasznaloId = ertekeles.FelhasznaloId;
             EtteremId = ertekeles.EtteremId;
             Szoveg = ertekeles.Szoveg;
