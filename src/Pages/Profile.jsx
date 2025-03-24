@@ -13,29 +13,32 @@ export const YourProfile = () => {
       axios.get("https://localhost:7106/Felhasznalok/GetFelhasznaloByTokenAsync?token=" + token, {
         headers: { "Authorization": `Bearer ${token}` }
       })
-        .then(res => setUser(res.data))
+        .then(res => {
+          console.log(res)
+          setUser(res.data)
+        })
         .catch(err => console.log(err))
     }
     else {
       navigate("/Login");
     }
   }, [token])
-  return (console.log(user),
+  return (
     <div className="App">
       <div className="Panel">
-        {/*<h1 style={{ textAlign: "left" }}>{user.felhasznaloNev}</h1>
+        <h1 style={{ textAlign: "left" }}>{user.felhasznaloNev}</h1>
         <div>
-          <ul style={{listStyle:"none"}}>
+          <ul style={{ listStyle: "none" }}>
             <li>
               <h4>{user.teljesNev}</h4>
-              <p style={{ color: "darkgrey" }}>{user.varos.nev + ", " + user.lakcim}</p>
+              <p style={{ color: "darkgrey" }}>{/*user.varos.nev + */", " + user.lakcim}</p>
             </li>
             <li>
               <p>{user.email}</p>
             </li>
           </ul>
-        </div>*/}
-        <h1 style={{ textAlign: "left" }}>Teszt felhasználó név</h1>
+        </div>
+        {/*<h1 style={{ textAlign: "left" }}>Teszt felhasználó név</h1>
         <div>
           <ul style={{listStyle:"none"}}>
             <li>
@@ -46,9 +49,8 @@ export const YourProfile = () => {
               <p>Teszt email</p>
             </li>
           </ul>
-        </div>
+        </div>*/}
         <Link className="button">Edit</Link>
       </div>
-    </div>
-  )
+    </div>)
 }

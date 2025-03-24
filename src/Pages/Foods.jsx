@@ -8,12 +8,13 @@ export const Foods = () => {
     const navigate = useNavigate();
     const { RestaurantId } = useParams();
     const [foods, setFoods] = useState([]);
-    const [orderId, setOrderId] = useState();
+    const [userId, setUserId] = useState();
     const [token, setToken] = useState(localStorage.getItem("Token"))
     useEffect(() => {
 
         axios.get("https://localhost:7106/Etelek/GetEtelekByEtterem?etteremId=" + RestaurantId)
             .then((res) => {
+                console.log(res.data)
                 setFoods(res.data);
             })
             .catch((err) => {
@@ -22,12 +23,12 @@ export const Foods = () => {
     }, [RestaurantId]);
 
     async function AddOrder(id) {
-        axios.get("https://localhost:7106/Rendeles/GetByToken?token=" + token,
+        axios.get("https://localhost:7106/Felhasznalok/GetFelhasznaloByTokenAsync?token=" + token,
             { headers: { "Authorization": `Bearer ${token}` } }
           )
             .then(res => {
-              setOrderId(res.data.id)
-                axios.post(`https://localhost:7106/Rendeltetel/PostRendeltetelAsync?etelId=${id}&rendelesId=${orderId}`)
+              setUserId(res.data.id)
+                axios.post(`https://localhost:7106/Rendeltetel/PostRendeltetelAsync?etelId=${id}&felhasznaloId=${userId}`)
                     .then((res) => {
                         console.log(res)
                     })
