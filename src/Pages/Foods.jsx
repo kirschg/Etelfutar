@@ -8,14 +8,13 @@ export const Foods = () => {
     const navigate = useNavigate();
     const { RestaurantId } = useParams();
     const [foods, setFoods] = useState([]);
-    const [userId, setUserId] = useState();
-    const [token, setToken] = useState(localStorage.getItem("Token"))
+    const [token] = useState(localStorage.getItem("Token"))
     useEffect(() => {
 
         axios.get("https://localhost:7106/Etelek/GetEtelekByEtterem?etteremId=" + RestaurantId)
             .then((res) => {
-                console.log(res.data)
                 setFoods(res.data);
+                console.log(res)
             })
             .catch((err) => {
                 console.log(err);
@@ -25,10 +24,11 @@ export const Foods = () => {
     async function AddOrder(id) {
         axios.get("https://localhost:7106/Felhasznalok/GetFelhasznaloByTokenAsync?token=" + token,
             { headers: { "Authorization": `Bearer ${token}` } }
-          )
+        )
             .then(response => {
-              setUserId(response.data.id)
-                axios.post(`https://localhost:7106/Rendeltetel/PostRendeltetelAsync?etelId=${id}&felhasznaloId=${userId}`)
+                axios.post(`https://localhost:7106/Rendeltetel/PostRendeltetelAsync?etelId=${id}&felhasznaloId=${response.data.id}`, "",
+                    { headers: { "Authorization": `Bearer ${token}` } }
+                )
                     .then((res) => {
                         console.log(res)
                     })
@@ -36,11 +36,25 @@ export const Foods = () => {
                         console.log(err);
                     });
             })
-            .catch(err =>{
-                console.log(err);
+            .catch(error => {
+                console.log(error);
                 navigate("/Login");
             })
 
+    }
+    function Checker(data){
+        return data.etteremId === parseInt(RestaurantId)
+    }
+    function Check(data){
+        var found = data.learazas.find(Checker);
+        if (found === undefined) {
+            return (<p style={{ position: "absolute", right: 20, bottom: -5 }}>{data.ar} FT</p>)
+        }
+        else{
+            return (<p style={{ position: "absolute", right: 20, bottom: -5 }}>
+                {Math.round(data.ar * (100-found.learazas)/100)} FT <span style={{ textDecoration:"line-through" }}>{data.ar} FT</span>
+                </p>)
+        }
     }
 
     return (
@@ -50,7 +64,7 @@ export const Foods = () => {
                     <h3 className="food selector" key={food.id}>
                         <Link onClick={() => { AddOrder(food.id) }} style={{ backgroundImage: `url(${food.indexkep})` }}>
                             <div>{food.nev}</div>
-                            <p style={{ position:"absolute", right:20, bottom:-5}}>{food.ar} FT</p>
+                            {Check(food)}
                         </Link>
                     </h3>
                 ))}
