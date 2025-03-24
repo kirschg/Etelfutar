@@ -34,7 +34,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
-
+        [CustomAuthorize]
         [HttpPost("PostRendeltetelAsync")]
         public async Task<IActionResult> PostRendeltetelAsync(int etelId, int felhasznaloId)
         {
@@ -84,6 +84,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpDelete("DeleteRendeltetelAsync")]
         public async Task<IActionResult> DeleteRendeltetelAsync(int etelId, int felhasznaloId)
         {

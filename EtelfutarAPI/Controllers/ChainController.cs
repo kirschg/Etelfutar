@@ -27,6 +27,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPost("PostChainAsync")]
         public async Task<IActionResult> PostChainAsync(Chain ujChain)
         {
@@ -51,6 +52,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPut("PutChainAsync")]
         public async Task<IActionResult> PutChainAsync(Chain modChain)
         {
@@ -76,6 +78,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpDelete("DeleteChainAsync")]
         public async Task<IActionResult> DeleteChainAsync(int id)
         {

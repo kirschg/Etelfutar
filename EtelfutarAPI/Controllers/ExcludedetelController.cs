@@ -79,8 +79,8 @@ namespace EtelfutarAPI.Controllers
             {
                 try
                 {
-                    Etelek? etel = await context.Eteleks.FirstOrDefaultAsync(x => x.Id == etelId);
-                    Ettermek? etterem = await context.Ettermeks.Include(x=>x.Etels).FirstOrDefaultAsync(x => x.Id == etteremId);
+                    Etelek? etel = await context.Eteleks.FirstOrDefaultAsync(x => x.Id == etteremId);
+                    Ettermek? etterem = await context.Ettermeks.Include(x=>x.Etels).FirstOrDefaultAsync(x => x.Id == etelId);
                     if (etel is not null && etterem is not null)
                     {
                         etterem.Etels.Remove(etel);

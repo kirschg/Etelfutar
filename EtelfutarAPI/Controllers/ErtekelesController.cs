@@ -17,6 +17,7 @@ namespace EtelfutarAPI.Controllers
                 return Ok(adat);
             }
         }
+        [CustomAuthorize]
         [HttpPost("POST/Értékelés")]
         public async Task<IActionResult> Post(Ertekelesek ujErtekeles)
         {
@@ -30,6 +31,7 @@ namespace EtelfutarAPI.Controllers
                         await context.SaveChangesAsync();
                         return Ok("Sikeres Mentés!");
                     }
+                    //todo: Egy felhasználónak nem lehet ugyanazon az éttermen egynél több értékelése
                     else
                     {
                         return NotFound("Üres objektumot kaptam!");
@@ -41,6 +43,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPut("PUT/Értékelés")]
         public async Task<IActionResult> Put(Ertekelesek modositottErtekeles)
         {
@@ -65,6 +68,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpDelete("DELETE/Értékelés")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -28,6 +28,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPost("PostEtelAsync")]
         public async Task<IActionResult> PostEtelAsync(Etelek ujEtel)
         {
@@ -52,6 +53,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPut("PutEtelAsync")]
         public async Task<IActionResult> PutEtelAsync(Etelek modEtel)
         {
@@ -76,6 +78,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpDelete("DeleteEtelAsync")]
         public async Task<IActionResult> DeleteEtelAsync(int id)
         {

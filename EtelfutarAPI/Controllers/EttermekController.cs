@@ -27,6 +27,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPost("PostEtteremAsync")]
         public async Task<IActionResult> PostEtteremAsync(Ettermek ujEtterem)
         {
@@ -51,6 +52,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpPut("PutEtteremAsync")]
         public async Task<IActionResult> PutEtteremAsync(Ettermek modEtterem)
         {
@@ -75,6 +77,7 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         [HttpDelete("DeleteEtteremAsync")]
         public async Task<IActionResult> DeleteEtteremAsync(int id)
         {
