@@ -26,8 +26,8 @@ export const Foods = () => {
         axios.get("https://localhost:7106/Felhasznalok/GetFelhasznaloByTokenAsync?token=" + token,
             { headers: { "Authorization": `Bearer ${token}` } }
           )
-            .then(res => {
-              setUserId(res.data.id)
+            .then(response => {
+              setUserId(response.data.id)
                 axios.post(`https://localhost:7106/Rendeltetel/PostRendeltetelAsync?etelId=${id}&felhasznaloId=${userId}`)
                     .then((res) => {
                         console.log(res)

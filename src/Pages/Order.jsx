@@ -7,7 +7,7 @@ import '../Style.css';
 export const Order = () => {
   const navigate = useNavigate();
   const [order, setOrder] = useState([]);
-  const [orderId, setOrderId] = useState();
+  const [userId, setUserId] = useState(0);
   const [token] = useState(localStorage.getItem("Token"))
   const [price, setPrice] = useState(0);
   useEffect(() => {
@@ -24,9 +24,14 @@ export const Order = () => {
       { headers: { "Authorization": `Bearer ${token}` } }
     )
       .then(res => {
-        setOrderId(res.data.id)
-        setOrder(res.data.rendeles)
-        setPrice(res.data.osszar)
+        axios.get("https://localhost:7106/Felhasznalok/GetFelhasznaloByTokenAsync?token=" + token,
+          { headers: { "Authorization": `Bearer ${token}` } }
+        )
+        .then(response=>{
+          setUserId(response.data.id)
+          setOrder(res.data.rendeles)
+          setPrice(res.data.osszar)
+        })
       })
       .catch(err => {
         console.log(err);
@@ -34,7 +39,7 @@ export const Order = () => {
   }
 
   function DeleteOrder(id) {
-    axios.delete(`https://localhost:7106/Rendeltetel/DeleteRendeltetelAsync?etelId=${id}&rendelesId=${orderId}`,
+    axios.delete(`https://localhost:7106/Rendeltetel/DeleteRendeltetelAsync?etelId=${id}&rendelesId=${userId}`,
       { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         console.log(res);
