@@ -39,7 +39,7 @@ export const Order = () => {
   }
 
   function DeleteOrder(id) {
-    axios.delete(`https://localhost:7106/Rendeltetel/DeleteRendeltetelAsync?etelId=${id}&rendelesId=${userId}`,
+    axios.delete(`https://localhost:7106/Rendeltetel/DeleteRendeltetelAsync?etelId=${id}&felhasznaloId=${userId}`,
       { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         console.log(res);
