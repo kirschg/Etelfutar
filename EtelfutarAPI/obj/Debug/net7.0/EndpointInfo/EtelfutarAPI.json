@@ -1031,7 +1031,7 @@
             }
           },
           {
-            "name": "rendelesId",
+            "name": "felhasznaloId",
             "in": "query",
             "style": "form",
             "schema": {
