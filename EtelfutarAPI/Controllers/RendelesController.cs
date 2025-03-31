@@ -10,7 +10,6 @@ namespace EtelfutarAPI.Controllers
     [ApiController]
     public class RendelesController : Controller
     {
-
         [CustomAuthorize]
         [HttpGet("GetRendelesekAsync")]
         public async Task<IActionResult> GetRendelesekAsync()
@@ -53,30 +52,30 @@ namespace EtelfutarAPI.Controllers
                 }
             }
         }
-        [HttpPut("PutVarosAsync")]
-        public async Task<IActionResult> PutRendelesAsync(Rendeles modRendeles)
-        {
-            using (var context = new EtelfutarContext())
-            {
-                try
-                {
-                    if (context.Rendeles.Contains(modRendeles))
-                    {
-                        context.Rendeles.Update(modRendeles);
-                        await context.SaveChangesAsync();
-                        return Ok("Sikeres módosítás.");
-                    }
-                    else
-                    {
-                        return NotFound("Üres objektumot kaptam!");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
-        }
+        //[HttpPut("PutRendelesAsync")]
+        //public async Task<IActionResult> PutRendelesAsync(Rendeles modRendeles)
+        //{
+        //    using (var context = new EtelfutarContext())
+        //    {
+        //        try
+        //        {
+        //            if (context.Rendeles.Contains(modRendeles))
+        //            {
+        //                context.Rendeles.Update(modRendeles);
+        //                await context.SaveChangesAsync();
+        //                return Ok("Sikeres módosítás.");
+        //            }
+        //            else
+        //            {
+        //                return NotFound("Üres objektumot kaptam!");
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return BadRequest(ex.Message);
+        //        }
+        //    }
+        //}
         [HttpDelete("DeleteRendelesAsync")]
         public async Task<IActionResult> DeleteRendelesAsync(int id)
         {
