@@ -1,9 +1,0 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs
-/EtelfutarAPI/obj/Debug/net7.0/EtelfutarAPI.AssemblyInfo.cs
-/EtelfutarAPI/obj/Debug/net7.0/EtelfutarAPI.AssemblyInfoInputs.cache
-/EtelfutarAPI/obj/Release/net7.0/EtelfutarAPI.AssemblyInfo.cs
-/EtelfutarAPI/obj/Release/net7.0/EtelfutarAPI.AssemblyInfoInputs.cache
