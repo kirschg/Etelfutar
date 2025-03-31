@@ -1,5 +1,4 @@
 ﻿using EtelfutarAPI.Models;
-using MySqlX.XDevAPI;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,22 +9,19 @@ using Xunit;
 
 namespace EtelfutarAPI.Controllers.Tests
 {
-    public class ChainControllerTests
+    public class VarosokControllerTests
     {
         [Fact()]
-        public async void GetChainAsyncTest()
+        public async void GetVarosokAsyncTest()
         {
-            //Arrange
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Chain/GetChainAsync";
+            string url = "/Varosok/GetVarosokAsync";
 
-            //Act
             var result = await client.GetAsync(url);
 
-            //Assert
             Xunit.Assert.Equal("OK", result.StatusCode.ToString());
         }
 
@@ -45,18 +41,19 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
-        public async void PostChainAsyncTest()
+        public async void PostVarosAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Chain/PostChainAsync";
+            string url = "/Varosok/PostVarosAsync";
 
-            Chain ujChain = new Chain
+            Varosok ujVaros = new Varosok
             {
                 Id = 0,
-                Nev = ""
+                Nev = "",
+                IndexKep = ""
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -79,7 +76,7 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(ujChain, JsonSerializerOptions.Default);
+            string requestjson = JsonSerializer.Serialize(ujVaros, JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
             var requestResult = await client.PostAsync(url, requestbody);
 
@@ -87,18 +84,19 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
-        public async void PutChainAsyncTest()
+        public async void PutVarosAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Chain/PutChainAsync";
+            string url = "/Varosok/GetVarosokAsync";
 
-            Chain modositottChain = new Chain
+            Varosok modositottVaros = new Varosok
             {
-                Id = 9,
-                Nev = "Kislábas"
+                Id = 0,
+                Nev = "",
+                IndexKep = ""
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -121,52 +119,11 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(modositottChain, JsonSerializerOptions.Default);
+            string requestjson = JsonSerializer.Serialize(modositottVaros, JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
             var requestResult = await client.PutAsync(url, requestbody);
 
             Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
-        }
-
-        [Fact()]
-        public async void DeleteChainAsyncTest()
-        {
-            HttpClient client = new HttpClient()
-            {
-                BaseAddress = new Uri("http://localhost:5000")
-            };
-            string url = "/Chain/DeleteChainAsync";
-
-            Chain torolChain = new Chain
-            {
-                Id = 24
-            };
-            var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
-            string salt = await result.Content.ReadAsStringAsync();
-            string tmpHash = CreateSHA256("asdfgh" + salt);
-            LoginDTO loginDTO = new LoginDTO()
-            {
-                LoginName = "timike",
-                TmpHash = tmpHash,
-            };
-            string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
-            var body = new StringContent(json, Encoding.UTF8, "application/json");
-            var postResult = await client.PostAsync("api/Login", body);
-
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                PropertyNameCaseInsensitive = true,
-            };
-            string valaszJson = await postResult.Content.ReadAsStringAsync();
-            LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(torolChain, JsonSerializerOptions.Default);
-            var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
-            //var requestResult = await client.DeleteAsync(url, requestbody);
-
-            //Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }
     }
 }

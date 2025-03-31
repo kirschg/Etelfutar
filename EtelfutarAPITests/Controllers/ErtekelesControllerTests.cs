@@ -1,34 +1,34 @@
-﻿using EtelfutarAPI.Models;
-using MySqlX.XDevAPI;
-using System.Net.Http.Headers;
-using System.Security.Cryptography;
+﻿using Xunit;
+using EtelfutarAPI.Controllers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using EtelfutarAPI.Models;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using VizsgaremekAPI.Controllers;
 using VizsgaremekAPI.DTOs;
-using Xunit;
+using System.Security.Cryptography;
 
 namespace EtelfutarAPI.Controllers.Tests
 {
-    public class ChainControllerTests
+    public class ErtekelesControllerTests
     {
         [Fact()]
-        public async void GetChainAsyncTest()
+        public async void GetErtekelesekAsyncTest()
         {
-            //Arrange
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Chain/GetChainAsync";
+            string url = "/Ertekeles/GET/Értékelés";
 
-            //Act
             var result = await client.GetAsync(url);
 
-            //Assert
             Xunit.Assert.Equal("OK", result.StatusCode.ToString());
         }
-
         public static string CreateSHA256(string input)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -45,18 +45,20 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
-        public async void PostChainAsyncTest()
+        public async void PostErtekelesAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Chain/PostChainAsync";
+            string url = "/Ertekeles/POST/Értékelés";
 
-            Chain ujChain = new Chain
+            Ertekelesek ujErtekeles = new Ertekelesek
             {
-                Id = 0,
-                Nev = ""
+                FelhasznaloId = 9,
+                EtteremId = 2,
+                Szoveg = "jo",
+                Ertekeles = 5
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -79,26 +81,28 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(ujChain, JsonSerializerOptions.Default);
+            string requestjson = JsonSerializer.Serialize(ujErtekeles, JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
             var requestResult = await client.PostAsync(url, requestbody);
 
             Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }
-
+        
         [Fact()]
-        public async void PutChainAsyncTest()
+        public async void PutErtekelesAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Chain/PutChainAsync";
+            string url = "/Ertekeles/PUT/Értékelés";
 
-            Chain modositottChain = new Chain
+            Ertekelesek modositottErtekeles = new Ertekelesek
             {
-                Id = 9,
-                Nev = "Kislábas"
+                FelhasznaloId = 9,
+                EtteremId = 2,
+                Szoveg = "nem jo",
+                Ertekeles = 5
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -121,52 +125,11 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(modositottChain, JsonSerializerOptions.Default);
+            string requestjson = JsonSerializer.Serialize(modositottErtekeles, JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
             var requestResult = await client.PutAsync(url, requestbody);
 
             Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
-        }
-
-        [Fact()]
-        public async void DeleteChainAsyncTest()
-        {
-            HttpClient client = new HttpClient()
-            {
-                BaseAddress = new Uri("http://localhost:5000")
-            };
-            string url = "/Chain/DeleteChainAsync";
-
-            Chain torolChain = new Chain
-            {
-                Id = 24
-            };
-            var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
-            string salt = await result.Content.ReadAsStringAsync();
-            string tmpHash = CreateSHA256("asdfgh" + salt);
-            LoginDTO loginDTO = new LoginDTO()
-            {
-                LoginName = "timike",
-                TmpHash = tmpHash,
-            };
-            string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
-            var body = new StringContent(json, Encoding.UTF8, "application/json");
-            var postResult = await client.PostAsync("api/Login", body);
-
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                PropertyNameCaseInsensitive = true,
-            };
-            string valaszJson = await postResult.Content.ReadAsStringAsync();
-            LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(torolChain, JsonSerializerOptions.Default);
-            var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
-            //var requestResult = await client.DeleteAsync(url, requestbody);
-
-            //Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }
     }
 }

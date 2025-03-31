@@ -17,7 +17,7 @@ namespace EtelfutarAPI.Controllers
                 return Ok(adat);
             }
         }
-        //[CustomAuthorize]
+        [CustomAuthorize]
         [HttpPost("POST/Értékelés")]
         public async Task<IActionResult> Post(Ertekelesek ujErtekeles)
         {
