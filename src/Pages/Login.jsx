@@ -40,12 +40,12 @@ export const Login = () => {
         <h1>Login</h1>
         <form className="Form" action={login}>
           <div className="mb-3">
-            <label htmlFor="username" className="form-label">Username</label>
-            <input type="text" name="username" placeholder='username' className="form-control" id="username"/>
+            <label htmlFor="usernameInput" className="form-label">Username</label>
+            <input type="text" name="username" placeholder="username" className="form-control" id="usernameInput"/>
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input type="password" name="password" placeholder='password' className="form-control" id="password" />
+            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+            <input type="password" name="password" placeholder="password" className="form-control" id="exampleInputPassword1" />
           </div>
           <label style={{textAlign:"center"}}>Don't have an account? <Link to="/Register">Sign up here</Link>!</label>
           <button type="submit" className="btn" role="button">Login</button>
