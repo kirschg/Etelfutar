@@ -66,19 +66,22 @@ namespace EtelfutarWPF
             try
             {
                 string[] client_sorok = File.ReadAllLines("client.txt");
-                client_address = client_sorok[0];
-                MainWindow.sharedClient = new HttpClient()
+                if(client_sorok is not null)
                 {
-                    BaseAddress = new Uri(MainWindow.client_address)
-                };
+                    client_address = client_sorok[0];
+                }
                 string[] login_sorok = File.ReadAllLines("login.txt");
                 username = login_sorok[0];
                 password = login_sorok[1];
             }
             catch(Exception ex)
             {
-
+                
             }
+            MainWindow.sharedClient = new HttpClient()
+            {
+                BaseAddress = new Uri(MainWindow.client_address)
+            };
             AutoLogin();
         }
 
