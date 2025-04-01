@@ -131,5 +131,42 @@ namespace EtelfutarAPI.Controllers.Tests
 
             Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }
+
+        [Fact()]
+        public async void DeleteErtekelesAsyncTest()
+        {
+            HttpClient client = new HttpClient()
+            {
+                BaseAddress = new Uri("http://localhost:5000")
+            };
+
+            int felhasznaloId = 9;
+            int etteremId = 2;
+            string url = $"/Ertekeles/DELETE/Értékelés?felhasznaloId={felhasznaloId}&etteremId={etteremId}";
+            var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
+            string salt = await result.Content.ReadAsStringAsync();
+            string tmpHash = CreateSHA256("asdfgh" + salt);
+            LoginDTO loginDTO = new LoginDTO()
+            {
+                LoginName = "timike",
+                TmpHash = tmpHash,
+            };
+            string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
+            var body = new StringContent(json, Encoding.UTF8, "application/json");
+            var postResult = await client.PostAsync("api/Login", body);
+
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                PropertyNameCaseInsensitive = true,
+            };
+            string valaszJson = await postResult.Content.ReadAsStringAsync();
+            LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
+            var requestResult = await client.DeleteAsync(url);
+
+            Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
+        }
     }
 }

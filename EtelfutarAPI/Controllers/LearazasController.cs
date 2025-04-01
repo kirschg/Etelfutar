@@ -10,7 +10,7 @@ namespace EtelfutarAPI.Controllers
     public class LearazasController : Controller
     {
         [HttpGet("GetLearazasAsync")]
-        public async Task<IActionResult> GetFelhasznalokAsync()
+        public async Task<IActionResult> GetLearazasokAsync()
         {
             using (var context = new EtelfutarContext())
             {

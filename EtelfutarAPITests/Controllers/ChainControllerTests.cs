@@ -135,15 +135,12 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Chain/DeleteChainAsync";
 
-            Chain torolChain = new Chain
-            {
-                Id = 24
-            };
+            int id = 11;
+            string url = $"/Chain/DeleteChainAsync?id={id}";
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
-            string tmpHash = CreateSHA256("asdfgh" + salt);
+            string tmpHash = CreateSHA256("asdfgh" + salt); 
             LoginDTO loginDTO = new LoginDTO()
             {
                 LoginName = "timike",
@@ -162,11 +159,11 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(torolChain, JsonSerializerOptions.Default);
+            string requestjson = JsonSerializer.Serialize(id, JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
-            //var requestResult = await client.DeleteAsync(url, requestbody);
+            var requestResult = await client.DeleteAsync(url);
 
-            //Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
+            Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }
     }
 }

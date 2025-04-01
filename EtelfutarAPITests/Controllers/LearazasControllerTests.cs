@@ -14,16 +14,16 @@ using System.Security.Cryptography;
 
 namespace EtelfutarAPI.Controllers.Tests
 {
-    public class EttermekControllerTests
+    public class LearazasControllerTests
     {
         [Fact()]
-        public async void GetEtteremAsyncTest()
+        public async void GetLearazasokAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Ettermek/GetEttermekAsync";
+            string url = "/Learazas/GetLearazasAsync";
 
             var result = await client.GetAsync(url);
 
@@ -46,21 +46,19 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
-        public async void PostEtteremAsyncTest()
+        public async void PostLearazasAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Ettermek/PostEtteremAsync";
+            string url = "/Learazas/PostLearazasAsync";
 
-            Ettermek ujEtterem = new Ettermek
+            Learaza ujLearazas = new Learaza
             {
-                Id = 0,
-                Cim = "valami",
-                ChainId = 3,
-                VarosId = 2,
-                Indexkep = "asd"
+                EtteremId = 5,
+                EtelId = 17,
+                Learazas = 30
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -83,7 +81,7 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(ujEtterem, JsonSerializerOptions.Default);
+            string requestjson = JsonSerializer.Serialize(ujLearazas, JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
             var requestResult = await client.PostAsync(url, requestbody);
 
@@ -91,21 +89,19 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
-        public async void PutEtteremAsyncTest()
+        public async void PutLearazasAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Ettermek/PutEtteremAsync";
+            string url = "/Learazas/PutLearazasAsync";
 
-            Ettermek modositottEtterem = new Ettermek
+            Learaza modositottLearazas = new Learaza
             {
-                Id = 41,
-                Cim = "semmi",
-                ChainId = 3,
-                VarosId = 2,
-                Indexkep = "dsa"
+                EtteremId = 1,
+                EtelId = 1,
+                Learazas = 0
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -128,7 +124,7 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(modositottEtterem, JsonSerializerOptions.Default);
+            string requestjson = JsonSerializer.Serialize(modositottLearazas, JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
             var requestResult = await client.PutAsync(url, requestbody);
 
@@ -136,15 +132,16 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
-        public async void DeleteEtteremAsyncTest()
+        public async void DeleteLearazasAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            int id = 41;
+            int etteremId = 41;
+            int etelId = 20;
 
-            string url = $"/Ettermek/DeleteEtteremAsync?id={id}";
+            string url = $"/Learazas/DeleteLearazasAsync?etteremId={etteremId}&etelId={etelId}";
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
             string tmpHash = CreateSHA256("asdfgh" + salt);
@@ -169,44 +166,6 @@ namespace EtelfutarAPI.Controllers.Tests
             string requestjson = JsonSerializer.Serialize(JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
             var requestResult = await client.DeleteAsync(url);
-
-            Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
-        }
-
-        [Fact()]
-        public async void GetEtteremByVarosAsyncTest()
-        {
-            HttpClient client = new HttpClient()
-            {
-                BaseAddress = new Uri("http://localhost:5000")
-            };
-            string varos = "Miskolc";
-
-            string url = $"/Ettermek/GetEttermekByVaros?varos={varos}";
-            var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
-            string salt = await result.Content.ReadAsStringAsync();
-            string tmpHash = CreateSHA256("asdfgh" + salt);
-            LoginDTO loginDTO = new LoginDTO()
-            {
-                LoginName = "timike",
-                TmpHash = tmpHash,
-            };
-            string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
-            var body = new StringContent(json, Encoding.UTF8, "application/json");
-            var postResult = await client.PostAsync("api/Login", body);
-
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                PropertyNameCaseInsensitive = true,
-            };
-            string valaszJson = await postResult.Content.ReadAsStringAsync();
-            LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(JsonSerializerOptions.Default);
-            var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
-            var requestResult = await client.GetAsync(url);
 
             Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }

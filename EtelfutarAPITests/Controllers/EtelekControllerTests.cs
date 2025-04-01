@@ -52,17 +52,16 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Etelek/PostEtelekAsync";
+            string url = "/Etelek/PostEtelAsync";
 
             Etelek ujEtel = new Etelek
             {
                 Id = 0,
-                Nev = "",
-                Kaloria = 0,
-                Ar = 0,
-                //Learazas = ujEtel.Learazas.Select(x => x.Learazas).ToList(),
-                ChainId = 0,
-                Indexkep = ""
+                Nev = "finomsemmi",
+                Kaloria = 500,
+                Ar = 900,
+                ChainId = 5,
+                Indexkep = "asd"
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -99,17 +98,16 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Etelek/PutEtelekAsync";
+            string url = "/Etelek/PutEtelAsync";
 
             Etelek modositottEtel = new Etelek
             {
-                Id = 0,
-                Nev = "",
-                Kaloria = 0,
-                Ar = 0,
-                //Learazas = ujEtel.Learazas.Select(x => x.Learazas).ToList(),
-                ChainId = 0,
-                Indexkep = ""
+                Id = 131,
+                Nev = "finomsag",
+                Kaloria = 600,
+                Ar = 1000,
+                ChainId = 5,
+                Indexkep = "dsa"
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -135,6 +133,82 @@ namespace EtelfutarAPI.Controllers.Tests
             string requestjson = JsonSerializer.Serialize(modositottEtel, JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
             var requestResult = await client.PutAsync(url, requestbody);
+
+            Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
+        }
+
+        [Fact()]
+        public async void DeleteEtelAsyncTest()
+        {
+            HttpClient client = new HttpClient()
+            {
+                BaseAddress = new Uri("http://localhost:5000")
+            };
+            int id = 131;
+
+            string url = $"/Etelek/DeleteEtelAsync?id={id}";
+            var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
+            string salt = await result.Content.ReadAsStringAsync();
+            string tmpHash = CreateSHA256("asdfgh" + salt);
+            LoginDTO loginDTO = new LoginDTO()
+            {
+                LoginName = "timike",
+                TmpHash = tmpHash,
+            };
+            string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
+            var body = new StringContent(json, Encoding.UTF8, "application/json");
+            var postResult = await client.PostAsync("api/Login", body);
+
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                PropertyNameCaseInsensitive = true,
+            };
+            string valaszJson = await postResult.Content.ReadAsStringAsync();
+            LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
+            string requestjson = JsonSerializer.Serialize(JsonSerializerOptions.Default);
+            var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
+            var requestResult = await client.DeleteAsync(url);
+
+            Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
+        }
+
+        [Fact()]
+        public async void GetEtelByEtteremAsyncTest()
+        {
+            HttpClient client = new HttpClient()
+            {
+                BaseAddress = new Uri("http://localhost:5000")
+            };
+            int id = 6;
+
+            string url = $"/Etelek/GetEtelekByEtterem?etteremId={id}";
+            var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
+            string salt = await result.Content.ReadAsStringAsync();
+            string tmpHash = CreateSHA256("asdfgh" + salt);
+            LoginDTO loginDTO = new LoginDTO()
+            {
+                LoginName = "timike",
+                TmpHash = tmpHash,
+            };
+            string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
+            var body = new StringContent(json, Encoding.UTF8, "application/json");
+            var postResult = await client.PostAsync("api/Login", body);
+
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                PropertyNameCaseInsensitive = true,
+            };
+            string valaszJson = await postResult.Content.ReadAsStringAsync();
+            LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
+            string requestjson = JsonSerializer.Serialize(JsonSerializerOptions.Default);
+            var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
+            var requestResult = await client.GetAsync(url);
 
             Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }
