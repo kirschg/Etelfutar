@@ -53,13 +53,12 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Ettermek/PostEttermekAsync";
+            int etteremId = 8;
+            int etelId = 9;
+            
+            string url = $"/Excludedetel/PostExcludedetelAsync?etteremId={etteremId}&etelId={etelId}";
 
-            //ExcludedEtelDTO ujEtterem = new ExcludedEtelDTO
-            //{
-            //    EtelId = 0,
-            //    EtteremId = 0
-            //};
+            
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
             string tmpHash = CreateSHA256("asdfgh" + salt);
@@ -81,11 +80,11 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            //string requestjson = JsonSerializer.Serialize(ujEtterem, JsonSerializerOptions.Default);
-            //var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
-            //var requestResult = await client.PostAsync(url, requestbody);
+            string requestjson = JsonSerializer.Serialize(JsonSerializerOptions.Default);
+            var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
+            var requestResult = await client.PostAsync(url, requestbody);
 
-            //Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
+            Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }
 
         [Fact()]
@@ -95,16 +94,12 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Ettermek/PostEttermekAsync";
+            int etteremId = 8;
+            int etelId = 9;
 
-            Ettermek ujEtterem = new Ettermek
-            {
-                Id = 0,
-                Cim = "",
-                ChainId = 0,
-                VarosId = 0,
-                Indexkep = ""
-            };
+            string url = $"/Excludedetel/DeleteExcludedetelAsync?etteremId={etteremId}&etelId={etelId}";
+
+
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
             string tmpHash = CreateSHA256("asdfgh" + salt);
@@ -126,9 +121,9 @@ namespace EtelfutarAPI.Controllers.Tests
             string valaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
-            string requestjson = JsonSerializer.Serialize(ujEtterem, JsonSerializerOptions.Default);
+            string requestjson = JsonSerializer.Serialize(JsonSerializerOptions.Default);
             var requestbody = new StringContent(requestjson, Encoding.UTF8, "application/json");
-            var requestResult = await client.PutAsync(url, requestbody);
+            var requestResult = await client.DeleteAsync(url);
 
             Xunit.Assert.Equal("OK", requestResult.StatusCode.ToString());
         }
