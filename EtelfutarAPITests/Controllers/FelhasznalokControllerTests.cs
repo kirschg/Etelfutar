@@ -129,26 +129,22 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
-        public async void PutFelhasznaloAsyncTest()
+        public async void PutFelhasznaloRestrictedAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Felhasznalok/PutFelhasznaloAsync";
+            string url = "/Felhasznalok/FelhasznalokPutRestricted";
 
             Felhasznalok modositottFelhasznalo = new Felhasznalok
             {
                 Id = 9,
-                FelhasznaloNev = "taki",
+                FelhasznaloNev = "takilaci",
                 TeljesNev = "Takács László",
                 Email = "takacslacika81@gmail.com",
                 VarosId = 1,
-                Lakcim = "Valid utca 69",
-                Hash = "7ecb3436e8057339535772413f8846832e284409b126945f2d14d8ebe5ab8a78",
-                Salt = "pk7rvpCfRcCLCapLdSindhcv4w7FXjtuX37sWpAOu5MUUsgNSuM7Ef5TCn7V",
-                Jogosultsag = 0,
-                Aktiv = 1,
+                Lakcim = "Valid utca 69"
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
