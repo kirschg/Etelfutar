@@ -301,7 +301,7 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`Id`, `FelhasznaloNev`, `TeljesNev`, `Email`, `VarosId`, `Lakcim`, `Hash`, `Salt`, `Jogosultsag`, `Aktiv`) VALUES
-(7, 'TakacsL', 'Takacs Laszlo', 'takacslacika81@gmail.com', 1, 'Utca 29', '526100240222f74303ededea5e0e631e8682a9df6904e191c2b10857e41ce99c', 'tboBWFwyJUUDZRTlFgPIvkc4J8GygbyOhiE1US5Cg9WIceyofDMTQNInaUTavyop', 0, 1),
+(7, 'TakacsL', 'Takacs Laszlo', 'takacslacika81@gmail.com', 1, 'Utca 29', '9cb92205b4f900457e0ae1db2e7599e57af7ec3aed2912b320ea6ce2fac17d63', 'uDMMQJhRtLc9HrUii7YdLvpluCebUd0uClPcv6swEzb4gsW92J3dKRaAxo2mYv3u', 0, 1),
 (8, 'timike', 'asd1234', 'timkoa@kkszki.hu', 1, 'Otthon utca 24', '488a4ab254ce938e799f172d6071fb00fded4c4a8110f01c5ba49c4a5bb7bbd8', 'lZQoFxAS2e9gj6CNbnAr7yXT6oBV4QCsBMphTyy5fi9TgkrXh4cLJkenvdVb', 2, 1);
 
 -- --------------------------------------------------------
