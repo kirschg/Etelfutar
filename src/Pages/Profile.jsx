@@ -38,19 +38,6 @@ export const YourProfile = () => {
             </li>
           </ul>
         </div>
-        {/*<h1 style={{ textAlign: "left" }}>Teszt felhasználó név</h1>
-        <div>
-          <ul style={{listStyle:"none"}}>
-            <li>
-              <h4>Teszt teljes név</h4>
-              <p style={{ color: "darkgrey" }}>Teszt város + lakcím adat</p>
-            </li>
-            <li>
-              <p>Teszt email</p>
-            </li>
-          </ul>
-        </div>*/}
-        <Link className="button">Edit</Link>
       </div>
     </div>)
 }

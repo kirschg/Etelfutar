@@ -26,13 +26,6 @@ export const Login = () => {
           .catch(err => console.log(err))
       })
       .catch((err) => console.log(err));
-
-    /*
-    FelhasznaloNev = loginDTO.LoginName,
-    Email = loggedUser.Email,
-    Jogosultsag = loggedUser.Jogosultsag,
-    Token = token
-    */
   }
   return (
     <div className="App">
