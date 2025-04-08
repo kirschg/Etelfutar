@@ -53,8 +53,8 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            int etteremId = 8;
-            int etelId = 9;
+            int etteremId = 9;
+            int etelId = 10;
             
             string url = $"/Excludedetel/PostExcludedetelAsync?etteremId={etteremId}&etelId={etelId}";
 

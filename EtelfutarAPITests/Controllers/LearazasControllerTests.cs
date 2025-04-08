@@ -56,9 +56,9 @@ namespace EtelfutarAPI.Controllers.Tests
 
             Learaza ujLearazas = new Learaza
             {
-                EtteremId = 5,
-                EtelId = 17,
-                Learazas = 30
+                EtteremId = 14,
+                EtelId = 9,
+                Learazas = 50
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
@@ -138,8 +138,8 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            int etteremId = 41;
-            int etelId = 20;
+            int etteremId = 13;
+            int etelId = 8;
 
             string url = $"/Learazas/DeleteLearazasAsync?etteremId={etteremId}&etelId={etelId}";
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));

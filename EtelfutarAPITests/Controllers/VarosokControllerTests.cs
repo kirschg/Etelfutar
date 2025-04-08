@@ -90,13 +90,13 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Varosok/GetVarosokAsync";
+            string url = "/Varosok/PutVarosAsync";
 
             Varosok modositottVaros = new Varosok
             {
-                Id = 0,
-                Nev = "",
-                IndexKep = ""
+                Id = 15,
+                Nev = "dsa",
+                IndexKep = "dsa"
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();

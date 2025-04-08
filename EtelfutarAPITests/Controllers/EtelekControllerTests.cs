@@ -57,7 +57,7 @@ namespace EtelfutarAPI.Controllers.Tests
             Etelek ujEtel = new Etelek
             {
                 Id = 0,
-                Nev = "finomsemmi",
+                Nev = "finomvalami",
                 Kaloria = 500,
                 Ar = 900,
                 ChainId = 5,

@@ -140,8 +140,8 @@ namespace EtelfutarAPI.Controllers.Tests
                 BaseAddress = new Uri("http://localhost:5000")
             };
 
-            int felhasznaloId = 9;
-            int etteremId = 2;
+            int felhasznaloId = 7;
+            int etteremId = 10;
             string url = $"/Ertekeles/DELETE/Értékelés?felhasznaloId={felhasznaloId}&etteremId={etteremId}";
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();

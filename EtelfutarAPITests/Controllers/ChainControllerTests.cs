@@ -136,7 +136,7 @@ namespace EtelfutarAPI.Controllers.Tests
                 BaseAddress = new Uri("http://localhost:5000")
             };
 
-            int id = 11;
+            int id = 9;
             string url = $"/Chain/DeleteChainAsync?id={id}";
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();

@@ -32,9 +32,6 @@ namespace EtelfutarAPI.Controllers.Tests
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string token = "";
-
-            string url = $"/Felhasznalok/GetFelhasznaloByTokenAsync?token={token}";
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
             string tmpHash = CreateSHA256("asdfgh" + salt);
@@ -54,6 +51,30 @@ namespace EtelfutarAPI.Controllers.Tests
                 PropertyNameCaseInsensitive = true,
             };
             string valaszJson = await postResult.Content.ReadAsStringAsync();
+            LoggedUser tokenloggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
+
+            string token = tokenloggedUser.Token;
+
+            string url = $"/Felhasznalok/GetFelhasznaloByTokenAsync?token={token}";
+            var tokenresult = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
+            string tokensalt = await result.Content.ReadAsStringAsync();
+            string tokentmpHash = CreateSHA256("asdfgh" + salt);
+            LoginDTO tokenloginDTO = new LoginDTO()
+            {
+                LoginName = "timike",
+                TmpHash = tmpHash,
+            };
+            string tokenjson = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
+            var tokenbody = new StringContent(json, Encoding.UTF8, "application/json");
+            var tokenpostResult = await client.PostAsync("api/Login", body);
+
+            var tokenoptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                PropertyNameCaseInsensitive = true,
+            };
+            string tokenvalaszJson = await postResult.Content.ReadAsStringAsync();
             LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
             string requestjson = JsonSerializer.Serialize(JsonSerializerOptions.Default);
@@ -89,7 +110,7 @@ namespace EtelfutarAPI.Controllers.Tests
 
             Felhasznalok modositottFelhasznalo = new Felhasznalok
             {
-                Id = 9,
+                Id = 7,
                 FelhasznaloNev = "taki",
                 TeljesNev = "Takács László",
                 Email = "takacslacika81@gmail.com",
@@ -139,7 +160,7 @@ namespace EtelfutarAPI.Controllers.Tests
 
             Felhasznalok modositottFelhasznalo = new Felhasznalok
             {
-                Id = 9,
+                Id = 8,
                 FelhasznaloNev = "takilaci",
                 TeljesNev = "Takács László",
                 Email = "takacslacika81@gmail.com",

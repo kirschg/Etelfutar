@@ -85,14 +85,14 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
-        public async void DeleteExcludedetelAsyncTest()
+        public async void DeleteRendeletelAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            int etelId = 9;
-            int felhasznaloId = 8;
+            int etelId = 10;
+            int felhasznaloId = 9;
 
             string url = $"/Rendeltetel/DeleteRendeltetelAsync?etelId={etelId}&felhasznaloId={felhasznaloId}";
 

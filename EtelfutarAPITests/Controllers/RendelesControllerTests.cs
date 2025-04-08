@@ -16,20 +16,6 @@ namespace EtelfutarAPI.Controllers.Tests
 {
     public class RendelesControllerTests
     {
-        [Fact()]
-        public async void GetRendelesAsyncTest()
-        {
-            HttpClient client = new HttpClient()
-            {
-                BaseAddress = new Uri("http://localhost:5000")
-            };
-            string url = "/Rendeles/GetRendelesekAsync";
-
-            var result = await client.GetAsync(url);
-
-            Xunit.Assert.Equal("OK", result.StatusCode.ToString());
-        }
-
         public static string CreateSHA256(string input)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -46,19 +32,54 @@ namespace EtelfutarAPI.Controllers.Tests
         }
 
         [Fact()]
+        public async void GetRendelesAsyncTest()
+        {
+            HttpClient client = new HttpClient()
+            {
+                BaseAddress = new Uri("http://localhost:5000")
+            };
+            string url = "/Rendeles/GetRendelesekAsync";
+
+            var postresult = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
+            string salt = await postresult.Content.ReadAsStringAsync();
+            string tmpHash = CreateSHA256("asdfgh" + salt);
+            LoginDTO loginDTO = new LoginDTO()
+            {
+                LoginName = "timike",
+                TmpHash = tmpHash,
+            };
+            string json = JsonSerializer.Serialize(loginDTO, JsonSerializerOptions.Default);
+            var body = new StringContent(json, Encoding.UTF8, "application/json");
+            var postResult = await client.PostAsync("api/Login", body);
+
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                PropertyNameCaseInsensitive = true,
+            };
+            string valaszJson = await postResult.Content.ReadAsStringAsync();
+            LoggedUser loggedUser = JsonSerializer.Deserialize<LoggedUser>(valaszJson, options);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loggedUser.Token);
+            var result = await client.GetAsync(url);
+
+            Xunit.Assert.Equal("OK", result.StatusCode.ToString());
+        }
+
+
+        [Fact()]
         public async void PostRendelesAsyncTest()
         {
             HttpClient client = new HttpClient()
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
-            string url = "/Rendeles/PostRendelesekAsync";
+            string url = "/Rendeles/PostRendelesAsync";
 
             Rendeles ujRendeles = new Rendeles
             {
                 Id = 0,
-                FelhasznaloId = 0,
-                //OsszAr = 0
+                FelhasznaloId = 9
             };
             var result = await client.PostAsync($"api/Login/GetSalt/timike", new StringContent("asdfgh", Encoding.UTF8, "text/plain"));
             string salt = await result.Content.ReadAsStringAsync();
